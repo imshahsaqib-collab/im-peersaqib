@@ -1,381 +1,607 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Saqib Fayaz – AI Enthusiast</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #7f5af0;
-      --secondary: #2cb67d;
-      --background: #0f0f10;
-      --text: #ffffff;
-      --card-bg: rgba(255, 255, 255, 0.05);
-      --glass: rgba(255, 255, 255, 0.1);
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Saqib Fayaz — AI Enthusiast</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07060a;
+    --card: rgba(255,255,255,0.04);
+    --glass: rgba(255,255,255,0.06);
+    --muted: rgba(255,255,255,0.75);
+    --neon1: #8a6bff;
+    --neon2: #39d1ff;
+    --accent: linear-gradient(90deg,var(--neon1),var(--neon2));
+    --glass-border: rgba(255,255,255,0.06);
+  }
+  [data-theme="light"]{
+    --bg:#f6f7fb;
+    --card: rgba(0,0,0,0.04);
+    --glass: rgba(0,0,0,0.03);
+    --muted: rgba(0,0,0,0.75);
+    --neon1:#6b49ff;
+    --neon2:#006bda;
+    --accent: linear-gradient(90deg,var(--neon1),var(--neon2));
+    --glass-border: rgba(0,0,0,0.06);
+  }
 
-    [data-theme="light"] {
-      --background: #f4f4f4;
-      --text: #000;
-      --card-bg: rgba(0, 0, 0, 0.05);
-      --glass: rgba(255, 255, 255, 0.3);
-    }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--muted);
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    overflow-x:hidden;
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
+  /* canvas background container */
+  #bg-canvas{
+    position:fixed;inset:0;z-index:0;display:block;
+  }
+  .overlay-gradient{
+    position:fixed;inset:0;pointer-events:none;
+    background: radial-gradient(800px 400px at 10% 10%, rgba(138,107,255,0.08), transparent 10%),
+                radial-gradient(600px 300px at 90% 80%, rgba(57,209,255,0.06), transparent 10%);
+    z-index:1;
+  }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--background);
-      color: var(--text);
-      overflow-x: hidden;
-      transition: all 0.3s ease;
-    }
+  /* preloader */
+  #preloader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:9999}
+  .loader{
+    width:92px;height:92px;border-radius:50%;display:grid;place-items:center;
+    background: conic-gradient(var(--neon1), var(--neon2));padding:8px;box-shadow:0 0 40px rgba(0,0,0,0.5);
+  }
+  .loader .core{
+    width:100%;height:100%;border-radius:50%;background:var(--bg);display:grid;place-items:center;color:transparent;
+    box-shadow:0 0 20px rgba(0,0,0,0.6);animation:spin 2.6s linear infinite, glow 1.6s ease-in-out infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes glow{0%,100%{filter:drop-shadow(0 0 8px rgba(138,107,255,0.35))}50%{filter:drop-shadow(0 0 18px rgba(57,209,255,0.25))}}
 
-    header {
-      text-align: center;
-      padding: 100px 20px;
-      background: linear-gradient(135deg, rgba(127, 90, 240, 0.2), rgba(44, 182, 125, 0.2));
-      position: relative;
-      overflow: hidden;
-    }
+  /* layout */
+  .container{position:relative;z-index:5;padding:30px 6%}
+  header.nav{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0;position:sticky;top:12px;z-index:10;
+    backdrop-filter: blur(8px);background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:14px;
+    border:1px solid var(--glass-border);box-shadow:0 8px 30px rgba(0,0,0,0.3)
+  }
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{
+    width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--neon1),var(--neon2));
+    display:grid;place-items:center;font-weight:700;color:#fff;box-shadow:0 0 18px rgba(138,107,255,0.18)
+  }
+  nav a{color:var(--muted);text-decoration:none;margin:0 10px;font-weight:600;font-size:0.95rem;opacity:0.95}
+  .cta-btn{padding:10px 18px;border-radius:999px;background:var(--neon1);background-image:var(--accent);color:#fff;font-weight:700;
+    box-shadow:0 6px 30px rgba(106,80,255,0.12);text-decoration:none}
+  .nav-right{display:flex;align-items:center;gap:10px}
 
-    header h1 {
-      font-size: 3rem;
-      text-shadow: 0 0 15px var(--primary);
-    }
+  /* hero */
+  .hero{display:flex;gap:30px;align-items:center;padding:80px 0 30px 0}
+  .hero-left{flex:1;z-index:6}
+  .hero h1{font-size:clamp(28px,6vw,48px);margin:0 0 12px 0;color:#fff;text-shadow:0 0 20px rgba(138,107,255,0.08)}
+  .hero p.lead{font-size:1.05rem;opacity:0.9;margin-bottom:18px}
+  .subtext{font-weight:600;display:inline-block;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.03), transparent);border:1px solid var(--glass-border);margin-bottom:16px}
+  .hero-actions{display:flex;gap:12px;align-items:center}
+  .light-btn{background:transparent;color:var(--muted);border:1px solid var(--glass-border);padding:10px 16px;border-radius:12px}
 
-    header p {
-      margin-top: 10px;
-      font-size: 1.2rem;
-      opacity: 0.8;
-    }
+  /* socials small */
+  .socials{display:flex;gap:12px;margin-top:18px}
+  .socials a{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:10px;background:transparent;border:1px solid var(--glass-border);text-decoration:none}
+  .socials svg{width:20px;height:20px;filter:drop-shadow(0 0 8px rgba(138,107,255,0.08))}
 
-    .btn {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 12px 25px;
-      border-radius: 30px;
-      background: var(--primary);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
-      box-shadow: 0 0 10px var(--primary);
-    }
+  /* layout columns for hero */
+  .hero-right{width:420px;max-width:40%;min-width:260px;align-self:stretch;z-index:6}
+  .card-glass{background:var(--card);border-radius:14px;padding:18px;border:1px solid var(--glass-border);backdrop-filter:blur(8px);box-shadow:0 8px 30px rgba(12,10,20,0.5)}
+  .stat{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .stat h3{margin:0;color:#fff}
+  .stat p{margin:0;opacity:0.75}
 
-    .btn:hover {
-      background: var(--secondary);
-      box-shadow: 0 0 20px var(--secondary);
-    }
+  /* sections */
+  section{padding:60px 0;z-index:6;position:relative}
+  h2.section-title{color:var(--neon1);text-shadow:0 0 12px rgba(138,107,255,0.07);margin-bottom:18px}
+  .two-col{display:grid;grid-template-columns:1fr 420px;gap:28px}
+  @media(max-width:980px){.two-col{grid-template-columns:1fr;}.hero{flex-direction:column}.hero-right{max-width:100%;width:100%}}
 
-    .socials {
-      display: flex;
-      justify-content: center;
-      margin: 30px 0;
-      gap: 20px;
-    }
+  /* skills */
+  .skills-grid{display:flex;flex-direction:column;gap:12px}
+  .skill{display:flex;flex-direction:column;gap:8px}
+  .skill .label{display:flex;justify-content:space-between;font-size:0.95rem}
+  .bar{height:12px;border-radius:999px;background:rgba(255,255,255,0.03);overflow:hidden;border:1px solid var(--glass-border)}
+  .bar > i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 6px 20px rgba(138,107,255,0.12);transition:width 1.2s ease}
 
-    .socials a img {
-      width: 40px;
-      height: 40px;
-      transition: transform 0.3s, filter 0.3s;
-      filter: drop-shadow(0 0 6px var(--primary));
-    }
+  /* projects grid */
+  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:1000px){.projects-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:640px){.projects-grid{grid-template-columns:1fr}}
+  .project-card{padding:18px;border-radius:12px;background:var(--glass);border:1px solid var(--glass-border);transition:transform .25s,box-shadow .25s;cursor:pointer}
+  .project-card:hover{transform:translateY(-8px);box-shadow:0 24px 40px rgba(0,0,0,0.35)}
+  .project-card .tags{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .tag{padding:6px 10px;border-radius:999px;font-size:0.82rem;background:rgba(255,255,255,0.03);border:1px solid var(--glass-border)}
 
-    .socials a:hover img {
-      transform: scale(1.1);
-      filter: drop-shadow(0 0 12px var(--secondary));
-    }
+  /* timeline */
+  .timeline{position:relative;padding-left:22px;border-left:2px dashed rgba(255,255,255,0.03)}
+  .timeline-item{position:relative;margin-bottom:22px;padding-left:18px}
+  .timeline-item:before{content:'';position:absolute;left:-12px;top:6px;width:14px;height:14px;border-radius:50%;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 0 18px rgba(138,107,255,0.12)}
 
-    section {
-      padding: 80px 10%;
-    }
+  /* testimonials */
+  .testimonials{display:grid;grid-template-columns:1fr;gap:12px}
+  .testimonial{padding:18px;border-radius:12px;background:var(--glass);border:1px solid var(--glass-border)}
+  .test-controls{display:flex;gap:8px;align-items:center;margin-top:12px}
 
-    .about, .projects, .contact {
-      background: var(--card-bg);
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      padding: 40px;
-      margin-top: 40px;
-      box-shadow: 0 0 15px rgba(127, 90, 240, 0.2);
-    }
+  /* contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+  @media(max-width:980px){.contact-grid{grid-template-columns:1fr}}
+  .contact-form input,.contact-form textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--glass-border);background:transparent;color:var(--muted);outline:none}
+  .contact-form button{padding:12px 16px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#fff;font-weight:700;cursor:pointer}
 
-    h2 {
-      text-align: center;
-      font-size: 2rem;
-      color: var(--primary);
-      margin-bottom: 30px;
-      text-shadow: 0 0 8px var(--primary);
-    }
+  footer{padding:24px 0;text-align:center;color:rgba(255,255,255,0.5);font-size:0.9rem}
 
-    .about p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+  /* modal */
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);z-index:9999}
+  .modal.show{display:flex}
+  .modal .box{width:720px;max-width:95%;border-radius:12px;padding:18px;background:var(--card);border:1px solid var(--glass-border)}
 
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
+  /* chat */
+  .chat-bubble{position:fixed;right:22px;bottom:22px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+  .chat-toggle{width:62px;height:62px;border-radius:50%;background:linear-gradient(90deg,var(--neon1),var(--neon2));display:grid;place-items:center;color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(138,107,255,0.12)}
+  .chat-window{width:340px;height:430px;background:var(--card);border-radius:12px;border:1px solid var(--glass-border);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 18px 40px rgba(0,0,0,0.45)}
+  .chat-header{padding:12px;font-weight:700;background:linear-gradient(90deg,rgba(138,107,255,0.08),transparent);display:flex;align-items:center;gap:12px}
+  .chat-body{flex:1;padding:12px;overflow:auto;display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:80%;padding:10px;border-radius:10px;background:rgba(255,255,255,0.03)}
+  .msg.user{align-self:flex-end;background:linear-gradient(90deg,var(--neon2),var(--neon1));color:#fff}
+  .chat-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--glass-border)}
+  .typing{width:36px;height:12px;border-radius:999px;background:linear-gradient(90deg,var(--neon1),var(--neon2));opacity:0.9;animation:typing 1s linear infinite}
+  @keyframes typing{0%{transform:scaleX(0.4)}50%{transform:scaleX(1)}100%{transform:scaleX(0.4)}}
 
-    .skills span {
-      padding: 8px 16px;
-      border-radius: 20px;
-      background: var(--glass);
-      box-shadow: 0 0 10px var(--primary);
-    }
-
-    .projects .card {
-      background: var(--glass);
-      padding: 20px;
-      border-radius: 15px;
-      margin: 20px 0;
-      transition: 0.3s;
-      box-shadow: 0 0 10px rgba(127, 90, 240, 0.1);
-    }
-
-    .projects .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px rgba(127, 90, 240, 0.3);
-    }
-
-    .contact form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .contact input, .contact textarea {
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: var(--glass);
-      color: var(--text);
-      outline: none;
-      transition: 0.3s;
-    }
-
-    .contact input:focus, .contact textarea:focus {
-      box-shadow: 0 0 10px var(--primary);
-    }
-
-    .contact button {
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: var(--primary);
-      color: white;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .contact button:hover {
-      background: var(--secondary);
-      box-shadow: 0 0 20px var(--secondary);
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      margin-top: 50px;
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
-
-    /* Chatbox */
-    .chat-icon {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: var(--primary);
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 0 15px var(--primary);
-      transition: 0.3s;
-      z-index: 999;
-    }
-
-    .chat-icon:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px var(--secondary);
-    }
-
-    .chatbox {
-      position: fixed;
-      bottom: 100px;
-      right: 25px;
-      width: 300px;
-      height: 400px;
-      background: var(--card-bg);
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(127, 90, 240, 0.4);
-    }
-
-    .chatbox header {
-      background: var(--primary);
-      padding: 10px;
-      text-align: center;
-      color: white;
-      font-weight: 600;
-    }
-
-    .chatbox textarea {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: var(--text);
-      padding: 10px;
-      resize: none;
-    }
-
-    .chatbox button {
-      border: none;
-      background: var(--secondary);
-      padding: 10px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    /* Theme toggle */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--card-bg);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 0 10px var(--primary);
-    }
-
-    @media (max-width: 768px) {
-      header h1 { font-size: 2.2rem; }
-      section { padding: 60px 5%; }
-    }
-  </style>
+  /* small */
+  small.muted{opacity:0.7;color:var(--muted)}
+</style>
 </head>
 <body>
 
-  <!-- Light/Dark Mode Toggle -->
-  <div class="theme-toggle" id="themeToggle">🌙</div>
+<!-- canvas for animated particle network -->
+<canvas id="bg-canvas"></canvas>
+<div class="overlay-gradient"></div>
 
-  <!-- Hero Section -->
-  <header>
-    <h1>AI That Shapes Tomorrow</h1>
-    <p>Hi, I'm <strong>Saqib Fayaz</strong> — an AI enthusiast, maker, and learner.</p>
-    <a href="#projects" class="btn">See My Work</a>
+<!-- preloader -->
+<div id="preloader">
+  <div class="loader" aria-hidden="true">
+    <div class="core"></div>
+  </div>
+</div>
+
+<!-- main container -->
+<div class="container">
+
+  <!-- nav -->
+  <header class="nav" role="banner">
+    <div class="brand">
+      <div class="logo">SF</div>
+      <div>
+        <div style="font-weight:700;color:#fff">Saqib Fayaz</div>
+        <small class="muted">AI Enthusiast · Maker · Learner</small>
+      </div>
+    </div>
+
+    <nav aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#contact">Contact</a>
+      <a href="#footer" class="cta-btn">See My Work</a>
+    </nav>
+
+    <div class="nav-right">
+      <div id="themeToggle" title="Toggle theme" style="cursor:pointer;padding:8px;border-radius:10px;border:1px solid var(--glass-border);">🌙</div>
+    </div>
   </header>
 
-  <!-- Social Media -->
-  <div class="socials">
-    <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"/></a>
-    <a href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png"/></a>
-    <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"/></a>
-  </div>
+  <!-- hero -->
+  <main class="hero" role="main">
+    <div class="hero-left">
+      <div class="subtext">Futuristic dark neon · Smooth animations · Glassmorphism</div>
+      <h1>AI That Shapes Tomorrow</h1>
+      <p class="lead">I build intelligent systems, AI demos, and hardware projects — combining embedded systems with machine learning to create practical prototypes.</p>
+      <div class="hero-actions">
+        <a class="cta-btn" href="#projects">See My Work</a>
+        <a class="light-btn" href="#contact">Contact Me</a>
+      </div>
 
-  <!-- About Section -->
-  <section class="about" id="about">
-    <h2>About Me</h2>
-    <p>I’m deeply passionate about Artificial Intelligence, embedded systems, and learning how machines can make life smarter. I love experimenting with Arduino, sensors, and AI tools to create intelligent prototypes and real-world applications.</p>
-    <div class="skills">
-      <span>Machine Learning</span>
-      <span>Arduino</span>
-      <span>Basics of Electricity</span>
-      <span>Robotics</span>
-      <span>AI Tools</span>
+      <div class="socials" style="margin-top:20px">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z" stroke-width="1.4"/><circle cx="12" cy="12" r="3.2" stroke-width="1.4"/><circle cx="18.5" cy="5.5" r="0.5" /></svg>
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 2h-3a4 4 0 0 0-4 4v3H8v4h3v8h4v-8h3l1-4h-4V6a1 1 0 0 1 1-1h3z" stroke-width="1.2"/></svg>
+        </a>
+        <!-- Snapchat -->
+        <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank" aria-label="Snapchat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2s4 0 5 2 3 1 3 6-2 8-3 9-2 3-5 3-3-2-5-4-4-4-4-8 2-6 3-6 5-2 5-2z" stroke-width="1.1"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <aside class="hero-right card-glass">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div><small class="muted">Projects</small><div style="font-weight:700;color:#fff">Arduino • AI Assistant</div></div>
+        <div style="text-align:right"><small class="muted">Location</small><div style="font-weight:700;color:#fff">Kashmir</div></div>
+      </div>
+      <div class="stat"><h3>Prototype</h3><p class="muted">IoT & ML demos</p></div>
+      <div class="stat"><h3>Credit Score</h3><p class="muted">772</p></div>
+      <div style="margin-top:12px;font-size:0.9rem;opacity:0.85">Quick Links:</div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <a class="tag" href="#projects">Projects</a>
+        <a class="tag" href="#contact">Contact</a>
+        <a class="tag" href="mailto:imshahsaqib@gmail.com">Email</a>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 class="section-title">About</h2>
+    <div class="two-col">
+      <div>
+        <div class="card-glass">
+          <p>I’m interested in AI, hardware, embedded systems and continual learning. I enjoy building Arduino-based prototypes, experimenting with sensors and integrating lightweight machine learning models for practical automation.</p>
+          <p style="margin-top:12px"><strong>Skills</strong></p>
+          <div class="skills-grid" style="margin-top:8px">
+            <div class="skill">
+              <div class="label"><span>Machine Learning</span><small class="muted">85%</small></div>
+              <div class="bar"><i data-width="85%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>Arduino & Embedded</span><small class="muted">90%</small></div>
+              <div class="bar"><i data-width="90%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>Basics of Electricity</span><small class="muted">78%</small></div>
+              <div class="bar"><i data-width="78%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>AI Tools</span><small class="muted">72%</small></div>
+              <div class="bar"><i data-width="72%"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <div class="card-glass">
+          <h3 style="margin-top:0">Quick Facts</h3>
+          <p style="margin:6px 0"><strong>Phone:</strong> +91 9622959387</p>
+          <p style="margin:6px 0"><strong>Email:</strong> imshahsaqib@gmail.com</p>
+          <p style="margin:6px 0"><strong>Location:</strong> Kashmir</p>
+        </div>
+      </aside>
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section class="projects" id="projects">
-    <h2>Projects / Work</h2>
-    <div class="card">
-      <h3>Arduino Uno – Beginner Projects</h3>
-      <p>LED blinking, sensor interfacing, servo control, and IoT data logging.</p>
-    </div>
-    <div class="card">
-      <h3>Basics of Electricity – Fundamental Concepts</h3>
-      <p>Understanding voltage, current, Ohm’s Law, and safe circuit design.</p>
-    </div>
-    <div class="card">
-      <h3>AI Assistant Prototype</h3>
-      <p>A simple chatbot interface built for future AI integration.</p>
-    </div>
-    <div class="card">
-      <h3>Documentation & Tutorials</h3>
-      <p>Step-by-step project notes and learning resources.</p>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2 class="section-title">Projects / Work</h2>
+    <div class="projects-grid">
+      <article class="project-card" data-title="Arduino Uno — Beginner Projects" data-content="LED blinking, sensor interfacing (ultrasonic, temperature), servo motor control and IoT data logging.">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(90deg,var(--neon1),var(--neon2));display:grid;place-items:center;color:#fff;font-weight:700">A</div>
+          <div>
+            <h3 style="margin:0;color:#fff">Arduino Uno — Beginner Projects</h3>
+            <small class="muted">Arduino • Embedded</small>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag">LED</span><span class="tag">Sensors</span><span class="tag">IoT</span>
+        </div>
+      </article>
+
+      <article class="project-card" data-title="Basics of Electricity" data-content="Voltage, current, resistance, Ohm's law, series & parallel circuits, breadboarding and safety best-practices.">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(90deg,var(--neon2),var(--neon1));display:grid;place-items:center;color:#fff;font-weight:700">E</div>
+          <div>
+            <h3 style="margin:0;color:#fff">Basics of Electricity</h3>
+            <small class="muted">Foundations</small>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag">Ohm's Law</span><span class="tag">Breadboard</span>
+        </div>
+      </article>
+
+      <article class="project-card" data-title="AI Assistant Prototype" data-content="A simple chatbot UI with a placeholder for future backend integration and model testing.">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(90deg,var(--neon1),#00d1ff);display:grid;place-items:center;color:#fff;font-weight:700">AI</div>
+          <div>
+            <h3 style="margin:0;color:#fff">AI Assistant Prototype</h3>
+            <small class="muted">Chatbot UI</small>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag">UI</span><span class="tag">Prototype</span>
+        </div>
+      </article>
+
+      <article class="project-card" data-title="Documentation & Tutorials" data-content="Step-by-step project notes, learning resources, and tutorials to help beginners replicate projects.">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(90deg,#00d1ff,var(--neon1));display:grid;place-items:center;color:#fff;font-weight:700">D</div>
+          <div>
+            <h3 style="margin:0;color:#fff">Documentation & Tutorials</h3>
+            <small class="muted">Guides</small>
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag">Notes</span><span class="tag">Resources</span>
+        </div>
+      </article>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="contact" id="contact">
-    <h2>Contact Me</h2>
-    <p><strong>Phone:</strong> +91 9622959387</p>
-    <p><strong>Email:</strong> imshahsaqib@gmail.com</p>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="4" placeholder="Your Message"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+  <!-- timeline -->
+  <section id="timeline">
+    <h2 class="section-title">Timeline</h2>
+    <div class="card-glass timeline">
+      <div class="timeline-item">
+        <div style="font-weight:700;color:#fff">2025 — AI Prototype</div>
+        <small class="muted">Built a prototype AI assistant UI and integrated sensor logging on Arduino</small>
+      </div>
+      <div class="timeline-item">
+        <div style="font-weight:700;color:#fff">2024 — Learning & Projects</div>
+        <small class="muted">Completed multiple Arduino beginner projects and documented tutorials</small>
+      </div>
+      <div class="timeline-item">
+        <div style="font-weight:700;color:#fff">2023 — Began Study</div>
+        <small class="muted">Started experimenting with embedded systems and basics of electricity</small>
+      </div>
+    </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
+  <!-- testimonials -->
+  <section id="testimonials">
+    <h2 class="section-title">Testimonials</h2>
+    <div class="testimonials">
+      <div class="testimonial card-glass" id="testimonialBox">
+        <p style="margin:0">“Saqib’s approach to integrating sensors with simple ML models made our prototype development fast and reliable.”</p>
+        <div style="margin-top:12px;font-weight:700">— Project Mentor</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- contact -->
+  <section id="contact">
+    <h2 class="section-title">Contact Me</h2>
+    <div class="contact-grid">
+      <div class="card-glass contact-form">
+        <form id="contactForm">
+          <label class="muted">Your Name</label>
+          <input name="name" required placeholder="Your name" />
+          <label class="muted" style="margin-top:8px">Email</label>
+          <input name="email" type="email" required placeholder="you@example.com" />
+          <label class="muted" style="margin-top:8px">Message</label>
+          <textarea name="message" rows="5" placeholder="Let's build something!" ></textarea>
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <button type="submit">Send Message</button>
+            <button type="button" class="light-btn" id="copyEmail">Copy Email</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="card-glass" style="height:max-content">
+        <h3 style="margin-top:0">Contact</h3>
+        <p><strong>Phone:</strong> +91 9622959387</p>
+        <p><strong>Email:</strong> imshahsaqib@gmail.com</p>
+        <p><small class="muted">I typically reply within 24–48 hours.</small></p>
+        <div style="margin-top:12px">
+          <a class="light-btn" href="mailto:imshahsaqib@gmail.com">Email Me</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <footer id="footer">
     © 2025 Saqib Fayaz — AI Visionary
   </footer>
+</div>
 
-  <!-- Chatbox -->
-  <div class="chat-icon" id="chatIcon">💬</div>
-  <div class="chatbox" id="chatBox">
-    <header>AI Assistant (Coming Soon)</header>
-    <textarea placeholder="Type a message..."></textarea>
-    <button>Send</button>
+<!-- project modal -->
+<div class="modal" id="modal">
+  <div class="box">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 id="modalTitle"></h3>
+      <button id="closeModal" class="light-btn">Close</button>
+    </div>
+    <p id="modalContent" style="margin-top:12px"></p>
   </div>
+</div>
 
-  <script>
-    const themeToggle = document.getElementById("themeToggle");
-    const chatIcon = document.getElementById("chatIcon");
-    const chatBox = document.getElementById("chatBox");
+<!-- chat UI -->
+<div class="chat-bubble" aria-hidden="false">
+  <div id="chatToggle" class="chat-toggle" title="Open assistant">💬</div>
+  <div id="chatWindow" class="chat-window" style="display:none">
+    <div class="chat-header">AI Assistant — Prototype</div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg" style="background:transparent;color:var(--muted)">Hi! I'm the prototype assistant. Ask me about projects, Arduino help, or basic AI.</div>
+    </div>
+    <div class="chat-input">
+      <input id="chatInput" placeholder="Type a message..." style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--glass-border);background:transparent;color:var(--muted)"/>
+      <button id="sendChat" class="cta-btn">Send</button>
+    </div>
+  </div>
+</div>
 
-    themeToggle.addEventListener("click", () => {
-      const currentTheme = document.body.getAttribute("data-theme");
-      if (currentTheme === "light") {
-        document.body.removeAttribute("data-theme");
-        themeToggle.textContent = "🌙";
-      } else {
-        document.body.setAttribute("data-theme", "light");
-        themeToggle.textContent = "☀️";
+<script>
+/* ---------- preloader ---------- */
+window.addEventListener('load', () => {
+  setTimeout(()=>{document.getElementById('preloader').style.display='none';},700);
+});
+
+/* ---------- theme toggle ---------- */
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click',()=>{
+  if(document.documentElement.hasAttribute('data-theme')) {
+    document.documentElement.removeAttribute('data-theme'); themeToggle.textContent='🌙';
+  } else { document.documentElement.setAttribute('data-theme','light'); themeToggle.textContent='☀️'; }
+});
+
+/* ---------- skill bars animate ---------- */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.bar > i').forEach(el=>{
+    const w = el.getAttribute('data-width') || '60%';
+    setTimeout(()=> el.style.width = w ,200);
+  });
+});
+
+/* ---------- project modal ---------- */
+document.querySelectorAll('.project-card').forEach(card=>{
+  card.addEventListener('click', ()=> {
+    const title = card.getAttribute('data-title');
+    const content = card.getAttribute('data-content');
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalContent').innerText = content;
+    document.getElementById('modal').classList.add('show');
+  });
+});
+document.getElementById('closeModal').addEventListener('click', ()=> document.getElementById('modal').classList.remove('show'));
+
+/* ---------- testimonials auto rotate (simple) ---------- */
+const testimonials = [
+  "“Saqib’s approach to integrating sensors with simple ML models made our prototype development fast and reliable.” — Project Mentor",
+  "“Clear documentation and step-by-step guides helped me build my first Arduino project.” — Student",
+  "“Highly motivated and quick to learn new AI tools.” — Lab Partner"
+];
+let tIndex=0;
+const tBox = document.getElementById('testimonialBox');
+setInterval(()=> {
+  tIndex = (tIndex+1) % testimonials.length;
+  tBox.innerHTML = '<p style="margin:0">'+testimonials[tIndex]+'</p><div style="margin-top:12px;font-weight:700">— Reviewer</div>';
+},5000);
+
+/* ---------- contact form (frontend only) ---------- */
+document.getElementById('contactForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  alert('Thanks! Message captured. (This is a demo front-end. Connect to a backend to receive messages.)');
+  e.target.reset();
+});
+document.getElementById('copyEmail').addEventListener('click', ()=> {
+  navigator.clipboard?.writeText('imshahsaqib@gmail.com');
+  alert('Email copied to clipboard');
+});
+
+/* ---------- chat (simple simulated assistant) ---------- */
+const chatToggle = document.getElementById('chatToggle');
+const chatWindow = document.getElementById('chatWindow');
+const chatBody = document.getElementById('chatBody');
+const chatInput = document.getElementById('chatInput');
+const sendChat = document.getElementById('sendChat');
+
+chatToggle.addEventListener('click', ()=> {
+  chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+});
+function appendMsg(text,who='bot'){
+  const d = document.createElement('div'); d.className = 'msg';
+  if(who==='user'){ d.className = 'msg user'; d.innerText = text; }
+  else { d.innerText = text; d.style.background='rgba(255,255,255,0.02)'; }
+  chatBody.appendChild(d); chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function simulateReply(userText){
+  // simple rule-based replies
+  const t = userText.toLowerCase();
+  if(t.includes('arduino')) return "I can help with Arduino basics: LED blink, servo control, sensor interfacing, and IoT logging.";
+  if(t.includes('ai')||t.includes('assistant')) return "This assistant is a prototype UI. For live AI responses integrate an API key and backend.";
+  if(t.includes('projects')) return "Projects: Arduino Uno beginner projects, Basics of Electricity, AI Assistant Prototype, Docs & Tutorials.";
+  if(t.includes('contact')||t.includes('email')) return "You can reach via email: imshahsaqib@gmail.com or phone: +91 9622959387";
+  return "Great question! I can provide guides on Arduino, sensors, ML basics, or help design a prototype. Ask a specific question.";
+}
+
+sendChat.addEventListener('click', ()=> {
+  const text = chatInput.value.trim(); if(!text) return;
+  appendMsg(text,'user'); chatInput.value='';
+  // typing indicator
+  const typing = document.createElement('div'); typing.className='msg'; typing.innerHTML = '<div class="typing"></div>'; chatBody.appendChild(typing); chatBody.scrollTop=chatBody.scrollHeight;
+  setTimeout(()=> {
+    typing.remove(); appendMsg(simulateReply(text),'bot');
+  }, 800 + Math.random()*800);
+});
+
+/* ---------- smooth scroll for nav links ---------- */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', (e)=>{
+    const target = document.querySelector(a.getAttribute('href'));
+    if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+});
+
+/* ---------- particle network canvas ---------- */
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [], W, H;
+function setSize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+setSize(); window.addEventListener('resize', setSize);
+
+function rand(min,max){return Math.random()*(max-min)+min;}
+function initParticles(){
+  particles=[]; const count = Math.floor((W*H)/60000); // density
+  for(let i=0;i<count;i++){
+    particles.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      vx: rand(-0.4,0.4),
+      vy: rand(-0.4,0.4),
+      r: rand(1.2,2.8)
+    });
+  }
+}
+initParticles();
+window.addEventListener('resize', ()=> { initParticles(); });
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  // draw connections
+  for(let i=0;i<particles.length;i++){
+    const p = particles[i];
+    for(let j=i+1;j<particles.length;j++){
+      const q = particles[j]; const dx=q.x-p.x, dy=q.y-p.y; const d = Math.sqrt(dx*dx+dy*dy);
+      if(d<140){
+        const alpha = 0.22*(1 - d/140);
+        ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
+        ctx.strokeStyle = `rgba(138,107,255,${alpha})`; ctx.lineWidth = 0.9; ctx.stroke();
       }
-    });
+    }
+  }
+  // draw nodes
+  for(let p of particles){
+    ctx.beginPath();
+    const grd = ctx.createRadialGradient(p.x,p.y,p.r*0.2,p.x,p.y,p.r*4);
+    grd.addColorStop(0,'rgba(255,255,255,0.85)');
+    grd.addColorStop(0.4,'rgba(138,107,255,0.85)');
+    grd.addColorStop(1,'rgba(57,209,255,0.04)');
+    ctx.fillStyle = grd;
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+    p.x += p.vx; p.y += p.vy;
+    if(p.x<0||p.x>W) p.vx *= -1;
+    if(p.y<0||p.y>H) p.vy *= -1;
+  }
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
 
-    chatIcon.addEventListener("click", () => {
-      chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
-    });
-  </script>
+/* optional: attract mouse */
+let mouse = {x:-9999,y:-9999};
+window.addEventListener('mousemove', (e)=>{ mouse.x=e.clientX; mouse.y=e.clientY; });
+setInterval(()=> {
+  // subtle mouse attraction
+  for(let p of particles){
+    const dx = mouse.x - p.x; const dy = mouse.y - p.y; const d2 = Math.sqrt(dx*dx+dy*dy);
+    if(d2<150){
+      p.vx += dx*0.0003; p.vy += dy*0.0003;
+    }
+  }
+},80);
+
+/* ---------- keyboard: press / to open chat ---------- */
+window.addEventListener('keydown', e => { if(e.key==='/' && document.activeElement.tagName!=='INPUT' && document.activeElement.tagName!=='TEXTAREA'){ chatWindow.style.display='flex'; chatInput.focus(); }});
+</script>
 </body>
 </html>
