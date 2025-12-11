@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saqib Fayaz – AI Enthusiast</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #7f5af0;
+      --secondary: #2cb67d;
+      --background: #0f0f10;
+      --text: #ffffff;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --glass: rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="light"] {
+      --background: #f4f4f4;
+      --text: #000;
+      --card-bg: rgba(0, 0, 0, 0.05);
+      --glass: rgba(255, 255, 255, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: all 0.3s ease;
+    }
+
+    header {
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(135deg, rgba(127, 90, 240, 0.2), rgba(44, 182, 125, 0.2));
+      position: relative;
+      overflow: hidden;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      text-shadow: 0 0 15px var(--primary);
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 12px 25px;
+      border-radius: 30px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .btn:hover {
+      background: var(--secondary);
+      box-shadow: 0 0 20px var(--secondary);
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+      gap: 20px;
+    }
+
+    .socials a img {
+      width: 40px;
+      height: 40px;
+      transition: transform 0.3s, filter 0.3s;
+      filter: drop-shadow(0 0 6px var(--primary));
+    }
+
+    .socials a:hover img {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 12px var(--secondary));
+    }
+
+    section {
+      padding: 80px 10%;
+    }
+
+    .about, .projects, .contact {
+      background: var(--card-bg);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      margin-top: 40px;
+      box-shadow: 0 0 15px rgba(127, 90, 240, 0.2);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 30px;
+      text-shadow: 0 0 8px var(--primary);
+    }
+
+    .about p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .skills span {
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: var(--glass);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .projects .card {
+      background: var(--glass);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(127, 90, 240, 0.1);
+    }
+
+    .projects .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(127, 90, 240, 0.3);
+    }
+
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact input, .contact textarea {
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: var(--glass);
+      color: var(--text);
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .contact input:focus, .contact textarea:focus {
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .contact button {
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: var(--primary);
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .contact button:hover {
+      background: var(--secondary);
+      box-shadow: 0 0 20px var(--secondary);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      margin-top: 50px;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* Chatbox */
+    .chat-icon {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: var(--primary);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 15px var(--primary);
+      transition: 0.3s;
+      z-index: 999;
+    }
+
+    .chat-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px var(--secondary);
+    }
+
+    .chatbox {
+      position: fixed;
+      bottom: 100px;
+      right: 25px;
+      width: 300px;
+      height: 400px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(127, 90, 240, 0.4);
+    }
+
+    .chatbox header {
+      background: var(--primary);
+      padding: 10px;
+      text-align: center;
+      color: white;
+      font-weight: 600;
+    }
+
+    .chatbox textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      padding: 10px;
+      resize: none;
+    }
+
+    .chatbox button {
+      border: none;
+      background: var(--secondary);
+      padding: 10px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--card-bg);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 2.2rem; }
+      section { padding: 60px 5%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Light/Dark Mode Toggle -->
+  <div class="theme-toggle" id="themeToggle">🌙</div>
+
+  <!-- Hero Section -->
+  <header>
+    <h1>AI That Shapes Tomorrow</h1>
+    <p>Hi, I'm <strong>Saqib Fayaz</strong> — an AI enthusiast, maker, and learner.</p>
+    <a href="#projects" class="btn">See My Work</a>
+  </header>
+
+  <!-- Social Media -->
+  <div class="socials">
+    <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"/></a>
+    <a href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png"/></a>
+    <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"/></a>
+  </div>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2>About Me</h2>
+    <p>I’m deeply passionate about Artificial Intelligence, embedded systems, and learning how machines can make life smarter. I love experimenting with Arduino, sensors, and AI tools to create intelligent prototypes and real-world applications.</p>
+    <div class="skills">
+      <span>Machine Learning</span>
+      <span>Arduino</span>
+      <span>Basics of Electricity</span>
+      <span>Robotics</span>
+      <span>AI Tools</span>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="projects" id="projects">
+    <h2>Projects / Work</h2>
+    <div class="card">
+      <h3>Arduino Uno – Beginner Projects</h3>
+      <p>LED blinking, sensor interfacing, servo control, and IoT data logging.</p>
+    </div>
+    <div class="card">
+      <h3>Basics of Electricity – Fundamental Concepts</h3>
+      <p>Understanding voltage, current, Ohm’s Law, and safe circuit design.</p>
+    </div>
+    <div class="card">
+      <h3>AI Assistant Prototype</h3>
+      <p>A simple chatbot interface built for future AI integration.</p>
+    </div>
+    <div class="card">
+      <h3>Documentation & Tutorials</h3>
+      <p>Step-by-step project notes and learning resources.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2>Contact Me</h2>
+    <p><strong>Phone:</strong> +91 9622959387</p>
+    <p><strong>Email:</strong> imshahsaqib@gmail.com</p>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="4" placeholder="Your Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Saqib Fayaz — AI Visionary
+  </footer>
+
+  <!-- Chatbox -->
+  <div class="chat-icon" id="chatIcon">💬</div>
+  <div class="chatbox" id="chatBox">
+    <header>AI Assistant (Coming Soon)</header>
+    <textarea placeholder="Type a message..."></textarea>
+    <button>Send</button>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+    const chatIcon = document.getElementById("chatIcon");
+    const chatBox = document.getElementById("chatBox");
+
+    themeToggle.addEventListener("click", () => {
+      const currentTheme = document.body.getAttribute("data-theme");
+      if (currentTheme === "light") {
+        document.body.removeAttribute("data-theme");
+        themeToggle.textContent = "🌙";
+      } else {
+        document.body.setAttribute("data-theme", "light");
+        themeToggle.textContent = "☀️";
+      }
+    });
+
+    chatIcon.addEventListener("click", () => {
+      chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+    });
+  </script>
+</body>
+</html>
