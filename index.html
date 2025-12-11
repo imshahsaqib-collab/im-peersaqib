@@ -1,356 +1,359 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>4-Block Animated Portfolio — Light / Dark Theme</title>
-  <meta name="description" content="Four-block animated portfolio with light/dark theme, profile picture, animated text, project blocks, code snippets, diagrams and contact." />
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PARADOX | AI Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg: #0f1724;
-      --panel: #0b1220;
-      --muted: #9aa4b2;
-      --accent: #7c5cff;
-      --text: #e6eef8;
-      --glass: rgba(255,255,255,0.04);
-      --glass-strong: rgba(255,255,255,0.06);
-      --shadow: 0 8px 30px rgba(2,6,23,0.6);
-      --card-radius: 14px;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
+      color: #e0e0e0;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
     }
+    h1, h2, h3 { font-family: 'Orbitron', sans-serif; color: #fff; }
+    section { padding: 80px 10%; position: relative; }
+    img { max-width: 100%; display: block; border-radius: 50%; }
 
-    :root.light{
-      --bg: #f6f8fb;
-      --panel: #ffffff;
-      --muted: #586069;
-      --accent: #4f46e5;
-      --text: #0b1220;
-      --glass: rgba(12,18,32,0.03);
-      --glass-strong: rgba(12,18,32,0.05);
-      --shadow: 0 12px 30px rgba(12,18,32,0.06);
+    /* HERO */
+    header {
+      height: 100vh;
+      background: radial-gradient(circle at center, #101010, #000);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:'Poppins',system-ui,Segoe UI,Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.08), transparent),
-                  radial-gradient(800px 400px at 90% 90%, rgba(79,70,229,0.04), transparent),
-                  var(--bg);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      transition: background 360ms ease, color 360ms ease;
-      padding:32px;
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://i.ibb.co/Zm5HjRy/particles.gif') center/cover;
+      opacity: 0.15;
     }
-
-    .app {
-      max-width:1200px;
-      margin:0 auto;
-      display:grid;
-      gap:28px;
-      grid-template-columns: 1fr;
+    .hero-title {
+      font-size: 4rem;
+      letter-spacing: 4px;
+      color: #fff;
+      text-shadow: 0 0 10px #00ffff;
+      animation: glitch 3s infinite;
     }
-
-    header.topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px #00ffff; }
+      50% { text-shadow: -2px -2px #ff00ff; }
+      100% { text-shadow: 2px 2px #00ffff; }
     }
-
-    .brand {
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
-
-    .logo {
-      width:56px;
-      height:56px;
-      border-radius:12px;
-      background:linear-gradient(135deg,var(--accent),transparent);
-      display:grid;
-      place-items:center;
-      font-weight:700;
-      font-size:22px;
-      color:white;
-      box-shadow:var(--shadow);
-      flex-shrink:0;
-    }
-
-    .brand h1{margin:0;font-size:18px}
-    .brand p{margin:0;font-size:12px;color:var(--muted)}
-
-    .controls{
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
-
-    .toggle {
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      background:var(--glass);
-      padding:6px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,0.03);
-    }
-
-    .toggle button{
-      background:none;
-      border:none;
-      padding:8px;
-      cursor:pointer;
-      color:var(--text);
-      font-weight:600;
-    }
-
-    .themeSwitch{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-    }
-
-    /* Main grid of four blocks */
-    main.grid {
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:22px;
-    }
-
-    @media(min-width: 980px){
-      main.grid{
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      border-radius:var(--card-radius);
-      padding:20px;
-      box-shadow:var(--shadow);
-      border:1px solid rgba(255,255,255,0.03);
-      backdrop-filter: blur(6px) saturate(120%);
-      transition: transform 300ms ease, box-shadow 300ms ease;
-    }
-
-    .card:hover{ transform: translateY(-6px) }
-
-    /* HERO BLOCK UPDATED HERE */
-    .hero{
-      display:flex;
-      gap:18px;
-      align-items:center;
-      min-height:260px;
-    }
-
-    .profile {
-      width:160px;
-      height:160px;
-      border-radius:20px;
-      overflow:hidden;
-      flex-shrink:0;
-      border:4px solid rgba(255,255,255,0.04);
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      display:grid;
-      place-items:center;
-    }
-
-    .profile img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      filter: grayscale(10%) contrast(95%);
-    }
-
-    .hero-info{
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      min-width:0;
-    }
-
     .typing {
-      font-weight:600;
-      display:inline-block;
-      font-size:16px;
-      color:var(--accent);
-      white-space:nowrap;
-      overflow:hidden;
-      --ch:18ch;
-      width:0;
-      animation: typing 3.6s steps(var(--ch)) infinite;
-      border-right:2px solid rgba(255,255,255,0.12);
-      padding-right:6px;
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #ccc;
+      border-right: 2px solid #00ffff;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 5s steps(30) infinite;
     }
-
     @keyframes typing {
-      0% { width:0 }
-      55% { width:var(--ch) }
-      60% { border-right-color: transparent }
-      100% { width:0; border-right-color: transparent}
+      0%, 100% { width: 0 }
+      50% { width: 100% }
     }
 
-    .marquee {
-      display:block;
-      width:100%;
-      overflow:hidden;
-      white-space:nowrap;
-      color:var(--muted);
-      margin-top:6px;
-      font-size:13px;
+    .socials {
+      margin-top: 30px;
+      display: flex;
+      gap: 25px;
+      justify-content: center;
+    }
+    .socials a {
+      color: #fff;
+      font-size: 1.8rem;
+      transition: 0.3s;
+      text-shadow: 0 0 10px #00ffff;
+    }
+    .socials a:hover { color: #00ffff; transform: scale(1.2); }
+
+    /* ABOUT */
+    .about-card {
+      background: rgba(30,30,30,0.7);
+      border: 1px solid #00ffff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 0 20px #00ffff33;
+      animation: fadeIn 2s ease;
+    }
+    .personal-info p { margin: 8px 0; font-size: 1rem; }
+
+    .stats {
+      margin-top: 20px;
+    }
+    .bar {
+      background: #333;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    .bar span {
+      display: block;
+      height: 10px;
+      background: linear-gradient(90deg, #00ffff, #00cccc);
     }
 
-    .marquee span{
-      display:inline-block;
-      padding-left:100%;
-      animation: marquee 14s linear infinite;
+    /* PROJECTS */
+    .project {
+      background: rgba(20,20,20,0.8);
+      border-left: 4px solid #00ffff;
+      margin: 25px 0;
+      padding: 25px;
+      border-radius: 10px;
     }
-
-    @keyframes marquee {
-      0% { transform: translateX(0) }
-      100% { transform: translateX(-100%) }
-    }
-
-    /* About Section */
-    .about{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-    }
-
-    @media(min-width:880px){
-      .about{
-        grid-template-columns: 1fr 260px;
-      }
-    }
-
-    .bio p{ color:var(--muted); margin:0 0 12px 0; line-height:1.5 }
-
-    .skills { display:flex; gap:8px; flex-wrap:wrap }
-    .skill {
-      background:var(--glass-strong);
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:13px;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,0.02);
-    }
-
-    /* Projects */
-    .projects-grid{
-      display:grid;
-      gap:12px;
-    }
-    @media(min-width:860px){
-      .projects-grid{ grid-template-columns: 1fr 1fr }
-    }
-
-    .project{
-      padding:12px;
-      border-radius:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      min-height:200px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .code {
-      background:rgba(0,0,0,0.06);
-      padding:12px;
-      border-radius:8px;
+    code {
+      background: #111;
+      padding: 8px;
+      display: block;
+      border-radius: 8px;
+      color: #00ffff;
       font-family: monospace;
-      font-size:13px;
-      color:var(--text);
-      overflow:auto;
-      border:1px solid rgba(255,255,255,0.02);
     }
+
+    /* AI SECTION */
+    .ai-section {
+      text-align: center;
+      background: linear-gradient(180deg, #101010, #000);
+      border-top: 2px solid #00ffff;
+      padding: 80px 10%;
+    }
+    .ai-terminal {
+      background: rgba(15,15,15,0.9);
+      border: 1px solid #00ffff;
+      padding: 20px;
+      width: 80%;
+      margin: 40px auto;
+      border-radius: 10px;
+      color: #00ffff;
+      font-family: monospace;
+      animation: glowBox 2s infinite alternate;
+    }
+    @keyframes glowBox {
+      from { box-shadow: 0 0 10px #00ffff; }
+      to { box-shadow: 0 0 30px #00ffff; }
+    }
+
+    /* CHATBOX */
+    .chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00ffff;
+      color: #000;
+      border-radius: 50%;
+      padding: 15px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #00ffff;
+      font-weight: bold;
+    }
+    .chatbox {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      background: rgba(20,20,20,0.95);
+      border: 1px solid #00ffff;
+      border-radius: 15px;
+      display: none;
+      flex-direction: column;
+      height: 400px;
+    }
+    .chat-header {
+      background: #00ffff;
+      color: #000;
+      text-align: center;
+      padding: 10px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      font-weight: bold;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #00ffff;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      background: #111;
+      color: #00ffff;
+      border: none;
+      outline: none;
+    }
+    .chat-input button {
+      padding: 10px;
+      background: #00ffff;
+      border: none;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+
+    /* CONTACT */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 400px;
+      margin: auto;
+    }
+    input, textarea {
+      padding: 10px;
+      background: #111;
+      border: 1px solid #00ffff;
+      color: #00ffff;
+      border-radius: 8px;
+      resize: none;
+    }
+    button.submit {
+      background: #00ffff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button.submit:hover { background: #00cccc; }
 
     footer {
-      text-align:center;
-      color:var(--muted);
-      font-size:13px;
-      padding-top:6px;
+      text-align: center;
+      padding: 20px;
+      color: #888;
+      font-size: 0.9rem;
     }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
 <body>
 
-  <div class="app" id="appRoot">
+  <!-- HERO SECTION -->
+  <header>
+    <h1 class="hero-title">PARADOX</h1>
+    <div class="typing">AI Developer | Tech Innovator | Circuit Designer | Creative Thinker</div>
+    <div class="socials">
+      <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0">📷</a>
+      <a href="https://www.facebook.com/share/17eAPPGMyS/">📘</a>
+      <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB">👻</a>
+    </div>
+  </header>
 
-    <!-- ⭐ UPDATED HERO WITH SOCIAL ICONS -->
-    <section class="card hero" aria-label="Hero">
-      <div class="profile">
-        <img id="profilePic" src="profile.jpg" alt="Profile picture">
+  <!-- ABOUT SECTION -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="about-card">
+
+      <div class="personal-info">
+        <p><b>Full Name:</b> Peer Saqib (Paradox)</p>
+        <p><b>Age:</b> 19</p>
+        <p><b>Location:</b> Kashmir, India</p>
+        <p><b>Profession:</b> AI & Arduino Developer</p>
+        <p><b>Email:</b> paradoxdev@gmail.com</p>
+        <p><b>About:</b> A passionate learner working in AI, circuits, automation and creative tech development.</p>
       </div>
 
-      <div class="hero-info">
-
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <h2>Hey — I'm Saqib</h2>
-            <p class="muted">Maker, student, and web tinkerer.</p>
-          </div>
-          <div style="text-align:right">
-            <div class="chip">Kashmir / Florida</div>
-            <div class="muted" style="font-size:12px;">Credit score: <strong>772</strong></div>
-          </div>
-        </div>
-
-        <div style="margin-top:12px">
-          <span class="typing" id="typingText">building → prototypes • coding → websites</span>
-        </div>
-
-        <div class="marquee"><span>Open to collaborations • Arduino projects • Education & Tech</span></div>
-
-        <div style="display:flex; gap:10px; margin-top:14px;">
-          <a class="btn" href="#projects">See Projects</a>
-          <a class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.06)">Download Resume</a>
-        </div>
-
-        <!-- ⭐ SOCIAL MEDIA ICONS HERE -->
-        <div style="display:flex; gap:18px; margin-top:16px; align-items:center;">
-
-          <!-- Instagram -->
-          <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                 stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5"/>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-            </svg>
-          </a>
-
-          <!-- Facebook -->
-          <a href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--accent)">
-              <path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9a3.5 3.5 0 0 1 3.7-3.9
-              c1.1 0 2.3.2 2.3.2v2.5H15c-1.5 0-2 .9-2 1.9v2.3H17l-.5 3h-2.5v7A10 10 0 0 0 22 12z"/>
-            </svg>
-          </a>
-
-          <!-- Snapchat -->
-          <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--accent)">
-              <path d="M12 2c-3.1 0-5.6 2.5-5.6 5.6v.3c0 1-.4 1.9-1.3 2.5-.6.5-.9 1.2-.7 1.9
-              c.3 1.1 1.5 1.8 2.8 1.9c.3 1.7 1.4 3 3 3.6c.2.9.9 2.2 1.8 2.2s1.6-1.3 1.8-2.2
-              c1.6-.6 2.8-1.9 3-3.6c1.3-.1 2.5-.8 2.8-1.9c.2-.7-.1-1.4-.7-1.9c-.9-.6-1.3-1.5-1.3-2.5
-              v-.3C17.6 4.5 15.1 2 12 2z"/>
-            </svg>
-          </a>
-
-        </div>
+      <div class="stats">
+        <p>AI Knowledge</p><div class="bar"><span style="width:70%"></span></div>
+        <p>Arduino Skills</p><div class="bar"><span style="width:80%"></span></div>
+        <p>Creativity</p><div class="bar"><span style="width:100%"></span></div>
       </div>
-    </section>
 
-    <!-- REST OF YOUR CODE CONTINUES BELOW (About, Projects, Contact) -->
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <div class="project">
+      <h3>Arduino Uno LED Circuit</h3>
+      <p>Simple LED blinking example.</p>
+      <code>
+        void setup() { pinMode(13, OUTPUT); }<br>
+        void loop() { digitalWrite(13, HIGH); delay(500); digitalWrite(13, LOW); delay(500); }
+      </code>
+      <p><b>Problem:</b> Incorrect wiring.</p>
+      <p><b>Solution:</b> Connected LED to Pin 13 + resistor.</p>
+    </div>
+
+    <div class="project">
+      <h3>Basic Electricity Notes</h3>
+      <p>Series & parallel circuits, Ohm’s law, current flow animations.</p>
+    </div>
+  </section>
+
+  <!-- AI SECTION -->
+  <section class="ai-section">
+    <h2>Artificial Intelligence</h2>
+    <p>AI powers automation, motion detection and adaptive systems.</p>
+    <div class="ai-terminal">
+      Analyzing user input...<br>
+      Generating response...<br>
+      AI Status: ACTIVE ✓
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="4" placeholder="Your Message"></textarea>
+      <button class="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    © 2025 Paradox — Designed with Intelligence
+  </footer>
+
+  <!-- CHATBOX -->
+  <div class="chat-button" onclick="toggleChat()">💬</div>
+  <div class="chatbox" id="chatbox">
+    <div class="chat-header">Ask Paradox AI</div>
+    <div class="chat-messages" id="messages">
+      <p><i>Welcome to Paradox AI — ask anything!</i></p>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleChat() {
+      const box = document.getElementById('chatbox');
+      box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
+    }
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const msgBox = document.getElementById('messages');
+      if (input.value.trim() !== "") {
+        msgBox.innerHTML += `<p><b>You:</b> ${input.value}</p>`;
+        setTimeout(() => {
+          msgBox.innerHTML += `<p><b>Paradox AI:</b> Processing... 🤖</p>`;
+          msgBox.scrollTop = msgBox.scrollHeight;
+        }, 500);
+        input.value = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
