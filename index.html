@@ -1,321 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>PARADOX | AI Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* ===== GLOBAL ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; }
     body {
-      background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
-      color: #e0e0e0;
       font-family: 'Poppins', sans-serif;
-      overflow-x: hidden;
+      background: linear-gradient(180deg,#060606,#151515);
+      color: #e6eef2;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
     }
-    h1, h2, h3 { font-family: 'Orbitron', sans-serif; color: #fff; }
-    section { padding: 80px 10%; position: relative; }
-    img { max-width: 100%; display: block; border-radius: 50%; }
+    h1,h2,h3 { font-family: 'Orbitron', sans-serif; color: #fff; }
+    a { color: inherit; text-decoration: none; }
 
-    /* HERO */
+    section { padding: 64px 6%; position: relative; }
+
+    /* ===== HERO ===== */
     header {
-      height: 100vh;
-      background: radial-gradient(circle at center, #101010, #000);
+      min-height: 88vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      text-align: center;
+      justify-content: center;
       position: relative;
       overflow: hidden;
+      padding: 40px 6%;
+      background: radial-gradient(circle at 20% 20%, rgba(0,255,255,0.03), transparent 10%),
+                  radial-gradient(circle at 80% 80%, rgba(255,0,255,0.02), transparent 10%);
     }
-    header::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('https://i.ibb.co/Zm5HjRy/particles.gif') center/cover;
-      opacity: 0.15;
+
+    .hero-inner {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
     }
+
+    /* profile circle */
+    .hero-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 3px solid rgba(0,255,255,0.12);
+      box-shadow: 0 8px 30px rgba(0,255,255,0.06), 0 2px 8px rgba(0,0,0,0.6);
+    }
+    .hero-photo img { width:100%; height:100%; object-fit:cover; display:block; filter: grayscale(0.05) contrast(1.02); }
+
+    .hero-content {
+      flex: 1;
+      color: #d9f7ff;
+    }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .brand .logo-mini {
+      width:34px; height:34px; border-radius:8px;
+      background: linear-gradient(135deg,#00f0ff,#8b00ff);
+      box-shadow: 0 6px 20px rgba(0,240,255,0.08);
+      display:inline-block;
+    }
+
     .hero-title {
-      font-size: 4rem;
+      font-size: clamp(36px,6vw,64px);
+      line-height: 1;
       letter-spacing: 4px;
-      color: #fff;
-      text-shadow: 0 0 10px #00ffff;
+      margin-top: 8px;
+      text-shadow: 0 0 10px rgba(0,255,255,0.08);
+      position:relative;
+      display:inline-block;
+      color:#ffffff;
       animation: glitch 3s infinite;
     }
     @keyframes glitch {
-      0% { text-shadow: 2px 2px #00ffff; }
-      50% { text-shadow: -2px -2px #ff00ff; }
-      100% { text-shadow: 2px 2px #00ffff; }
+      0% { transform: translateX(0); text-shadow: 1px 1px 8px rgba(0,255,255,0.06); }
+      30% { transform: translateX(-1px); text-shadow: -2px 0 10px rgba(255,0,255,0.04); }
+      60% { transform: translateX(1px); text-shadow: 2px -1px 12px rgba(0,255,255,0.06); }
+      100% { transform: translateX(0); }
     }
+
     .typing {
       margin-top: 10px;
-      font-size: 1.2rem;
-      color: #ccc;
-      border-right: 2px solid #00ffff;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: typing 5s steps(30) infinite;
+      color: #bfeff7;
+      font-size: 1.1rem;
+      display:inline-block;
+      border-right: 2px solid rgba(0,255,255,0.45);
+      white-space:nowrap;
+      overflow:hidden;
+      width: min(38ch,100%);
+      animation: typecycle 8s steps(40) infinite;
     }
-    @keyframes typing {
-      0%, 100% { width: 0 }
-      50% { width: 100% }
+    @keyframes typecycle {
+      0% { width: 0ch; opacity: 0; }
+      6% { opacity:1; }
+      25% { width: 18ch; }
+      35% { width: 0ch; opacity:0; }
+      40% { opacity:1; }
+      65% { width: 36ch; }
+      75% { width: 0ch; opacity:0; }
+      100% { opacity:1; width: 38ch; }
     }
+
+    .hero-cta { margin-top:20px; display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
 
     .socials {
-      margin-top: 30px;
-      display: flex;
-      gap: 25px;
-      justify-content: center;
+      display:flex; gap:12px; align-items:center;
+      margin-left: 6px;
     }
     .socials a {
-      color: #fff;
-      font-size: 1.8rem;
-      transition: 0.3s;
-      text-shadow: 0 0 10px #00ffff;
+      width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center;
+      background: rgba(255,255,255,0.02);
+      border-radius:10px; transition: transform .18s ease, box-shadow .18s ease;
+      border: 1px solid rgba(0,255,255,0.06);
     }
-    .socials a:hover { color: #00ffff; transform: scale(1.2); }
+    .socials a:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,255,255,0.06); }
 
-    /* ABOUT */
+    /* ===== ABOUT ===== */
     .about-card {
-      background: rgba(30,30,30,0.7);
-      border: 1px solid #00ffff;
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 0 20px #00ffff33;
-      animation: fadeIn 2s ease;
+      background: rgba(20,20,20,0.75);
+      border: 1px solid rgba(0,255,255,0.06);
+      padding: 28px;
+      border-radius: 14px;
+      max-width: 1100px;
+      margin: 0 auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
     }
-    .personal-info p { margin: 8px 0; font-size: 1rem; }
+    .personal-info p { margin:8px 0; color:#d6f7ff; }
+    .personal-info p b{ color:#ffffff; }
 
-    .stats {
-      margin-top: 20px;
-    }
-    .bar {
-      background: #333;
-      border-radius: 10px;
-      overflow: hidden;
-      margin: 8px 0;
-    }
-    .bar span {
-      display: block;
-      height: 10px;
-      background: linear-gradient(90deg, #00ffff, #00cccc);
-    }
+    .stats { margin-top:8px; }
+    .bar { background:#111; border-radius:8px; overflow:hidden; height:12px; margin:8px 0; border:1px solid rgba(0,255,255,0.04);}
+    .bar span { height:100%; display:block; background: linear-gradient(90deg,#00f0ff,#00c2ff); }
 
-    /* PROJECTS */
+    /* ===== PROJECTS ===== */
+    #projects { padding-top: 36px; }
     .project {
-      background: rgba(20,20,20,0.8);
-      border-left: 4px solid #00ffff;
-      margin: 25px 0;
-      padding: 25px;
+      background: linear-gradient(180deg, rgba(9,9,9,0.8), rgba(18,18,18,0.7));
+      border-left: 3px solid rgba(0,255,255,0.12);
+      padding: 20px;
       border-radius: 10px;
+      margin: 18px 0;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
     }
+    .project h3 { margin-bottom:8px; color:#eafcff; }
+    .project p, .project li { color:#cfeff7; line-height:1.45; }
+
     code {
-      background: #111;
-      padding: 8px;
-      display: block;
-      border-radius: 8px;
-      color: #00ffff;
-      font-family: monospace;
+      display:block;
+      background:#0b0b0b;
+      padding:12px;
+      border-radius:8px;
+      color:#7ef0ff;
+      font-family:monospace;
+      margin-top:10px;
+      overflow:auto;
     }
 
-    /* AI SECTION */
+    /* ===== AI SECTION ===== */
     .ai-section {
-      text-align: center;
-      background: linear-gradient(180deg, #101010, #000);
-      border-top: 2px solid #00ffff;
-      padding: 80px 10%;
+      text-align:center;
+      padding-bottom: 48px;
     }
     .ai-terminal {
-      background: rgba(15,15,15,0.9);
-      border: 1px solid #00ffff;
-      padding: 20px;
-      width: 80%;
-      margin: 40px auto;
-      border-radius: 10px;
-      color: #00ffff;
-      font-family: monospace;
-      animation: glowBox 2s infinite alternate;
-    }
-    @keyframes glowBox {
-      from { box-shadow: 0 0 10px #00ffff; }
-      to { box-shadow: 0 0 30px #00ffff; }
+      margin: 20px auto 0;
+      width: 100%;
+      max-width: 900px;
+      background: linear-gradient(180deg, rgba(10,10,10,0.9), rgba(6,6,6,0.9));
+      border:1px solid rgba(0,255,255,0.06);
+      color:#00f0ff;
+      padding:16px;
+      border-radius:10px;
+      font-family:monospace;
+      box-shadow: 0 8px 30px rgba(0,255,255,0.03);
     }
 
-    /* CHATBOX */
+    /* ===== CHATBOX ===== */
     .chat-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #00ffff;
-      color: #000;
-      border-radius: 50%;
-      padding: 15px;
-      cursor: pointer;
-      box-shadow: 0 0 20px #00ffff;
-      font-weight: bold;
+      position:fixed; right:20px; bottom:20px;
+      width:56px; height:56px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(180deg,#00f0ff,#00a7ff);
+      color:#000; font-weight:700; cursor:pointer;
+      box-shadow: 0 10px 30px rgba(0,160,255,0.18);
+      z-index:9999;
+      border: none;
     }
     .chatbox {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      width: 300px;
-      background: rgba(20,20,20,0.95);
-      border: 1px solid #00ffff;
-      border-radius: 15px;
-      display: none;
-      flex-direction: column;
-      height: 400px;
+      position:fixed; right:20px; bottom:92px; width:340px; max-width:92vw;
+      background: rgba(6,6,6,0.98); border-radius:12px; border:1px solid rgba(0,255,255,0.06);
+      display:none; flex-direction:column; overflow:hidden; z-index:9998;
+      height:480px;
     }
-    .chat-header {
-      background: #00ffff;
-      color: #000;
-      text-align: center;
-      padding: 10px;
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
-      font-weight: bold;
-    }
-    .chat-messages {
-      flex: 1;
-      padding: 10px;
-      overflow-y: auto;
-    }
-    .chat-input {
-      display: flex;
-      border-top: 1px solid #00ffff;
-    }
-    .chat-input input {
-      flex: 1;
-      padding: 10px;
-      background: #111;
-      color: #00ffff;
-      border: none;
-      outline: none;
-    }
-    .chat-input button {
-      padding: 10px;
-      background: #00ffff;
-      border: none;
-      cursor: pointer;
-      color: #000;
-      font-weight: bold;
+    .chat-header { background:#00f0ff; color:#000; text-align:center; padding:12px; font-weight:700; }
+    .chat-messages { flex:1; padding:12px; overflow:auto; color:#dffaff; font-size:0.95rem; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); }
+    .chat-input { display:flex; gap:8px; padding:10px; border-top:1px solid rgba(0,255,255,0.04); }
+    .chat-input input { flex:1; padding:10px; border-radius:8px; background:#0b0b0b; border:1px solid rgba(0,255,255,0.04); color:#cfeff7; outline:none; }
+    .chat-input button { background:#00f0ff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700; }
+
+    /* ===== CONTACT ===== */
+    form { max-width:520px; margin: 0 auto; display:flex; flex-direction:column; gap:10px; }
+    input, textarea { padding:12px; background:#070707; border:1px solid rgba(0,255,255,0.04); color:#dffaff; border-radius:8px; outline:none; }
+    button.submit { background:#00f0ff; color:#000; border:none; padding:12px; border-radius:10px; font-weight:700; cursor:pointer; }
+
+    footer { text-align:center; padding:22px 6%; color:#9bbfc8; font-size:0.95rem; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width:880px){
+      .hero-inner { flex-direction: column; text-align:center; gap:20px; }
+      .hero-photo { width:120px; height:120px; }
+      .typing { width:100%; }
     }
 
-    /* CONTACT */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-width: 400px;
-      margin: auto;
-    }
-    input, textarea {
-      padding: 10px;
-      background: #111;
-      border: 1px solid #00ffff;
-      color: #00ffff;
-      border-radius: 8px;
-      resize: none;
-    }
-    button.submit {
-      background: #00ffff;
-      color: #000;
-      font-weight: bold;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button.submit:hover { background: #00cccc; }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #888;
-      font-size: 0.9rem;
-    }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
 <body>
 
-  <!-- HERO SECTION -->
+  <!-- ===== HERO ===== -->
   <header>
-    <h1 class="hero-title">PARADOX</h1>
-    <div class="typing">AI Developer | Tech Innovator | Circuit Designer | Creative Thinker</div>
-    <div class="socials">
-      <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0">📷</a>
-      <a href="https://www.facebook.com/share/17eAPPGMyS/">📘</a>
-      <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB">👻</a>
+    <div class="hero-inner">
+      <!-- PROFILE IMAGE in HERO (option A) -->
+      <div class="hero-photo" title="Peer Saqib (Paradox)">
+        <!-- Put profile.jpg in same folder -->
+        <img src="profile.jpg" alt="Peer Saqib Profile Photo">
+      </div>
+
+      <div class="hero-content">
+        <div class="brand">
+          <span class="logo-mini" aria-hidden="true"></span>
+          <div>
+            <div style="font-size:12px; color:#9be8f7;">PARADOX</div>
+            <div style="font-size:12px; color:#9bbfc8;">AI • Arduino • IoT</div>
+          </div>
+        </div>
+
+        <h1 class="hero-title">PARADOX</h1>
+
+        <div class="typing">AI Developer — Tech Innovator — Circuit Designer — Creative Thinker</div>
+
+        <div class="hero-cta">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <a href="#projects" style="padding:10px 14px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(0,255,255,0.04);">View Projects</a>
+            <a href="#contact" style="padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,#00f0ff22,#00aaff22);border:1px solid rgba(0,255,255,0.06);">Contact</a>
+          </div>
+
+          <!-- SOCIAL ICONS (SVGs + real links open in new tab) -->
+          <div class="socials" aria-label="Social links">
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank" rel="noopener noreferrer" title="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="rgba(0,255,255,0.16)" stroke-width="1.2" fill="none"/>
+                <path d="M7 7h10v10H7z" fill="rgba(0,255,255,0.03)"/>
+                <path d="M12 7.8a4.2 4.2 0 1 0 0 8.4 4.2 4.2 0 0 0 0-8.4z" stroke="#7ffeff" stroke-width="1.2" fill="none"/>
+                <circle cx="17.7" cy="6.3" r="0.8" fill="#7ffeff"/>
+              </svg>
+            </a>
+
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank" rel="noopener noreferrer" title="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="4" stroke="rgba(0,255,255,0.16)" stroke-width="1.2" fill="none"/>
+                <path d="M15.5 7.5h-1.4c-.3 0-.6.2-.6.5v1.6h2l-.3 2.2h-1.7v5h-2.2v-5H10V12h1.3v-2c0-1.4.9-3.1 3-3.1h1.2v.6z" fill="#7ffeff"/>
+              </svg>
+            </a>
+
+            <!-- Snapchat -->
+            <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank" rel="noopener noreferrer" title="Snapchat">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="4" stroke="rgba(0,255,255,0.16)" stroke-width="1.2" fill="none"/>
+                <path d="M12 6c2 0 3 1 3 3 0 2-2 2-3 3-1-1-3-1-3-3 0-2 1-3 3-3z" stroke="#7ffeff" stroke-width="1.1" fill="none"/>
+                <path d="M8 17s2-1 4-1 4 1 4 1-1 1-2 1-2-1-4-1-3 1-4 1-1-1-1-1z" fill="#7ffeff"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
-  <!-- ABOUT SECTION -->
+  <!-- ===== ABOUT ===== -->
   <section id="about">
-    <h2>About Me</h2>
+    <h2 style="text-align:center; margin-bottom:18px;">About Me</h2>
     <div class="about-card">
-
       <div class="personal-info">
         <p><b>Full Name:</b> Peer Saqib (Paradox)</p>
         <p><b>Age:</b> 19</p>
         <p><b>Location:</b> Kashmir, India</p>
         <p><b>Profession:</b> AI & Arduino Developer</p>
         <p><b>Email:</b> paradoxdev@gmail.com</p>
-        <p><b>About:</b> A passionate learner working in AI, circuits, automation and creative tech development.</p>
+        <p><b>About:</b> A passionate learner working in AI, circuits, IoT and creative tech development. I like building projects with Arduino, integrating sensors with microcontrollers and pushing automation using small AI models.</p>
       </div>
 
-      <div class="stats">
-        <p>AI Knowledge</p><div class="bar"><span style="width:70%"></span></div>
-        <p>Arduino Skills</p><div class="bar"><span style="width:80%"></span></div>
-        <p>Creativity</p><div class="bar"><span style="width:100%"></span></div>
-      </div>
+      <div class="stats" aria-hidden="false">
+        <p style="font-weight:700; color:#fff;">Skills</p>
+        <p style="font-size:0.9rem; color:#cfeff7; margin-top:6px;">AI Knowledge</p>
+        <div class="bar" aria-valuenow="70"><span style="width:70%"></span></div>
 
+        <p style="font-size:0.9rem; color:#cfeff7;">Arduino Skills</p>
+        <div class="bar" aria-valuenow="80"><span style="width:80%"></span></div>
+
+        <p style="font-size:0.9rem; color:#cfeff7;">Creativity</p>
+        <div class="bar" aria-valuenow="100"><span style="width:100%"></span></div>
+      </div>
     </div>
   </section>
 
-  <!-- PROJECTS SECTION -->
+  <!-- ===== PROJECTS (includes IoT + Ohm's Law merged) ===== -->
   <section id="projects">
-    <h2>Projects</h2>
+    <h2 style="text-align:center; margin-bottom:18px;">Projects & Topics</h2>
 
     <div class="project">
       <h3>Arduino Uno LED Circuit</h3>
-      <p>Simple LED blinking example.</p>
+      <p>Simple LED blinking example using Arduino UNO. Great for learning digital output and resistor usage.</p>
       <code>
-        void setup() { pinMode(13, OUTPUT); }<br>
-        void loop() { digitalWrite(13, HIGH); delay(500); digitalWrite(13, LOW); delay(500); }
+void setup() { pinMode(13, OUTPUT); }<br>
+void loop() { digitalWrite(13, HIGH); delay(500); digitalWrite(13, LOW); delay(500); }
       </code>
-      <p><b>Problem:</b> Incorrect wiring.</p>
-      <p><b>Solution:</b> Connected LED to Pin 13 + resistor.</p>
+      <p><strong>Problem:</strong> Incorrect wiring or missing resistor may prevent expected blinking.</p>
+      <p><strong>Solution:</strong> Connect LED to pin 13 with proper resistor (220Ω) and verify ground connection.</p>
     </div>
 
-    <div class="project">
-      <h3>Basic Electricity Notes</h3>
-      <p>Series & parallel circuits, Ohm’s law, current flow animations.</p>
+    <!-- IOT SECTION (merged) -->
+    <div class="project" id="iot">
+      <h3>🌐 Internet of Things (IoT)</h3>
+      <p><strong>What is IoT?</strong></p>
+      <p>The Internet of Things (IoT) is a network of smart devices connected to the internet, capable of collecting and exchanging real-time data.</p>
+
+      <p><strong>Where IoT is used?</strong></p>
+      <ul>
+        <li>Smart homes (lights, cameras, climate control)</li>
+        <li>Wearables (smartwatches, fitness trackers)</li>
+        <li>Industrial automation & monitoring</li>
+        <li>Vehicle monitoring & GPS</li>
+        <li>Smart farming and agriculture</li>
+      </ul>
+
+      <p><strong>Why IoT matters?</strong></p>
+      <p>IoT makes systems automatic, efficient, and real-time by using sensors, microcontrollers (ESP32/Arduino) and cloud services to monitor & control devices remotely.</p>
+
+      <p><strong>Typical IoT Stack:</strong></p>
+      <ul>
+        <li>Sensors → Microcontroller (ESP32/Arduino) → WiFi / MQTT → Cloud Dashboard</li>
+      </ul>
     </div>
+
+    <!-- OHM'S LAW SECTION (merged) -->
+    <div class="project" id="ohms">
+      <h3>⚡ Ohm’s Law (V = I × R)</h3>
+      <p><strong>Definition:</strong> Ohm’s Law explains how voltage (V), current (I), and resistance (R) are related.</p>
+
+      <p style="font-size:20px; color:#7ffeff;"><strong>V = I × R</strong></p>
+
+      <p><strong>Meaning:</strong></p>
+      <ul>
+        <li>More voltage → more current (if resistance stays same)</li>
+        <li>More resistance → less current (for same voltage)</li>
+        <li>Always choose correct resistor for LEDs to protect them</li>
+      </ul>
+
+      <p><strong>Real-Life Uses:</strong></p>
+      <ul>
+        <li>Phone chargers & power adapters</li>
+        <li>Home electrical wiring</li>
+        <li>Arduino LED circuits</li>
+        <li>Electric heaters & appliances</li>
+      </ul>
+    </div>
+
   </section>
 
-  <!-- AI SECTION -->
+  <!-- ===== AI SECTION ===== -->
   <section class="ai-section">
-    <h2>Artificial Intelligence</h2>
-    <p>AI powers automation, motion detection and adaptive systems.</p>
-    <div class="ai-terminal">
-      Analyzing user input...<br>
-      Generating response...<br>
-      AI Status: ACTIVE ✓
+    <h2>Artificial Intelligence Demo</h2>
+    <p style="max-width:900px; margin:10px auto 0; color:#cfeff7;">
+      Simple fake "Live AI Terminal" to show runtime style. Replace with a real API/logic if you wire server-side AI later.
+    </p>
+    <div class="ai-terminal" role="status" aria-live="polite">
+      <div id="terminal-lines">Analyzing user input...<br>Generating response...<br>AI Status: <strong style="color:#9ff7ff">ACTIVE ✓</strong></div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ===== CONTACT ===== -->
   <section id="contact">
-    <h2>Contact</h2>
-    <form>
+    <h2 style="text-align:center; margin-bottom:12px;">Contact</h2>
+    <form onsubmit="event.preventDefault(); alert('Message sent! (demo)');">
       <input type="text" placeholder="Your Name" required>
       <input type="email" placeholder="Your Email" required>
       <textarea rows="4" placeholder="Your Message"></textarea>
-      <button class="submit">Send Message</button>
+      <button class="submit" type="submit">Send Message</button>
     </form>
   </section>
 
@@ -323,37 +407,53 @@
     © 2025 Paradox — Designed with Intelligence
   </footer>
 
-  <!-- CHATBOX -->
-  <div class="chat-button" onclick="toggleChat()">💬</div>
-  <div class="chatbox" id="chatbox">
+  <!-- ===== CHATBOX ===== -->
+  <button class="chat-button" id="chatToggle" aria-label="Open chat">💬</button>
+
+  <div class="chatbox" id="chatbox" role="dialog" aria-hidden="true" aria-label="Paradox chat">
     <div class="chat-header">Ask Paradox AI</div>
     <div class="chat-messages" id="messages">
-      <p><i>Welcome to Paradox AI — ask anything!</i></p>
+      <p style="opacity:0.9;"><em>Welcome to Paradox AI — demo chat. This is a local UI demo only.</em></p>
     </div>
     <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Type a message...">
-      <button onclick="sendMessage()">Send</button>
+      <input id="userInput" type="text" placeholder="Type a message...">
+      <button id="sendBtn" type="button">Send</button>
     </div>
   </div>
 
   <script>
-    function toggleChat() {
-      const box = document.getElementById('chatbox');
-      box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
-    }
-    function sendMessage() {
-      const input = document.getElementById('userInput');
-      const msgBox = document.getElementById('messages');
-      if (input.value.trim() !== "") {
-        msgBox.innerHTML += `<p><b>You:</b> ${input.value}</p>`;
-        setTimeout(() => {
-          msgBox.innerHTML += `<p><b>Paradox AI:</b> Processing... 🤖</p>`;
-          msgBox.scrollTop = msgBox.scrollHeight;
-        }, 500);
-        input.value = "";
-      }
-    }
-  </script>
+    /* ===== CHAT UI ===== */
+    const chatToggle = document.getElementById('chatToggle');
+    const chatbox = document.getElementById('chatbox');
+    const sendBtn = document.getElementById('sendBtn');
+    const messages = document.getElementById('messages');
+    const userInput = document.getElementById('userInput');
 
+    chatToggle.addEventListener('click', () => {
+      const open = chatbox.style.display === 'flex';
+      chatbox.style.display = open ? 'none' : 'flex';
+      chatbox.setAttribute('aria-hidden', open ? 'true' : 'false');
+    });
+
+    function appendMessage(who, text) {
+      const p = document.createElement('p');
+      p.innerHTML = '<strong>' + who + ':</strong> ' + text;
+      messages.appendChild(p);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    sendBtn.addEventListener('click', () => {
+      const val = userInput.value.trim();
+      if (!val) return;
+      appendMessage('You', val);
+      userInput.value = '';
+      setTimeout(() => appendMessage('Paradox AI', 'Processing... 🤖'), 400);
+      setTimeout(() => appendMessage('Paradox AI', 'Demo reply — integrate backend for real responses.'), 1400);
+    });
+
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') { sendBtn.click(); e.preventDefault(); }
+    });
+  </script>
 </body>
 </html>
