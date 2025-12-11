@@ -1,381 +1,956 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Saqib Fayaz – AI Enthusiast</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #7f5af0;
-      --secondary: #2cb67d;
-      --background: #0f0f10;
-      --text: #ffffff;
-      --card-bg: rgba(255, 255, 255, 0.05);
-      --glass: rgba(255, 255, 255, 0.1);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PARADOX – Saqib Fayaz Portfolio</title>
 
-    [data-theme="light"] {
-      --background: #f4f4f4;
-      --text: #000;
-      --card-bg: rgba(0, 0, 0, 0.05);
-      --glass: rgba(255, 255, 255, 0.3);
-    }
+<!-- ============================
+    BLOCK 1 — DARK + GREY THEME
+    NO ANIMATIONS
+    CLEAN PROFESSIONAL UI
+================================ -->
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
+<style>
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--background);
-      color: var(--text);
-      overflow-x: hidden;
-      transition: all 0.3s ease;
-    }
+/* ------------------------------
+   ROOT THEME VARIABLES
+-------------------------------- */
+:root {
+  /* DARK MODE DEFAULT */
+  --bg-main: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --card-bg: #202020;
+  --text-main: #e5e5e5;
+  --text-soft: #cfcfcf;
+  --border-color: #2d2d2d;
+  --accent: #4f8cff; /* soft blue accent */
 
-    header {
-      text-align: center;
-      padding: 100px 20px;
-      background: linear-gradient(135deg, rgba(127, 90, 240, 0.2), rgba(44, 182, 125, 0.2));
-      position: relative;
-      overflow: hidden;
-    }
+  /* LIGHT MODE VALUES */
+  --light-bg-main: #ffffff;
+  --light-bg-secondary: #f2f2f2;
+  --light-card-bg: #ffffff;
+  --light-text-main: #111111;
+  --light-text-soft: #444444;
+  --light-border-color: #dcdcdc;
+  --light-accent: #0055ff;
+}
 
-    header h1 {
-      font-size: 3rem;
-      text-shadow: 0 0 15px var(--primary);
-    }
+/* ------------------------------
+   GLOBAL RESET + BODY STYLES
+-------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 
-    header p {
-      margin-top: 10px;
-      font-size: 1.2rem;
-      opacity: 0.8;
-    }
+body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  transition: background 0.2s linear, color 0.2s linear;
+}
 
-    .btn {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 12px 25px;
-      border-radius: 30px;
-      background: var(--primary);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
-      box-shadow: 0 0 10px var(--primary);
-    }
+/* LIGHT MODE CLASS */
+body.light {
+  background: var(--light-bg-main);
+  color: var(--light-text-main);
+}
 
-    .btn:hover {
-      background: var(--secondary);
-      box-shadow: 0 0 20px var(--secondary);
-    }
+/* ------------------------------
+   LAYOUT CONTAINER
+-------------------------------- */
+.container {
+  width: 92%;
+  max-width: 1300px;
+  margin: auto;
+}
 
-    .socials {
-      display: flex;
-      justify-content: center;
-      margin: 30px 0;
-      gap: 20px;
-    }
+/* ------------------------------
+   HEADER & NAVIGATION
+-------------------------------- */
+header {
+  width: 100%;
+  background: var(--bg-secondary);
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-    .socials a img {
-      width: 40px;
-      height: 40px;
-      transition: transform 0.3s, filter 0.3s;
-      filter: drop-shadow(0 0 6px var(--primary));
-    }
+body.light header {
+  background: var(--light-bg-secondary);
+  border-bottom: 1px solid var(--light-border-color);
+}
 
-    .socials a:hover img {
-      transform: scale(1.1);
-      filter: drop-shadow(0 0 12px var(--secondary));
-    }
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    section {
-      padding: 80px 10%;
-    }
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--accent);
+}
 
-    .about, .projects, .contact {
-      background: var(--card-bg);
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      padding: 40px;
-      margin-top: 40px;
-      box-shadow: 0 0 15px rgba(127, 90, 240, 0.2);
-    }
+body.light .logo {
+  color: var(--light-accent);
+}
 
-    h2 {
-      text-align: center;
-      font-size: 2rem;
-      color: var(--primary);
-      margin-bottom: 30px;
-      text-shadow: 0 0 8px var(--primary);
-    }
+nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
 
-    .about p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+nav ul li a {
+  text-decoration: none;
+  color: var(--text-soft);
+  font-size: 16px;
+  padding: 6px 4px;
+  border-radius: 4px;
+  transition: 0.15s linear;
+}
 
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
+body.light nav ul li a {
+  color: var(--light-text-soft);
+}
 
-    .skills span {
-      padding: 8px 16px;
-      border-radius: 20px;
-      background: var(--glass);
-      box-shadow: 0 0 10px var(--primary);
-    }
+nav ul li a:hover {
+  color: var(--accent);
+}
 
-    .projects .card {
-      background: var(--glass);
-      padding: 20px;
-      border-radius: 15px;
-      margin: 20px 0;
-      transition: 0.3s;
-      box-shadow: 0 0 10px rgba(127, 90, 240, 0.1);
-    }
+body.light nav ul li a:hover {
+  color: var(--light-accent);
+}
 
-    .projects .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px rgba(127, 90, 240, 0.3);
-    }
+/* ------------------------------
+   THEME TOGGLE BUTTON
+-------------------------------- */
+.theme-toggle {
+  font-size: 22px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-main);
+}
 
-    .contact form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
+body.light .theme-toggle {
+  border-color: var(--light-border-color);
+  color: var(--light-text-main);
+}
 
-    .contact input, .contact textarea {
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: var(--glass);
-      color: var(--text);
-      outline: none;
-      transition: 0.3s;
-    }
+/* ------------------------------
+   HERO SECTION
+-------------------------------- */
+.hero {
+  padding: 90px 0;
+  background: var(--bg-main);
+}
 
-    .contact input:focus, .contact textarea:focus {
-      box-shadow: 0 0 10px var(--primary);
-    }
+body.light .hero {
+  background: var(--light-bg-main);
+}
 
-    .contact button {
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: var(--primary);
-      color: white;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.3s;
-    }
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
-    .contact button:hover {
-      background: var(--secondary);
-      box-shadow: 0 0 20px var(--secondary);
-    }
+.hero-image {
+  width: 150px;
+  height: 150px;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  margin-bottom: 25px;
+}
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      margin-top: 50px;
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
+body.light .hero-image {
+  background: var(--light-card-bg);
+  border-color: var(--light-border-color);
+}
 
-    /* Chatbox */
-    .chat-icon {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: var(--primary);
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 0 15px var(--primary);
-      transition: 0.3s;
-      z-index: 999;
-    }
+.hero-title {
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
 
-    .chat-icon:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px var(--secondary);
-    }
+body.light .hero-title {
+  color: var(--light-text-main);
+}
 
-    .chatbox {
-      position: fixed;
-      bottom: 100px;
-      right: 25px;
-      width: 300px;
-      height: 400px;
-      background: var(--card-bg);
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(127, 90, 240, 0.4);
-    }
+.hero-tagline {
+  font-size: 18px;
+  color: var(--text-soft);
+  margin-bottom: 25px;
+}
 
-    .chatbox header {
-      background: var(--primary);
-      padding: 10px;
-      text-align: center;
-      color: white;
-      font-weight: 600;
-    }
+body.light .hero-tagline {
+  color: var(--light-text-soft);
+}
 
-    .chatbox textarea {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: var(--text);
-      padding: 10px;
-      resize: none;
-    }
+.hero-buttons {
+  display: flex;
+  gap: 18px;
+}
 
-    .chatbox button {
-      border: none;
-      background: var(--secondary);
-      padding: 10px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.btn-main {
+  padding: 10px 26px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-main);
+  font-size: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-    /* Theme toggle */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--card-bg);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 0 10px var(--primary);
-    }
+body.light .btn-main {
+  background: var(--light-bg-secondary);
+  border-color: var(--light-border-color);
+  color: var(--light-text-main);
+}
 
-    @media (max-width: 768px) {
-      header h1 { font-size: 2.2rem; }
-      section { padding: 60px 5%; }
-    }
-  </style>
+.btn-main:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+body.light .btn-main:hover {
+  border-color: var(--light-accent);
+  color: var(--light-accent);
+}
+
+/* ------------------------------
+   SECTION STYLING
+-------------------------------- */
+section {
+  padding: 80px 0;
+}
+
+.section-title {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  text-align: center;
+  color: var(--text-main);
+}
+
+body.light .section-title {
+  color: var(--light-text-main);
+}
+
+/* ------------------------------
+   CARD DESIGN (Used Everywhere)
+-------------------------------- */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 25px;
+  border-radius: 8px;
+  color: var(--text-main);
+}
+
+body.light .card {
+  background: var(--light-card-bg);
+  border: 1px solid var(--light-border-color);
+  color: var(--light-text-main);
+}
+
+/* END OF BLOCK 1 */
+</style>
+
 </head>
 <body>
 
-  <!-- Light/Dark Mode Toggle -->
-  <div class="theme-toggle" id="themeToggle">🌙</div>
+<!-- ================================
+      START OF HEADER
+=================================== -->
 
-  <!-- Hero Section -->
-  <header>
-    <h1>AI That Shapes Tomorrow</h1>
-    <p>Hi, I'm <strong>Saqib Fayaz</strong> — an AI enthusiast, maker, and learner.</p>
-    <a href="#projects" class="btn">See My Work</a>
-  </header>
+<header>
+  <div class="container nav-wrapper">
 
-  <!-- Social Media -->
-  <div class="socials">
-    <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"/></a>
-    <a href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png"/></a>
-    <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"/></a>
+    <div class="logo">PARADOX</div>
+
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#socials">Socials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="theme-toggle" id="themeToggle">🌙</div>
+
+  </div>
+</header>
+
+<!-- ================================
+      HERO SECTION
+=================================== -->
+
+<section id="home" class="hero">
+  <div class="container hero-content">
+
+    <div class="hero-image"></div>
+
+    <h1 class="hero-title">SAQIB FAYAZ</h1>
+    <p class="hero-tagline">Tech Explorer • Digital Learner • Electronics Enthusiast</p>
+
+    <div class="hero-buttons">
+      <button class="btn-main">View Projects</button>
+      <button class="btn-main">Contact Me</button>
+    </div>
+
+  </div>
+</section>
+<!-- ================================
+      ABOUT SECTION
+=================================== -->
+
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">About Me</h2>
+
+    <div class="card">
+      <p>
+        My name is <b>Saqib Fayaz</b>, a passionate learner from Kashmir with a strong interest in
+        technology, electronics, digital marketing, and web development. I believe in evolving
+        with the modern digital world and constantly improving my technical skills.
+      </p>
+      <br>
+      <p>
+        My journey in tech started with basic electronics and gradually expanded into Arduino
+        projects, web design, and artificial intelligence basics. I am committed to learning,
+        building new ideas, and exploring opportunities that help me grow personally and technically.
+      </p>
+      <br>
+      <p>
+        I aim to develop impactful digital solutions, understand systems deeply, and become an expert
+        in the field of technology and innovation. This portfolio reflects my continuous progress.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================================
+      SKILLS SECTION
+=================================== -->
+
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title">Skills</h2>
+
+    <div class="skills-grid" style="
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    ">
+
+      <div class="card">
+        <h3 style="margin-bottom: 8px;">HTML & CSS</h3>
+        <p>Basic to intermediate understanding of webpage structure & styling.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 8px;">Arduino Uno</h3>
+        <p>Hands-on experience in sensor handling, coding, and microcontroller logic.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 8px;">Basics of Electricity</h3>
+        <p>Voltage, current, resistance, Ohm’s Law, and safe wiring skills.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 8px;">Artificial Intelligence (Beginner)</h3>
+        <p>Understanding of basic AI concepts and machine logic.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 8px;">Digital Marketing</h3>
+        <p>Knowledge of SEO, branding, and online business fundamentals.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 8px;">Problem Solving</h3>
+        <p>Strong logical reasoning, troubleshooting, and solution-based thinking.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================================
+      PROJECTS SECTION (DETAILED)
+=================================== -->
+
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title">Projects</h2>
+
+    <!-- Grid layout for projects -->
+    <div style="
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+    ">
+
+      <!-- ============================
+            PROJECT 1
+      ============================= -->
+      <div class="card">
+        <h3 style="color: var(--accent); margin-bottom: 12px;">
+          Arduino Uno – Smart Systems Development
+        </h3>
+
+        <p><b>Overview:</b></p>
+        <p style="margin-bottom: 12px;">
+          A foundational electronics project where I built multiple smart systems using the 
+          <b>Arduino Uno</b> microcontroller. This helped me understand sensors, actuators, coding logic, 
+          and circuitry.
+        </p>
+
+        <p><b>What I Built:</b></p>
+        <ul style="margin-left: 18px; margin-bottom: 12px; color: var(--text-soft);">
+          <li>LED blinking, fading, and patterns</li>
+          <li>Temperature monitoring with LM35 sensor</li>
+          <li>Motor control for robotics basics</li>
+          <li>Push-button input detection</li>
+          <li>Serial monitor message output</li>
+        </ul>
+
+        <p><b>Skills Used:</b></p>
+        <ul style="margin-left: 18px; margin-bottom: 12px; color: var(--text-soft);">
+          <li>C++ coding</li>
+          <li>Digital & analog pin control</li>
+          <li>Understanding sensor behavior</li>
+          <li>Debugging circuits</li>
+          <li>Microcontroller architecture</li>
+        </ul>
+
+        <p><b>Why Important:</b></p>
+        <p style="margin-bottom: 12px;">
+          Creates the base for robotics, automation, embedded systems, and IoT devices.
+        </p>
+
+        <p><b>What I Learned:</b></p>
+        <ul style="margin-left: 18px; color: var(--text-soft);">
+          <li>How microcontrollers read & send signals</li>
+          <li>Sensor data flow & processing</li>
+          <li>Safe wiring & electronic design</li>
+          <li>Diagnosing hardware issues</li>
+        </ul>
+      </div>
+
+
+      <!-- ============================
+            PROJECT 2
+      ============================= -->
+      <div class="card">
+        <h3 style="color: var(--accent); margin-bottom: 12px;">
+          Basics of Electricity – Foundation of All Circuits
+        </h3>
+
+        <p><b>Overview:</b></p>
+        <p style="margin-bottom: 12px;">
+          A theoretical + practical study of electricity and current flow. This project allowed me to
+          understand real-world electronics, appliances, and electrical safety.
+        </p>
+
+        <p><b>Key Concepts Learned:</b></p>
+        <ul style="margin-left: 18px; margin-bottom: 12px; color: var(--text-soft);">
+          <li>Voltage, current, resistance</li>
+          <li>Ohm’s Law (V = IR)</li>
+          <li>Series & parallel circuits</li>
+          <li>Power rating & load handling</li>
+          <li>Electrical safety rules</li>
+        </ul>
+
+        <p><b>Practical Work:</b></p>
+        <ul style="margin-left: 18px; margin-bottom: 12px; color: var(--text-soft);">
+          <li>Built LED circuits using batteries</li>
+          <li>Used multimeter to measure values</li>
+          <li>Created series & parallel branches</li>
+          <li>Practiced safe wiring techniques</li>
+          <li>Identified causes of short circuits</li>
+        </ul>
+
+        <p><b>Why Important:</b></p>
+        <p style="margin-bottom: 12px;">
+          Every electronic device depends on these electrical laws. Without understanding electricity,
+          one cannot progress in robotics or engineering.
+        </p>
+
+        <p><b>What I Learned:</b></p>
+        <ul style="margin-left: 18px; color: var(--text-soft);">
+          <li>How circuits behave under load</li>
+          <li>How to calculate correct resistor values</li>
+          <li>How to troubleshoot common issues</li>
+          <li>Better understanding of home appliances</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================================
+      PARADOX LOGO SECTION
+=================================== -->
+
+<section id="paradox">
+  <div class="container">
+    <h2 class="section-title">PARADOX Logo</h2>
+
+    <div class="card">
+      <p>
+        The <b>PARADOX</b> identity represents imagination, limitless thinking, modern logic, and
+        the courage to learn beyond boundaries. It symbolizes Saqib’s mindset — focused,
+        innovative, and future-driven.
+      </p>
+      <br>
+      <p>
+        The brand style uses clean dark tones, minimalism, structured typography, and balanced 
+        geometric design to reflect a calm but powerful identity.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- END OF BLOCK 2 -->
+  <!-- ================================
+      SOCIAL MEDIA SECTION
+=================================== -->
+
+<section id="socials">
+  <div class="container">
+    <h2 class="section-title">Social Media</h2>
+
+    <div style="
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 22px;
+    ">
+
+      <a
+        href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0"
+        class="card"
+        style="
+          width: 150px;
+          text-align: center;
+          text-decoration: none;
+          color: var(--text-main);
+        "
+      >
+        <h3 style="margin-bottom: 10px;">Instagram</h3>
+        <p style="color: var(--text-soft);">Follow me on Instagram</p>
+      </a>
+
+      <a
+        href="https://www.facebook.com/share/17eAPPGMyS/"
+        class="card"
+        style="
+          width: 150px;
+          text-align: center;
+          text-decoration: none;
+          color: var(--text-main);
+        "
+      >
+        <h3 style="margin-bottom: 10px;">Facebook</h3>
+        <p style="color: var(--text-soft);">Connect on Facebook</p>
+      </a>
+
+      <a
+        href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB"
+        class="card"
+        style="
+          width: 150px;
+          text-align: center;
+          text-decoration: none;
+          color: var(--text-main);
+        "
+      >
+        <h3 style="margin-bottom: 10px;">Snapchat</h3>
+        <p style="color: var(--text-soft);">Add on Snapchat</p>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================
+      GALLERY SECTION
+=================================== -->
+
+<section id="gallery">
+  <div class="container">
+    <h2 class="section-title">Gallery</h2>
+
+    <div style="
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    ">
+
+      <!-- Placeholder image boxes -->
+      <div class="card" style="height: 180px;"></div>
+      <div class="card" style="height: 180px;"></div>
+      <div class="card" style="height: 180px;"></div>
+      <div class="card" style="height: 180px;"></div>
+      <div class="card" style="height: 180px;"></div>
+      <div class="card" style="height: 180px;"></div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================
+      CONTACT SECTION
+=================================== -->
+
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title">Contact Me</h2>
+
+    <div class="card" style="max-width: 650px; margin: auto;">
+
+      <form style="display: flex; flex-direction: column; gap: 18px;">
+
+        <div>
+          <label>Your Name</label>
+          <input type="text" required
+          style="
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-main);
+          ">
+        </div>
+
+        <div>
+          <label>Your Email</label>
+          <input type="email" required
+          style="
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-main);
+          ">
+        </div>
+
+        <div>
+          <label>Your Message</label>
+          <textarea required rows="4"
+          style="
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-main);
+          "></textarea>
+        </div>
+
+        <button type="submit" class="btn-main" 
+        style="width: 160px; align-self: flex-start;">
+          Send Message
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================
+      FOOTER SECTION
+=================================== -->
+
+<footer style="
+  background: var(--bg-secondary);
+  padding: 30px 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: 60px;
+">
+
+  <div class="container" style="
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  ">
+
+    <div style="flex: 1; min-width: 260px; margin-bottom: 20px;">
+      <h3 style="margin-bottom: 12px; color: var(--accent);">PARADOX</h3>
+      <p style="color: var(--text-soft);">
+        A modern portfolio created by Saqib Fayaz representing growth, knowledge,
+        learning, and dedication toward technology.
+      </p>
+    </div>
+
+    <div style="flex: 1; min-width: 260px; margin-bottom: 20px;">
+      <h3 style="margin-bottom: 12px; color: var(--accent);">Quick Links</h3>
+      <ul style="list-style: none; line-height: 1.9;">
+        <li><a href="#home" style="color: var(--text-soft); text-decoration: none;">Home</a></li>
+        <li><a href="#about" style="color: var(--text-soft); text-decoration: none;">About</a></li>
+        <li><a href="#skills" style="color: var(--text-soft); text-decoration: none;">Skills</a></li>
+        <li><a href="#projects" style="color: var(--text-soft); text-decoration: none;">Projects</a></li>
+        <li><a href="#gallery" style="color: var(--text-soft); text-decoration: none;">Gallery</a></li>
+        <li><a href="#contact" style="color: var(--text-soft); text-decoration: none;">Contact</a></li>
+      </ul>
+    </div>
+
+    <div style="flex: 1; min-width: 260px; margin-bottom: 20px;">
+      <h3 style="margin-bottom: 12px; color: var(--accent);">Stay Connected</h3>
+      <p style="color: var(--text-soft); margin-bottom: 8px;">Instagram</p>
+      <p style="color: var(--text-soft); margin-bottom: 8px;">Facebook</p>
+      <p style="color: var(--text-soft); margin-bottom: 8px;">Snapchat</p>
+    </div>
+
   </div>
 
-  <!-- About Section -->
-  <section class="about" id="about">
-    <h2>About Me</h2>
-    <p>I’m deeply passionate about Artificial Intelligence, embedded systems, and learning how machines can make life smarter. I love experimenting with Arduino, sensors, and AI tools to create intelligent prototypes and real-world applications.</p>
-    <div class="skills">
-      <span>Machine Learning</span>
-      <span>Arduino</span>
-      <span>Basics of Electricity</span>
-      <span>Robotics</span>
-      <span>AI Tools</span>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section class="projects" id="projects">
-    <h2>Projects / Work</h2>
-    <div class="card">
-      <h3>Arduino Uno – Beginner Projects</h3>
-      <p>LED blinking, sensor interfacing, servo control, and IoT data logging.</p>
-    </div>
-    <div class="card">
-      <h3>Basics of Electricity – Fundamental Concepts</h3>
-      <p>Understanding voltage, current, Ohm’s Law, and safe circuit design.</p>
-    </div>
-    <div class="card">
-      <h3>AI Assistant Prototype</h3>
-      <p>A simple chatbot interface built for future AI integration.</p>
-    </div>
-    <div class="card">
-      <h3>Documentation & Tutorials</h3>
-      <p>Step-by-step project notes and learning resources.</p>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section class="contact" id="contact">
-    <h2>Contact Me</h2>
-    <p><strong>Phone:</strong> +91 9622959387</p>
-    <p><strong>Email:</strong> imshahsaqib@gmail.com</p>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="4" placeholder="Your Message"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    © 2025 Saqib Fayaz — AI Visionary
-  </footer>
-
-  <!-- Chatbox -->
-  <div class="chat-icon" id="chatIcon">💬</div>
-  <div class="chatbox" id="chatBox">
-    <header>AI Assistant (Coming Soon)</header>
-    <textarea placeholder="Type a message..."></textarea>
-    <button>Send</button>
+  <div style="
+    text-align: center;
+    margin-top: 25px;
+    color: var(--text-soft);
+    font-size: 14px;
+  ">
+    © 2025 • PARADOX by Saqib Fayaz. All Rights Reserved.
   </div>
 
-  <script>
-    const themeToggle = document.getElementById("themeToggle");
-    const chatIcon = document.getElementById("chatIcon");
-    const chatBox = document.getElementById("chatBox");
+</footer>
 
-    themeToggle.addEventListener("click", () => {
-      const currentTheme = document.body.getAttribute("data-theme");
-      if (currentTheme === "light") {
-        document.body.removeAttribute("data-theme");
-        themeToggle.textContent = "🌙";
-      } else {
-        document.body.setAttribute("data-theme", "light");
-        themeToggle.textContent = "☀️";
-      }
-    });
 
-    chatIcon.addEventListener("click", () => {
-      chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
-    });
-  </script>
+<!-- ================================
+      ADDITIONAL CORE CSS EXTENSIONS
+=================================== -->
+
+<style>
+
+/* Form label style */
+label {
+  font-size: 15px;
+  color: var(--text-main);
+}
+
+body.light label {
+  color: var(--light-text-main);
+}
+
+/* Links inside footer hover effect */
+footer a:hover {
+  color: var(--accent);
+}
+
+body.light footer a:hover {
+  color: var(--light-accent);
+}
+
+/* Gallery placeholder background */
+#gallery .card {
+  background: var(--bg-secondary);
+}
+
+body.light #gallery .card {
+  background: var(--light-bg-secondary);
+}
+
+</style>
+
+<!-- END OF BLOCK 3 -->
+  <!-- ================================
+      JAVASCRIPT SECTION
+=================================== -->
+
+<script>
+
+/* ----------------------------------
+   THEME SWITCHER (Dark <-> Light)
+----------------------------------- */
+
+const themeToggle = document.getElementById("themeToggle");
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+
+  // Switch icon
+  if (document.body.classList.contains("light")) {
+    themeToggle.textContent = "☀️";   // Light mode icon
+  } else {
+    themeToggle.textContent = "🌙";   // Dark mode icon
+  }
+});
+
+/* ----------------------------------
+   CONTACT FORM HANDLER
+   (Does not submit anywhere)
+----------------------------------- */
+
+const contactForm = document.querySelector("#contact form");
+
+contactForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  alert("Your message has been received successfully!");
+
+  contactForm.reset();
+});
+
+</script>
+
+
+<!-- ================================
+      RESPONSIVE DESIGN (MEDIA QUERIES)
+=================================== -->
+
+<style>
+
+/* ----------------------------------
+   TABLET VIEW (max-width: 992px)
+----------------------------------- */
+
+@media (max-width: 992px) {
+
+  nav ul {
+    gap: 20px;
+  }
+
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .section-title {
+    font-size: 26px;
+  }
+
+  footer {
+    text-align: center;
+  }
+
+  footer .container {
+    flex-direction: column;
+  }
+}
+
+/* ----------------------------------
+   MOBILE VIEW (max-width: 768px)
+----------------------------------- */
+
+@media (max-width: 768px) {
+
+  header .nav-wrapper {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .hero {
+    padding: 60px 0;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  #gallery .card {
+    height: 160px !important;
+  }
+
+  #contact form button {
+    width: 100%;
+  }
+}
+
+/* ----------------------------------
+   SMALL MOBILE VIEW (max-width: 480px)
+----------------------------------- */
+
+@media (max-width: 480px) {
+
+  .logo {
+    font-size: 22px;
+  }
+
+  nav ul li a {
+    font-size: 14px;
+  }
+
+  .hero-title {
+    font-size: 26px;
+  }
+
+  .hero-tagline {
+    font-size: 15px;
+  }
+
+  .section-title {
+    font-size: 22px;
+  }
+
+  .skills-grid, 
+  #projects .container div,
+  #gallery .container div {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+</style>
+
+
+<!-- ================================
+      END OF WEBSITE STRUCTURE
+=================================== -->
+
 </body>
 </html>
+
+<!-- ================================
+      END OF BLOCK 4 — FULL SITE 
+      COMPLETED SUCCESSFULLY
+=================================== -->
+  
+  
+
+<!-- BLOCK 1 END — WAIT FOR BLOCK 2 -->
