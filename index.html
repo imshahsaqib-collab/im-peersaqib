@@ -1,1104 +1,436 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Saqib Fayaz — Advanced TRON + Aurora Portfolio (Expanded)</title>
-  <meta name="description" content="Saqib Fayaz — AI, IoT, Hardware. Expanded portfolio with TRON cyber-grid + aurora background, detailed projects, 10 books, IoT and hardware guides." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PARADOX – Saqib Fayaz Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ===========================================================
-       PART 1 CSS — Theme variables, background, layout, base styles
-       This CSS is intentionally verbose and annotated to create
-       a large single-file document and to be easy to edit later.
-       =========================================================== */
+    :root {
+      --green: #00ff75;
+      --bg-light: linear-gradient(135deg, #ffffff, #a8ffcf);
+      --text-light: #111;
+      --card-light: rgba(255, 255, 255, 0.9);
 
-    :root{
-      --bg-900: #020207;
-      --panel: rgba(6,10,18,0.66);
-      --glass: rgba(255,255,255,0.02);
-      --muted: rgba(255,255,255,0.78);
-      --text: #e6f7ff;
-      --accent-1: #00e5ff; /* electric cyan */
-      --accent-2: #00b3ff;
-      --accent-3: #0077ff;
-      --aurora-1: rgba(123,90,255,0.12);
-      --aurora-2: rgba(0,229,255,0.09);
-      --aurora-3: rgba(235,90,255,0.06);
-      --radius: 14px;
-      --container: 1200px;
-      --shadow-1: 0 18px 50px rgba(0,0,0,0.65);
-      --glass-border: 1px solid rgba(255,255,255,0.03);
+      /* Dark mode variables */
+      --bg-dark: #0a0a0a;
+      --card-dark: rgba(20, 20, 20, 0.9);
+      --text-dark: #e8ffe8;
     }
 
-    /* Light theme variables (optional toggle) */
-    [data-theme="light"]{
-      --bg-900: #f7fbff;
-      --panel: rgba(255,255,255,0.94);
-      --glass: rgba(0,0,0,0.06);
-      --muted: #071026;
-      --text: #071026;
-      --accent-1: #0066ff;
-      --accent-2: #0044cc;
-      --accent-3: #002299;
+    body {
+      background: var(--bg-light);
+      color: var(--text-light);
+      margin: 0;
+      font-family: Poppins;
+      transition: 0.3s ease-in-out;
     }
 
-    /* ------------------------
-       RESET
-       ------------------------ */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      font-family:"Inter","Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
-      background:var(--bg-900);
-      color:var(--muted);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow-x:hidden;
-      line-height:1.45;
-      font-size:16px;
-      padding-bottom:120px; /* room for chat & footer */
-    }
-    a{color:inherit;text-decoration:none}
-    img{display:block;max-width:100%}
-    button{font-family:inherit}
-
-    /* ===========================================================
-       BACKGROUND LAYERS (TRON GRID + AURORA + PARTICLES + SCANLINES)
-       These decorative layers are placed behind content and are
-       pointer-events:none so they won't interfere with interaction.
-       =========================================================== */
-
-    .bg-outer{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; background:var(--bg-900); }
-
-    /* Tron grid: repeating gradients for horizontal & vertical lines */
-    .tron-grid {
-      position:absolute; inset:-12% -12% -12% -12%; height:124%;
-      background-image:
-        repeating-linear-gradient(0deg, rgba(0,179,255,0.06) 0px, rgba(0,179,255,0.06) 1px, transparent 1px, transparent 48px),
-        repeating-linear-gradient(90deg, rgba(0,179,255,0.04) 0px, rgba(0,179,255,0.04) 1px, transparent 1px, transparent 48px);
-      filter: blur(12px) saturate(120%);
-      mix-blend-mode:screen;
-      opacity:0.9;
-      animation: tronGridMove 20s linear infinite;
-    }
-    @keyframes tronGridMove {
-      0% { transform: translateX(-6%) translateY(0) scale(1.02); }
-      50% { transform: translateX(6%) translateY(-2%) scale(1.02); }
-      100% { transform: translateX(-6%) translateY(0) scale(1.02); }
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
     }
 
-    /* Aurora ribbons (soft radial gradients) */
-    .aurora {
-      position:absolute; inset:0; z-index:1; pointer-events:none; mix-blend-mode:screen;
-    }
-    .aurora .ribbon {
-      position:absolute; width:140%; height:140%; top:-20%; left:-20%;
-      background: radial-gradient(ellipse at center, var(--aurora-1), transparent 20%);
-      filter: blur(30px);
-      opacity:0.9;
-      animation: auroraShift 34s ease-in-out infinite;
-    }
-    .aurora .ribbon.r2 { background: radial-gradient(ellipse at 30% 70%, var(--aurora-2), transparent 18%); animation-duration:44s; opacity:0.85; }
-    .aurora .ribbon.r3 { background: radial-gradient(ellipse at 70% 30%, var(--aurora-3), transparent 20%); animation-duration:52s; opacity:0.78; }
-    @keyframes auroraShift {
-      0% { transform: translate3d(-6%,-2%,0) rotate(0deg); }
-      50% { transform: translate3d(6%,3%,0) rotate(1deg); }
-      100% { transform: translate3d(-6%,-2%,0) rotate(0deg); }
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: #fff;
+      transition: 0.3s;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 255, 117, 0.25);
     }
 
-    /* Particles / noise overlay */
-    .particles {
-      position:absolute; inset:0; z-index:2; pointer-events:none; opacity:0.16;
-    }
-    .particles::after {
-      content:""; position:absolute; inset:0;
-      background-image:
-        radial-gradient(circle at 10% 12%, rgba(255,255,255,0.04) 0 1px, transparent 2px),
-        radial-gradient(circle at 60% 52%, rgba(255,255,255,0.03) 0 1px, transparent 3px),
-        radial-gradient(circle at 40% 80%, rgba(255,255,255,0.02) 0 1px, transparent 4px);
-      background-size:100% 100%; mix-blend-mode:overlay; filter:blur(0.8px);
+    body.dark header {
+      background: #111;
+      box-shadow: 0 2px 20px rgba(0, 255, 117, 0.5);
     }
 
-    /* subtle scanlines for retro TRON look */
-    .scanlines { position:absolute; inset:0; z-index:3; pointer-events:none; opacity:0.06; background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.02)); mix-blend-mode:overlay; }
-
-    /* ===========================================================
-       LAYOUT: Container and header
-       =========================================================== */
-    .container { position:relative; z-index:6; max-width:var(--container); margin:0 auto; padding:26px 20px; }
-
-    header.site-header {
-      display:flex; align-items:center; justify-content:space-between; gap:14px; padding:10px;
-      border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
-      border:1px solid rgba(0,179,255,0.06); backdrop-filter: blur(8px); box-shadow: var(--shadow-1); position:sticky; top:12px; z-index:40;
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--green);
+      text-shadow: 0 0 12px var(--green);
     }
-    .brand { display:flex; gap:12px; align-items:center; }
-    .logo { width:56px; height:56px; border-radius:12px; display:grid; place-items:center; font-weight:800; color:#00131a; background: linear-gradient(135deg,var(--accent-1),var(--accent-2)); box-shadow:0 8px 36px rgba(0,179,255,0.06); }
 
-    .brand h1 { color:var(--text); font-size:1.05rem; margin:0; }
-    .brand small { display:block; color:var(--muted); font-size:0.85rem; margin-top:2px; }
+    nav a {
+      margin: 0 15px;
+      color: inherit;
+      font-weight: 500;
+      text-decoration: none;
+      transition: 0.3s;
+    }
 
-    nav.primary { display:flex; gap:10px; align-items:center; }
-    nav.primary a { color:var(--muted); padding:8px 12px; border-radius:10px; font-weight:700; transition:all .16s; }
-    nav.primary a:hover { color:var(--text); background:rgba(0,179,255,0.03); transform:translateY(-3px); }
+    nav a:hover {
+      color: var(--green);
+      text-shadow: 0 0 10px var(--green);
+    }
 
-    .btn-primary { padding:10px 16px; border-radius:999px; background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); border:none; color:#02131a; font-weight:800; cursor:pointer; box-shadow: 0 10px 40px rgba(0,179,255,0.06); }
+    /* DARK MODE ICON */
+    .toggle-dark {
+      font-size: 26px;
+      cursor: pointer;
+      margin-left: 20px;
+      color: var(--green);
+      text-shadow: 0 0 15px var(--green);
+      transition: 0.3s;
+    }
 
-    .hamburger { display:none; padding:10px; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.02); color:var(--muted); cursor:pointer; }
-    @media(max-width:980px){ nav.primary{ display:none; } .hamburger{ display:block; } }
+    .toggle-dark:hover {
+      transform: scale(1.1);
+    }
 
-    /* ===========================================================
-       HERO styles
-       =========================================================== */
-    .hero { display:flex; gap:24px; align-items:flex-start; margin-top:20px; flex-wrap:wrap; }
-    .hero-left { flex:1; min-width:260px; }
-    .eyebrow { display:inline-block; padding:8px 14px; border-radius:999px; background:rgba(0,179,255,0.03); border:1px solid rgba(0,179,255,0.04); color:var(--muted); font-weight:700; }
+    /* HERO */
+    .hero {
+      padding: 100px 20px;
+      text-align: center;
+    }
 
-    .hero h2 { color:var(--text); font-size:clamp(28px,6vw,48px); margin-top:12px; line-height:1.02; }
-    .lead { color:var(--muted); font-size:1.05rem; max-width:76%; }
+    .hero img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid var(--green);
+      box-shadow: 0 0 25px var(--green);
+    }
 
-    .hero-actions{ display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; }
+    .btn {
+      background: var(--green);
+      padding: 12px 28px;
+      border-radius: 25px;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+      box-shadow: 0 0 15px var(--green);
+      transition: 0.3s;
+    }
 
-    .hero-right { width:360px; max-width:100%; }
-    .hero-card { background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:18px; border:1px solid rgba(0,179,255,0.03); backdrop-filter: blur(8px); }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px var(--green);
+    }
 
-    .social-row { margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; }
-    .social-btn { width:48px; height:48px; border-radius:12px; display:grid; place-items:center; border:1px solid rgba(0,179,255,0.06); background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.08)); }
-    .social-btn:hover { box-shadow:0 10px 30px rgba(0,179,255,0.06); transform:translateY(-4px); }
+    /* CARDS */
+    .card {
+      max-width: 800px;
+      margin: auto;
+      background: var(--card-light);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 117, 0.35);
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+    }
 
-    /* ===========================================================
-       SECTION and CARD styles
-       =========================================================== */
-    section { padding:44px 0; }
-    .section-title { color:var(--accent-1); font-weight:800; margin-bottom:12px; font-size:1.05rem; }
+    body.dark .card {
+      background: var(--card-dark);
+      color: var(--text-dark);
+      box-shadow: 0 0 25px rgba(0, 255, 117, 0.55);
+    }
 
-    .card { background: rgba(255,255,255,0.02); border-radius:12px; padding:18px; border:1px solid rgba(0,179,255,0.03); backdrop-filter: blur(8px); }
+    /* SKILL GRID */
+    .skills-grid {
+      max-width: 1000px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
 
-    /* Projects grid */
-    .projects-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:18px; }
-    @media(max-width:1100px){ .projects-grid { grid-template-columns: repeat(2,1fr); } }
-    @media(max-width:700px){ .projects-grid { grid-template-columns: 1fr; } }
+    .skill-card {
+      padding: 20px;
+      border-radius: 12px;
+      background: var(--card-light);
+      box-shadow: 0 0 15px rgba(0, 255, 117, 0.3);
+      transition: 0.3s;
+    }
+
+    body.dark .skill-card {
+      background: var(--card-dark);
+      color: var(--text-dark);
+      box-shadow: 0 0 20px rgba(0, 255, 117, 0.6);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px var(--green);
+    }
+
+    /* PROJECT CARDS */
+    .projects {
+      max-width: 1000px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
 
     .project-card {
-      padding:18px; border-radius:12px; border:1px solid rgba(0,179,255,0.03);
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
-      cursor:pointer; transition: transform .18s, box-shadow .18s;
+      padding: 20px;
+      background: var(--card-light);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 117, 0.35);
+      transition: 0.3s;
     }
-    .project-card:hover { transform: translateY(-8px); box-shadow: 0 26px 50px rgba(0,0,0,0.6); }
 
-    .project-card h4 { color:var(--text); font-weight:800; }
-    .project-card p { color:var(--muted); margin-top:8px; }
+    body.dark .project-card {
+      background: var(--card-dark);
+      color: var(--text-dark);
+      box-shadow: 0 0 25px rgba(0, 255, 117, 0.55);
+    }
 
-    /* Books grid shares project styles */
-    .books-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:18px; }
-    @media(max-width:1100px){ .books-grid { grid-template-columns:repeat(2,1fr); } }
-    @media(max-width:700px){ .books-grid { grid-template-columns:1fr; } }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 30px var(--green);
+    }
 
-    /* Timeline */
-    .timeline { border-left:2px dashed rgba(255,255,255,0.06); padding-left:22px; }
-    .timeline-item { position:relative; padding-left:12px; margin-bottom:18px; }
-    .timeline-item::before { content:""; position:absolute; left:-14px; top:6px; width:12px; height:12px; background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); border-radius:50%; box-shadow:0 6px 18px rgba(0,179,255,0.12); }
+    /* PARADOX LOGO */
+    .paradox-logo {
+      font-size: 60px;
+      font-weight: 800;
+      color: var(--green);
+      text-shadow: 0 0 20px var(--green);
+      animation: pulse 2s infinite alternate;
+    }
 
-    /* Testimonials */
-    .testimonial { max-width:880px; padding:22px; border-radius:12px; box-shadow:var(--shadow-1); background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02)); border:1px solid rgba(0,179,255,0.03); }
+    @keyframes pulse {
+      from { text-shadow: 0 0 15px var(--green); }
+      to { text-shadow: 0 0 35px var(--green); }
+    }
 
-    /* Contact grid */
-    .contact-grid { display:grid; grid-template-columns: 1fr 340px; gap:18px; }
-    @media(max-width:980px){ .contact-grid { grid-template-columns:1fr; } }
-
-    .contact-card input, .contact-card textarea { width:100%; padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:var(--muted); }
-
-    /* Profile glow */
-    .profile-glow { width:260px; height:260px; margin:0 auto; border-radius:50%; padding:10px; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle, rgba(0,229,255,0.55), rgba(123,90,255,0.2)); box-shadow:0 0 48px rgba(0,179,255,0.25); animation: profilePulse 3s infinite ease-in-out; }
-    .profile-glow img { width:100%; height:100%; object-fit:cover; border-radius:50%; border:4px solid rgba(255,255,255,0.10); }
-    @keyframes profilePulse { 0%{ transform: scale(0.995); filter: saturate(0.95); } 50%{ transform: scale(1.01); filter:saturate(1.12); } 100%{ transform: scale(0.995); filter:saturate(0.95); } }
-
-    /* Chat fixed */
-    .chat-fixed { position: fixed; right: 18px; bottom: 18px; z-index:60; display:flex; flex-direction:column; gap:12px; }
-    .chat-btn { width:64px; height:64px; border-radius:50%; background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); display:grid; place-items:center; border:none; cursor:pointer; color:#00131a; font-size:22px; box-shadow:0 12px 40px rgba(0,179,255,0.06); }
-
-    /* Footer */
-    footer { margin-top:48px; padding:28px 0; text-align:center; color:rgba(255,255,255,0.45); }
-
-    /* small helpers */
-    .muted { color:var(--muted); }
-    .center { text-align:center; }
-    .grid-2 { display:grid; grid-template-columns: repeat(2,1fr); gap:12px; }
-    @media(max-width:700px){ .grid-2 { grid-template-columns:1fr; } }
-
-    /* accessibility */
-    :focus { outline: 3px solid rgba(0,179,255,0.12); outline-offset:3px; }
-
-    /* ===================================================================================
-       Floating Social Bar CSS (left, non-overlapping) - integrated here in Part 1
-       Additions: uses --container to position outside center column on large screens
-       =================================================================================== */
-
-    .floating-social {
-      position: fixed;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 1200;
+    /* SOCIALS */
+    .socials {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
-      pointer-events: auto;
+      justify-content: center;
+      gap: 20px;
     }
-    @media (min-width: 1200px) {
-      .floating-social { left: calc((100% - var(--container)) / 2 - 68px); }
+
+    .socials a {
+      width: 50px;
+      height: 50px;
+      background: var(--green);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      color: white;
+      font-size: 24px;
+      box-shadow: 0 0 20px var(--green);
+      transition: 0.3s;
     }
-    .floating-social .social-item {
+
+    .socials a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px var(--green);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 20px;
+      text-align: center;
+      background: linear-gradient(to top, #a8ffcf, #fff);
+      transition: 0.3s;
       position: relative;
-      width: 52px;
-      height: 52px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.12));
-      border: 1px solid rgba(0,179,255,0.06);
-      box-shadow: 0 10px 30px rgba(0,179,255,0.04);
-      transition: transform .18s, box-shadow .18s, background .18s, opacity .18s;
+    }
+
+    body.dark footer {
+      background: #050505;
+    }
+
+    .scroll-top {
+      position: absolute;
+      right: 30px;
+      top: -25px;
+      width: 40px;
+      height: 40px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
+      box-shadow: 0 0 20px var(--green);
     }
-    .floating-social .social-item svg { width:20px; height:20px; color:var(--text); }
-    .floating-social .social-item:hover { transform: translateX(6px) scale(1.04); box-shadow:0 20px 60px rgba(0,179,255,0.12); background: linear-gradient(90deg,var(--accent-1),var(--accent-2)); }
-    .floating-social .social-item .label {
-      position:absolute; left:70px; white-space:nowrap; background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
-      color:#00131a; padding:6px 10px; border-radius:999px; font-weight:700; font-size:0.95rem; transform-origin:left center;
-      transform: translateX(-6px) scale(0); opacity:0; transition: transform .18s, opacity .18s; box-shadow:0 10px 30px rgba(0,179,255,0.06); pointer-events:none;
-    }
-    @media(min-width:881px){
-      .floating-social .social-item:hover .label { transform: translateX(0) scale(1); opacity:1; }
-    }
-    .floating-social .social-item.toggle { width:42px; height:42px; border-radius:10px; display:grid; place-items:center; background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.02); cursor:pointer; }
-    @media(max-width:880px){ .floating-social { left:12px; transform: translateY(-50%) scale(0.96); } .floating-social .social-item .label { display:none; } }
-    @media(max-width:700px){ .floating-social { left:8px; gap:8px; } .floating-social .social-item { width:46px; height:46px; border-radius:10px; } }
-    .floating-social.collapsed .social-item { opacity:0; transform: translateX(-8px); pointer-events:none; }
-    .floating-social.collapsed .toggle { opacity:1; pointer-events:auto; transform:none; }
-
-    /* =================================================================================== */
-    /* End of Part 1 CSS - the rest of HTML begins below in Part 1 content area        */
-    /* =================================================================================== */
-
   </style>
 </head>
 <body>
 
-  <!-- BACKGROUND LAYERS -->
-  <div class="bg-outer" aria-hidden="true">
-    <div class="tron-grid" aria-hidden="true"></div>
-    <div class="aurora" aria-hidden="true">
-      <div class="ribbon"></div>
-      <div class="ribbon r2"></div>
-      <div class="ribbon r3"></div>
-    </div>
-    <div class="particles" aria-hidden="true"></div>
-    <div class="scanlines" aria-hidden="true"></div>
-  </div>
-
-  <!-- SITE CONTAINER -->
-  <div class="container" role="document">
-
-    <!-- Floating Social Bar (left) - integrated here so it won't overlap -->
-    <div class="floating-social" id="floatingSocial" aria-label="Social links">
-      <a class="social-item" href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="3"/><circle cx="17.5" cy="6.5" r="0.7" fill="currentColor"/></svg>
-        <span class="label">Instagram</span>
-      </a>
-      <a class="social-item" href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank" rel="noopener" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg"><path d="M18 2h-3a4 4 0 0 0-4 4v3H8v4h3v8h4v-8h3l1-4h-4V6a1 1 0 0 1 1-1h3z"/></svg>
-        <span class="label">Facebook</span>
-      </a>
-      <a class="social-item" href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank" rel="noopener" aria-label="Snapchat">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg"><path d="M12 2s4 0 5 2 3 1 3 6-2 8-3 9-2 3-5 3-3-2-5-4-4-4-4-8 2-6 3-6 5-2 5-2z"/></svg>
-        <span class="label">Snapchat</span>
-      </a>
-      <a class="social-item" href="https://github.com/im-peersaqib" target="_blank" rel="noopener" aria-label="GitHub">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.73.5.87 5.36.87 11.63c0 4.79 3.09 8.86 7.38 10.3.54.1.73-.24.73-.53 0-.26-.01-1-.01-1.93-3.01.65-3.64-1.45-3.64-1.45-.49-1.24-1.2-1.57-1.2-1.57-.98-.67.07-.66.07-.66 1.08.08 1.65 1.12 1.65 1.12.96 1.64 2.51 1.17 3.12.89.1-.69.38-1.17.69-1.44-2.4-.27-4.93-1.2-4.93-5.35 0-1.18.42-2.15 1.11-2.91-.11-.27-.48-1.36.11-2.83 0 0 .91-.29 2.98 1.11a10.3 10.3 0 0 1 2.71-.37c.92.00 1.85.13 2.71.37 2.07-1.4 2.98-1.11 2.98-1.11.59 1.47.22 2.56.11 2.83.69.76 1.11 1.73 1.11 2.91 0 4.16-2.54 5.08-4.96 5.34.39.34.73 1.02.73 2.06 0 1.49-.01 2.69-.01 3.05 0 .29.19.64.74.53 4.29-1.44 7.38-5.51 7.38-10.3C23.13 5.36 18.27.5 12 .5z"/></svg>
-        <span class="label">GitHub</span>
-      </a>
-      <div class="social-item toggle" id="socialToggle" role="button" aria-pressed="false" title="Toggle socials">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 5v14M5 12h14"/></svg>
-      </div>
-    </div>
-
-    <!-- SITE HEADER -->
-    <header class="site-header" role="banner">
-      <div class="brand" role="img" aria-label="Saqib Fayaz">
-        <div class="logo">SF</div>
-        <div>
-          <h1>Saqib Fayaz</h1>
-          <small class="muted">AI Enthusiast · Maker · Learner</small>
-        </div>
-      </div>
-
-      <nav class="primary" role="navigation" aria-label="Primary navigation">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#books">Books</a>
-        <a href="#iot">IoT</a>
-        <a href="#timeline">Timeline</a>
-        <a href="#contact">Contact</a>
-        <button class="btn-primary" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">See My Work</button>
-      </nav>
-
-      <button class="hamburger" id="hambtn" aria-expanded="false" aria-controls="mobileNav">☰</button>
-    </header>
-
-    <!-- MOBILE NAV -->
-    <div id="mobileNav" class="hidden" aria-hidden="true" style="margin-top:10px;">
-      <nav style="display:flex;flex-direction:column;gap:8px;">
-        <a class="card" href="#about" style="padding:10px">About</a>
-        <a class="card" href="#projects" style="padding:10px">Projects</a>
-        <a class="card" href="#books" style="padding:10px">Books</a>
-        <a class="card" href="#iot" style="padding:10px">IoT</a>
-        <a class="card" href="#timeline" style="padding:10px">Timeline</a>
-        <a class="card" href="#contact" style="padding:10px">Contact</a>
-      </nav>
-    </div>
-
-    <!-- HERO -->
-    <main class="hero" role="main" aria-labelledby="heroTitle">
-      <div class="hero-left">
-        <div class="eyebrow">TRON + Aurora — Expanded</div>
-        <h2 id="heroTitle">AI That Drives Tomorrow's Machines</h2>
-        <p class="lead">I build AI prototypes, IoT systems, and hardware projects with reproducible documentation and practical demos. Explore sensor-driven automation, TinyML on microcontrollers, and full-stack IoT telemetry systems.</p>
-
-        <div class="hero-actions">
-          <button class="btn-primary" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">See My Work</button>
-          <a class="btn-outline" href="#contact" style="padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:700">Contact Me</a>
-        </div>
-
-        <div class="social-row" aria-hidden="false">
-          <a class="social-btn" title="Instagram" href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="3"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg></a>
-          <a class="social-btn" title="Facebook" href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M18 2h-3a4 4 0 0 0-4 4v3H8v4h3v8h4v-8h3l1-4h-4V6a1 1 0 0 1 1-1h3z"/></svg></a>
-          <a class="social-btn" title="Snapchat" href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M12 2s4 0 5 2 3 1 3 6-2 8-3 9-2 3-5 3-3-2-5-4-4-4-4-8 2-6 3-6 5-2 5-2z"/></svg></a>
-        </div>
-
-      </div>
-
-      <aside class="hero-right hero-card" aria-labelledby="quickfacts">
-        <div id="quickfacts" style="font-weight:800;color:var(--text)">Quick Facts</div>
-        <div style="margin-top:12px;color:var(--muted)"><strong>Phone:</strong> +91 9622959387</div>
-        <div style="margin-top:8px;color:var(--muted)"><strong>Email:</strong> imshahsaqib@gmail.com</div>
-        <div style="margin-top:8px;color:var(--muted)"><strong>Location:</strong> Kashmir</div>
-
-        <div style="margin-top:14px">
-          <div style="font-weight:800;color:var(--text)">Highlights</div>
-          <small style="color:var(--muted)">Arduino • ML Prototypes • IoT • Docs • TinyML</small>
-        </div>
-      </aside>
-
-    </main>
-
-    <!-- ABOUT -->
-    <section id="about" class="section" aria-labelledby="aboutTitle">
-      <h3 id="aboutTitle" class="section-title">About</h3>
-      <div class="card about-card">
-        <p>I am a practical maker and AI enthusiast. I build small-to-medium embedded systems, deploy TinyML models onto microcontrollers, and write step-by-step documentation so others can learn. My teaching approach focuses on reproducible hardware setups, safe power handling, and incremental software design.</p>
-        <p class="muted" style="margin-top:8px">Skills: Machine Learning · Arduino · TinyML · IoT · Electronics · Documentation · Python · C/C++</p>
-      </div>
-    </section>
-     <!-- ===========================================================
-     PART 2 — DETAILED PROJECTS (LONG) + BOOKS (10 with summaries)
-     Paste this directly after PART 1 in index.html
-     =========================================================== -->
-
-<!-- ===========================
-     PROJECTS — LONG DETAILED ENTRIES
-     Each project contains an overview plus multiple detailed
-     paragraphs explaining goals, hardware, software, steps,
-     troubleshooting, and learning outcomes.
-     Clicking any project will open a modal with the data-content.
-     =========================== -->
-<section id="projects" class="section" aria-labelledby="projectsTitle">
-  <h3 id="projectsTitle" class="section-title">Projects — In-depth</h3>
-
-  <div class="projects-grid">
-
-    <!-- Project A: Arduino Uno — Beginner Projects (Long) -->
-    <article class="project-card" role="article" tabindex="0"
-      data-title="Arduino Uno — Beginner Projects"
-      data-content="Arduino Uno — Beginner Projects
-
-Overview:
-This project series introduces the Arduino Uno microcontroller as the primary learning board for embedded systems. It begins with basic experiments — LED blinking, reading inputs from push buttons, and progresses to sensor reading and servo motor control. Each subproject is carefully documented and includes wiring diagrams, example code, and troubleshooting tips.
-
-Hardware:
-Core hardware includes the Arduino Uno R3 board, breadboard, jumper wires, a set of LEDs, resistors (220Ω, 1kΩ), pushbuttons, a small servo motor (SG90), ultrasonic HC-SR04 sensor, and a DHT22 temperature/humidity sensor. Optional modules include an ESP8266 or ESP32 for IoT features and an SD card module for local logging.
-
-Software:
-All sketches are written in the Arduino IDE (or VSCode + PlatformIO). Code covers digitalWrite/digitalRead basics, analogRead, PWM for servo and LED dimming, serial communication for debugging, and libraries for sensors (DHT, NewPing, Servo). Comments and modular functions are used to keep code readable.
-
-Step-by-step:
-1) LED Blink — Understand pin modes and delays.
-2) Pushbutton Debounce — Learn stable input reading.
-3) Ultrasonic Ranging — Calculate distance and handle out-of-range values.
-4) DHT22 Sensor — Read temperature/humidity and format outputs.
-5) Servo Control — Map ranges for smooth motion.
-6) IoT Logging — Send sensor data to a simple HTTP endpoint or MQTT broker (ESP bridge).
-Each step includes expected outputs, test cases, and what to do when values look wrong.
-
-Troubleshooting & Safety:
-Always use current-limiting resistors for LEDs. Ensure correct servo power (avoid powering high-current servos from the Arduino 5V pin without proper supply). Ground common issues: missing ground reference, wrong wiring on breadboard rails, loose jumper wires. Use the serial monitor for debugging variable values.
-
-Learning Outcomes:
-After completing this series, you will be able to prototype simple sensor-actuator systems, debug embedded code, and prepare small IoT-capable devices. The projects emphasize reproducibility: every step has a photo, wiring diagram, and sample log files."
-    >
-      <h4>Arduino Uno — Beginner Projects</h4>
-      <p class="muted">LED blink · Ultrasonic sensor · Servo control · IoT logging</p>
-    </article>
-
-    <!-- Project B: Basics of Electricity — Long -->
-    <article class="project-card" role="article" tabindex="0"
-      data-title="Basics of Electricity — Fundamental Concepts"
-      data-content="Basics of Electricity — Fundamental Concepts
-
-Overview:
-This module covers the electrical fundamentals every maker must know: voltage, current, resistance, power, and how they relate via Ohm’s Law. It emphasizes hands-on experiments to internalize theory: measuring voltage with a multimeter, building series and parallel circuits on a breadboard, and calculating power dissipation.
-
-Concepts & Experiments:
-• Ohm’s Law experiments: measuring V, I, and R and verifying the relationship V = I * R.  
-• Series and Parallel: Build resistor networks and measure how total resistance changes; observe how LED brightness differs.  
-• Breadboard wiring: Understand bus rails, row/column connectivity, and best practices to avoid shorts.  
-• Capacitors & Decoupling: Why capacitors stabilize supply rails and how to place decoupling capacitors near MCUs.
-
-Safety:
-Low-voltage DC experiments (3.3V–12V) are safe but always check polarity. For higher voltages, use isolation and never experiment without supervision. Use a current-limited bench supply when testing unknown loads.
-
-Tools:
-Essential tools: digital multimeter, bench power supply (or regulated USB power), small screwdriver kit, wire strippers, and a breadboard-friendly resistor kit. For advanced testing: oscilloscope to observe waveforms.
-
-Learning Outcomes:
-You will gain confidence reading circuit diagrams, building safe breadboard circuits, selecting resistor values, and performing basic circuit analysis. This knowledge underpins reliable hardware prototyping and prevents many common mistakes."
-    >
-      <h4>Basics of Electricity — Fundamental Concepts</h4>
-      <p class="muted">Voltage · Current · Resistance · Ohm’s Law · Breadboard wiring</p>
-    </article>
-
-    <!-- Project C: AI Assistant Prototype — Long -->
-    <article class="project-card" role="article" tabindex="0"
-      data-title="AI Assistant Prototype"
-      data-content="AI Assistant Prototype — Design & Build
-
-Overview:
-This project demonstrates a lightweight AI assistant UI with client-side logic and a placeholder architecture for future AI integration. The front-end UI emulates a chat experience, supports message history, typing simulation, and basic intent matching on-device. The design prepares the app for backend integration such as OpenAI APIs or local LLM gateways.
-
-Architecture:
-• Frontend: HTML/CSS/JS chat UI with message stacking, timestamps, and user/session state.  
-• Backend (optional): a small node/express service that proxies requests to an LLM, or a serverless function (Netlify, Vercel) that sends queries to OpenAI-like APIs securely.  
-• Local Logic: Implement simple rule-based responses for FAQs, command parsing for device control, and fallbacks to cloud services.
-
-UX Features:
-• Typing indicators for realism.  
-• Message caching in localStorage for session persistence.  
-• Quick-reply buttons for common actions (Open project, Contact, Docs).  
-• Accessibility: ARIA roles for chat elements and keyboard navigation.
-
-Privacy & Security:
-When integrating with remote LLMs, do not embed API keys into client-side code. Use a server-side proxy and implement rate-limits and input sanitation. Consider on-device privacy options like local LLMs or edge inference for sensitive projects.
-
-Learning outcomes:
-Learn best practices for chat UI, session state management, secure integration patterns, and how to prepare front-end prototypes for later back-end AI integration."
-    >
-      <h4>AI Assistant Prototype</h4>
-      <p class="muted">Chat UI · Simulated replies · Backend-ready</p>
-    </article>
-
-    <!-- Project D: Documentation & Tutorials — Long -->
-    <article class="project-card" role="article" tabindex="0"
-      data-title="Documentation & Tutorials"
-      data-content="Documentation & Tutorials — Structure & Quality
-
-Overview:
-This meta-project focuses on creating high-quality documentation for hardware and software projects. Good documentation increases reproducibility and makes projects useful for learners. The module covers how to structure README files, write step-by-step tutorials, and include troubleshooting sections and photos.
-
-Key Sections:
-• Overview: Short project description and goals.  
-• Parts List: Exact component names and links.  
-• Wiring diagrams & photos: Annotated images and breadboard photos.  
-• Code snippets: Ready-to-copy code with comments and expected outputs.  
-• Troubleshooting: Common mistakes and how to fix them.
-
-Tools & Formats:
-Use Markdown for README, host images in a /images folder, and use GitHub Pages or a simple docs site generator for hosting. For more formal tutorials, consider PDF export and embedding diagrams with SVG files.
-
-Learning outcomes:
-After this module, you'll be able to write documentation that lowers the barrier to entry for beginners and ensures projects can be replicated without direct support."
-    >
-      <h4>Documentation & Tutorials</h4>
-      <p class="muted">Guides · Wiring diagrams · Troubleshooting</p>
-    </article>
-
-    <!-- Project E: Expanded: IoT Data Logger (Long) -->
-    <article class="project-card" role="article" tabindex="0"
-      data-title="IoT Data Logger — ESP + MQTT"
-      data-content="IoT Data Logger — ESP + MQTT
-
-Overview:
-Build a robust IoT data logger using an ESP32/ESP8266 to collect sensor data and publish it to an MQTT broker. The project includes local buffering when offline, secure connections via TLS, and downstream visualization with InfluxDB + Grafana or cloud dashboards.
-
-Hardware & Software:
-• Hardware: ESP32 dev board, DHT22, light sensor, optional SD card module for local fallback.  
-• Software: Arduino/PlatformIO code for sensor polling, Wi-Fi connection handling, MQTT client (PubSubClient or AsyncMqttClient), and JSON payload formatting.
-
-Features:
-• Reliable connectivity: exponential backoff and reconnect strategies.  
-• Local storage: buffer data on SPIFFS or SD when the broker is unreachable.  
-• Secure transport: use MQTT over TLS; for hobby projects consider Mosquitto + TLS certs or cloud MQTT providers.
-
-Visualization:
-• InfluxDB + Telegraf or direct MQTT bridge to a time-series database.  
-• Grafana dashboards showing real-time charts, alerts, and computed fields.
-
-Learning outcomes:
-Understand real-world constraints of IoT devices: intermittent connectivity, power management, secure credentials storage, and reliable telemetry handling for later analysis."
-    >
-      <h4>IoT Data Logger — ESP + MQTT</h4>
-      <p class="muted">ESP32 · MQTT · Offline buffering · Grafana</p>
-    </article>
-
-    <!-- Project F: TinyML Demo (Long) -->
-    <article class="project-card" role="article" tabindex="0"
-      data-title="TinyML Demo — On-device Inference"
-      data-content="TinyML Demo — On-device Inference
-
-Overview:
-This project walks through converting a small neural network to TensorFlow Lite for Microcontrollers and deploying it to an embedded MCU (eg. STM32 or ESP32-S3). Use cases include keyword spotting, anomaly detection on accelerometer data, or simple image classification on low-resolution cameras.
-
-Workflow:
-1) Data collection and normalization.  
-2) Train a compact model (quantization-aware training recommended).  
-3) Convert to TFLite, apply post-training quantization.  
-4) Integrate TFLite Micro into an Arduino/PlatformIO project and test inference timing.
-
-Hardware considerations:
-MCU RAM is the primary constraint. Optimize by reducing model size, using int8 quantization, and limiting intermediate tensor allocations. Use accelerometer or microphone data when low-power sensors are available.
-
-Debugging:
-Use serial prints to verify input preprocessing and expected ranges. Benchmark inference time and energy usage to decide whether the MCU is suitable.
-
-Learning outcomes:
-Gain experience with ML lifecycle for embedded devices and learn to trade off accuracy vs. resource use when designing on-device ML."
-    >
-      <h4>TinyML Demo — On-device Inference</h4>
-      <p class="muted">TFLite Micro · Quantization · Edge inference</p>
-    </article>
-
-    <!-- Project G: Robotics Experiments (Long) -->
-    <article class="project-card" role="article" tabindex="0"
-      data-title="Robotics Experiments — Basic Autonomy"
-      data-content="Robotics Experiments — Basic Autonomy
-
-Overview:
-Explore robotics fundamentals: differential drive, line following, obstacle avoidance, and sensor fusion. The project emphasizes modular robot designs that can be extended with additional sensors or computation modules.
-
-Key components:
-• Motors + motor driver (L298N, TB6612)  
-• Wheel encoders for odometry  
-• Ultrasonic / IR sensors for obstacle detection  
-• Microcontroller: Arduino or Raspberry Pi Pico for low-level control; Raspberry Pi for higher-level processing
-
-Algorithms:
-• PID control for motor speed and heading stabilization.  
-• Simple state machine for behavior selection (explore, avoid, home).  
-• Kalman or complementary filters for combining IMU and wheel encoder data.
-
-Learning outcomes:
-You'll build a small robot capable of following a line, avoiding obstacles, and navigating simple arenas. The focus is on reliable control loops and sensor calibration."
-    >
-      <h4>Robotics Experiments — Basic Autonomy</h4>
-      <p class="muted">Line following · Obstacle avoidance · PID control</p>
-    </article>
-
-    <!-- Project H: Documentation: Extended Case Studies -->
-    <article class="project-card" role="article" tabindex="0"
-      data-title="Case Studies — From Idea to Product"
-      data-content="Case Studies — From Idea to Product
-
-Overview:
-This set of extended case studies documents projects from initial idea through prototyping and refinement. Each case demonstrates lessons learned, failure points, and improvements made during development — an invaluable resource for practical engineering.
-
-Example studies:
-• Home automation sensor network — scaling from single device to multiple nodes.  
-• Wearable sensor prototype — battery life optimization and ergonomics.  
-• Classroom lab kit — designing for safety and reproducibility.
-
-Learning outcomes:
-Case studies teach pragmatic problem solving: how to pivot when a design fails and how to document experiments so others can learn from your choices."
-    >
-      <h4>Case Studies — From Idea to Product</h4>
-      <p class="muted">Prototyping · Failure analysis · Productization</p>
-    </article>
-
-    <!-- Project I: Documentation: Tutorials & Templates -->
-    <article class="project-card" role="article" tabindex="0"
-      data-title="Tutorial Templates & Project Kits"
-      data-content="Tutorial Templates & Project Kits
-
-Overview:
-This includes ready-to-use project kits and tutorial templates to accelerate teaching. Templates include a standard README, parts list, expected outputs, code templates, and a troubleshooting guide to help learners quickly reproduce builds.
-
-Package contents:
-• README template with versioning and prerequisites.  
-• Wiring diagram templates (SVG/BMP).  
-• Code templates with modular structure and config files.  
-• Evaluation checklist and unit tests for hardware (where applicable).
-
-Learning outcomes:
-Create consistent educational content and kits that scale for classroom use and community workshops."
-    >
-      <h4>Tutorial Templates & Project Kits</h4>
-      <p class="muted">Templates · Kits · Classroom-ready</p>
-    </article>
-
-  </div> <!-- end projects-grid -->
+<!-- HEADER -->
+<header>
+  <div class="logo">PARADOX</div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#socials">Socials</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="toggle-dark" id="darkToggle">🌙</div>
+</header>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <img src="https://via.placeholder.com/150">
+  <h1 style="color: var(--green); text-shadow:0 0 20px var(--green);">SAQIB FAYAZ</h1>
+  <p>Tech Explorer | Digital Learner | Electronics Enthusiast</p>
+  <button class="btn">View Projects</button>
+  <button class="btn">Contact Me</button>
 </section>
 
-<!-- ===========================
-     BOOKS — 10 ITEMS WITH DETAILED SUMMARIES
-     (Each book has a 4–6 sentence summary describing why it's useful)
-     =========================== -->
-<section id="books" class="section" aria-labelledby="booksTitle">
-  <h3 id="booksTitle" class="section-title">Books & Learning Resources (10)</h3>
-
-  <div class="books-grid">
-
-    <div class="project-card" role="article" tabindex="0" data-title="Getting Started with IoT" data-content="Getting Started with IoT — Summary
-
-This beginner-friendly book introduces IoT concepts, networking basics, and common communication protocols. It explains MQTT, HTTP, and CoAP with practical code examples for ESP boards. Includes chapters on dashboarding and simple data visualization using free tools. Great for makers who want a concise path from sensor to dashboard.">
-      <h4>Getting Started with IoT</h4>
-      <p class="muted">Intro to MQTT, HTTP, dashboards — practical hands-on.</p>
-    </div>
-
-    <div class="project-card" role="article" tabindex="0" data-title="Practical Electronics for Inventors" data-content="Practical Electronics for Inventors — Summary
-
-This is a comprehensive guide covering semiconductors, analog/digital circuits, op-amps, and practical design tips. It is rich with illustrations and real-world examples. Great reference for anyone building hardware and designing PCBs.">
-      <h4>Practical Electronics for Inventors</h4>
-      <p class="muted">Detailed electronics reference for prototypes and PCBs.</p>
-    </div>
-
-    <div class="project-card" role="article" tabindex="0" data-title="Computer Hardware — Systems Approach" data-content="Computer Hardware — Systems Approach — Summary
-
-A textbook-style book describing CPU architecture, memory hierarchies, buses, and I/O systems. Good for learners who need a deeper understanding of how software maps to hardware. Helpful when optimizing embedded systems for performance.">
-      <h4>Computer Hardware — Systems Approach</h4>
-      <p class="muted">CPU, memory, buses — essential for systems thinking.</p>
-    </div>
-
-    <div class="project-card" role="article" tabindex="0" data-title="TinyML: Machine Learning for Microcontrollers" data-content="TinyML — Summary
-
-Focused on running machine learning on microcontrollers, this book covers model design, quantization, and deployment with TensorFlow Lite for Microcontrollers. It includes case studies like keyword spotting and anomaly detection. A must-read for on-device ML practitioners.">
-      <h4>TinyML: Machine Learning for Microcontrollers</h4>
-      <p class="muted">Quantization and TFLite Micro for edge devices.</p>
-    </div>
-
-    <div class="project-card" role="article" tabindex="0" data-title="IoT Security Essentials" data-content="IoT Security Essentials — Summary
-
-This resource focuses on security patterns for devices and networks: secure boot, certificate handling, TLS, and key management. Includes practical recommendations for low-resource devices and OTA update strategies. Critical reading for any connected device project.">
-      <h4>IoT Security Essentials</h4>
-      <p class="muted">TLS, secure boot, OTA updates — security for devices.</p>
-    </div>
-
-    <div class="project-card" role="article" tabindex="0" data-title="PCB & Hardware Hacking" data-content="PCB & Hardware Hacking — Summary
-
-A practical guide to PCB design, signal integrity basics, and reverse engineering. The book explains common pitfalls and how to read schematics and board layers. Useful for building reliable hardware prototypes and understanding factory-produced boards.">
-      <h4>PCB & Hardware Hacking</h4>
-      <p class="muted">PCB design, signal integrity, reverse engineering tips.</p>
-    </div>
-
-    <div class="project-card" role="article" tabindex="0" data-title="Microcontroller Cookbook" data-content="Microcontroller Cookbook — Summary
-
-A compendium of recipes and code snippets for common microcontroller tasks: GPIO, timers, ADC, serial comms, and power management. Includes real code examples in C/C++ and pseudo code for quick adaptation. Handy reference for day-to-day embedded work.">
-      <h4>Microcontroller Cookbook</h4>
-      <p class="muted">Practical code recipes for embedded tasks.</p>
-    </div>
-
-    <div class="project-card" role="article" tabindex="0" data-title="Electronics Troubleshooting Handbook" data-content="Electronics Troubleshooting Handbook — Summary
-
-This handbook teaches diagnostic techniques using a multimeter and oscilloscope. It includes checklists for common symptoms and step-by-step debugging flows. A core resource for saving time when hardware refuses to work.">
-      <h4>Electronics Troubleshooting Handbook</h4>
-      <p class="muted">Debugging flows, oscilloscope techniques, symptom checklists.</p>
-    </div>
-
-    <div class="project-card" role="article" tabindex="0" data-title="Designing Embedded Systems" data-content="Designing Embedded Systems — Summary
-
-This book covers architecture and design patterns for reliable embedded systems, covering RTOS, task scheduling, inter-process communication, and low-power modes. Ideal when transitioning from hobby projects to production prototypes.">
-      <h4>Designing Embedded Systems</h4>
-      <p class="muted">RTOS, IPC, scheduling, and low-power design.</p>
-    </div>
-
-    <div class="project-card" role="article" tabindex="0" data-title="Signal Processing for Embedded Systems" data-content="Signal Processing for Embedded Systems — Summary
-
-A concise introduction to DSP techniques relevant to sensors: filtering, FFT, and sampling theory. Includes code patterns for running simple filters on microcontrollers. Useful when processing noisy sensor data.">
-      <h4>Signal Processing for Embedded Systems</h4>
-      <p class="muted">Filtering, FFT, sampling — process sensor signals efficiently.</p>
-    </div>
-
-  </div> <!-- end books-grid -->
-</section>
-
-<!-- ===========================
-     IOT & HARDWARE — DEEP GUIDES
-     This section provides longer, structured guides on building
-     IoT systems, hardware best practices, and prototyping tips.
-     =========================== -->
-<section id="iot" class="section" aria-labelledby="iotTitle">
-  <h3 id="iotTitle" class="section-title">IoT & Hardware — Deep Guides</h3>
-
+<!-- ABOUT -->
+<section id="about">
+  <h2 style="color: var(--green); text-shadow:0 0 15px var(--green);">About Me</h2>
   <div class="card">
-    <h4 style="color:var(--text)">Guide 1 — IoT System Design</h4>
-    <p class="muted">This guide explains end-to-end IoT architecture: sensors → edge devices → gateway → cloud. It covers protocol selection (MQTT vs HTTP vs CoAP), message schemas (JSON compact formats), and trade-offs between cloud-managed services vs self-hosted infrastructure.</p>
-
-    <p class="muted" style="margin-top:8px">The guide recommends a layered pattern: Device Firmware (reliable sensing and buffering), Edge Gateway (protocol translation and security), Backend (telemetry storage, processing), and Visualization (dashboards & alerts). It also highlights resilience: retry patterns, rate limits, batched transmissions, and storage considerations for constrained devices.</p>
-
-    <p class="muted" style="margin-top:8px">Security best practices: unique credentials per device, mutual TLS where possible, rotating keys for long-term deployments, and secure OTA mechanisms for firmware updates. Device identity management and secure provisioning are emphasized for production projects.</p>
-
-    <p class="muted" style="margin-top:8px">Testing and validation: use local brokers (Mosquitto) for development, and synthetic load tests to ensure payload handling. Simulate offline scenarios by toggling Wi-Fi and verify local buffering. Use test-driven development for firmware when possible: modular functions are easier to unit test.</p>
-  </div>
-
-  <div class="card" style="margin-top:12px">
-    <h4 style="color:var(--text)">Guide 2 — Hardware Prototyping & Safety</h4>
-    <p class="muted">Start with clear power budgeting: calculate current draw for each component, add 30–50% headroom, and choose a regulated supply. Avoid powering motors from the MCU 5V pin if they draw more current than the regulator's capacity. Use separate power rails and common ground connections.</p>
-
-    <p class="muted" style="margin-top:8px">Always add decoupling capacitors near microcontroller power pins and use EMI filters when necessary. For breadboard testing, keep wiring tidy and label rails; breadboard-related loose connections are the most common source of issues.</p>
-
-    <p class="muted" style="margin-top:8px">For sensors requiring analog accuracy, use proper reference voltages and stable supplies; measure with a calibrated multimeter and consider using op-amp buffers if the source impedance is high. For high-power circuits, include fuses or polyfuse components to protect against short circuits.</p>
-
-    <p class="muted" style="margin-top:8px">If you move to PCB, use ground planes and proper trace width calculators for current-carrying traces. Follow DRC (design rule checks) in your PCB software and order a small batch for test assembly before scaling up.</p>
-  </div>
-
-  <div class="card" style="margin-top:12px">
-    <h4 style="color:var(--text)">Guide 3 — Sensors & Signal Conditioning</h4>
-    <p class="muted">Understand sensor characteristics: sampling rate, resolution, and expected range. For noisy signals, choose appropriate filtering (hardware RC, digital IIR/FIR), and calibrate sensors with known references. For analog sensors, use op-amps for amplification and offset correction if needed.</p>
-
-    <p class="muted" style="margin-top:8px">Example patterns: low-pass filtering for temperature to smooth readings, median filtering for ultrasonic measurements to discard spurious outliers, and sliding-window averaging for robust telemetry.</p>
-
-    <p class="muted" style="margin-top:8px">Advanced topics include sensor fusion (combining accelerometer and gyroscope via complementary filters or Kalman filters), and synchronization when multiple sensors sample at different rates.</p>
-  </div>
-
-</section>
-
-<!-- PART 2 END -->
-       <!-- ===========================================================
-     PART 3 — FULL CONTENT SECTIONS + CHATBOX + MODAL placeholders
-     Paste directly after PART 2
-     =========================================================== -->
-
-<!-- ===========================
-     GALLERY SECTION
-     =========================== -->
-<section id="gallery" class="section" aria-labelledby="galleryTitle">
-  <h3 id="galleryTitle" class="section-title">Gallery</h3>
-
-  <div class="projects-grid">
-
-    <div class="project-card">
-      <h4>Hardware Builds</h4>
-      <p class="muted">Arduino wiring, IoT nodes, PCB experiments, soldering work, and breadboard prototypes.</p>
-    </div>
-
-    <div class="project-card">
-      <h4>AI Models & Demos</h4>
-      <p class="muted">Screenshots of inference outputs, training graphs, loss curves, embedded ML demos.</p>
-    </div>
-
-    <div class="project-card">
-      <h4>Sensor Visualizations</h4>
-      <p class="muted">IMU motion patterns · Ultrasonic scans · Environmental sensor mapping.</p>
-    </div>
-
+    I'm Saqib Fayaz from Kashmir, passionate about technology, electronics, and digital marketing.
+    I aim to build innovative projects and grow digitally in the world of tech.
   </div>
 </section>
 
-<!-- ===========================
-     TIMELINE SECTION
-     =========================== -->
-<section id="timeline" class="section" aria-labelledby="timelineTitle">
-  <h3 id="timelineTitle" class="section-title">Timeline</h3>
+<!-- SKILLS -->
+<section id="skills">
+  <h2 style="color: var(--green);">Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">HTML & CSS</div>
+    <div class="skill-card">Arduino Uno</div>
+    <div class="skill-card">Basics of Electricity</div>
+    <div class="skill-card">Artificial Intelligence</div>
+    <div class="skill-card">Digital Marketing</div>
+    <div class="skill-card">Problem Solving</div>
+  </div>
+</section>
 
-  <div class="timeline">
+<!-- ⭐⭐⭐ UPDATED PROJECTS SECTION ⭐⭐⭐ -->
+<section id="projects">
+  <h2 style="color: var(--green); text-shadow:0 0 12px var(--green);">Projects</h2>
 
-    <div class="timeline-item">
-      <h4 style="color:var(--text)">2023 — Started Electronics</h4>
-      <p class="muted">First LED blink, resistor experiments, multimeter basics.</p>
+  <div class="projects">
+
+    <!-- 🔥 Project 1 -->
+    <div class="project-card">
+      <h3 style="color: var(--green);">Arduino Uno – Smart System Development</h3>
+
+      <p><b>Overview:</b><br>
+      Learning and building smart systems using the <b>Arduino Uno microcontroller</b>. Includes sensors, actuators, C++ coding, and circuits.</p>
+
+      <p><b>What I Built:</b><br>
+      ✔ LED blinking & patterns<br>
+      ✔ Temperature monitoring (LM35)<br>
+      ✔ Motor control<br>
+      ✔ Button input detection<br>
+      ✔ Serial communication  
+      </p>
+
+      <p><b>Skills Used:</b><br>
+      – C++ programming<br>
+      – Sensor integration<br>
+      – Breadboard wiring<br>
+      – Circuit debugging<br>
+      – Problem solving  
+      </p>
+
+      <p><b>Why Important:</b><br>
+      Forms the base for robotics, automation, and IoT development.</p>
+
+      <p><b>What I Learned:</b><br>
+      ✓ Microcontroller input/output<br>
+      ✓ Sensor working principles<br>
+      ✓ Safe circuit design<br>
+      ✓ Troubleshooting techniques  
+      </p>
     </div>
 
-    <div class="timeline-item">
-      <h4 style="color:var(--text)">2024 — Entered IoT & ML</h4>
-      <p class="muted">ESP32, MQTT, sensor networks, basic machine learning models.</p>
-    </div>
+    <!-- 🔥 Project 2 -->
+    <div class="project-card">
+      <h3 style="color: var(--green);">Basics of Electricity – Foundation of All Circuits</h3>
 
-    <div class="timeline-item">
-      <h4 style="color:var(--text)">2025 — Full Systems & Documentation</h4>
-      <p class="muted">Combining hardware + IoT + ML · Writing full tutorials.</p>
+      <p><b>Overview:</b><br>
+      Essential electrical knowledge required for Arduino, robotics, and appliances.</p>
+
+      <p><b>Key Concepts Learned:</b><br>
+      ✔ Voltage, Current, Resistance<br>
+      ✔ Ohm’s Law (V = IR)<br>
+      ✔ Series/Parallel circuits<br>
+      ✔ Power calculations<br>
+      ✔ Electrical safety  
+      </p>
+
+      <p><b>Practical Work:</b><br>
+      – Built LED battery circuits<br>
+      – Tested using multimeter<br>
+      – Created series & parallel connections<br>
+      – Learned short-circuit prevention<br>
+      – Studied resistor load  
+      </p>
+
+      <p><b>Why Important:</b><br>
+      Every electronic device is based on these principles.</p>
+
+      <p><b>What I Learned:</b><br>
+      ✓ Electric flow<br>
+      ✓ Choosing resistors<br>
+      ✓ Fixing circuit problems<br>
+      ✓ Understanding appliances  
+      </p>
     </div>
 
   </div>
 </section>
 
-<!-- ===========================
-     RESUME SECTION
-     =========================== -->
-<section id="resume" class="section" aria-labelledby="resumeTitle">
-  <h3 id="resumeTitle" class="section-title">Resume Overview</h3>
+<!-- PARADOX LOGO SECTION -->
+<section>
+  <h2 style="color: var(--green);">PARADOX Logo</h2>
+  <div class="paradox-logo">PARADOX</div>
+  <p>PARADOX represents imagination, creativity, and limitless thinking.</p>
+</section>
 
+<!-- SOCIALS -->
+<section id="socials">
+  <h2 style="color: var(--green);">Social Media</h2>
+  <div class="socials">
+    <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0">📸</a>
+    <a href="https://www.facebook.com/share/17eAPPGMyS/">📘</a>
+    <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB">👻</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 style="color: var(--green);">Contact Me</h2>
   <div class="card">
-    <p><strong>Skills:</strong> Arduino · IoT · TinyML · Electronics · Sensors · Robotics · Documentation</p>
-    <p><strong>Tools:</strong> Arduino IDE · PlatformIO · Python · MQTT · Grafana · Multimeter · ESP32</p>
-    <p><strong>Experience:</strong> Built IoT logger, TinyML demos, robotics kits, AI assistant prototypes.</p>
-    <p><strong>Education:</strong> Self-driven engineering with practical experiments.</p>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+      <button class="btn">Send Message</button>
+    </form>
   </div>
 </section>
 
-<!-- ===========================
-     TESTIMONIALS
-     =========================== -->
-<section id="testimonials" class="section" aria-labelledby="testTitle">
-  <h3 id="testTitle" class="section-title">Testimonials</h3>
+<!-- FOOTER -->
+<footer>
+  <div class="scroll-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</div>
+  © Saqib Fayaz – All Rights Reserved
+</footer>
 
-  <div class="testimonial">
-    <p>“Saqib's IoT documentation helped me build working prototypes without confusion.”</p>
-  </div>
-
-  <div class="testimonial" style="margin-top:12px">
-    <p>“Clear, simple, and structured — perfect for beginners.”</p>
-  </div>
-</section>
-
-<!-- ===========================
-     CONTACT SECTION
-     =========================== -->
-<section id="contact" class="section" aria-labelledby="contactTitle">
-  <h3 id="contactTitle" class="section-title">Contact Me</h3>
-
-  <div class="contact-grid">
-
-    <!-- Contact Info -->
-    <div class="card contact-card">
-      <h4 style="color:var(--text)">My Contact Details</h4>
-      <p class="muted"><strong>Phone:</strong> +91 9622959387</p>
-      <p class="muted"><strong>Email:</strong> imshahsaqib@gmail.com</p>
-      <p class="muted"><strong>Location:</strong> Kashmir</p>
-      <p class="muted">Feel free to message me. I reply as soon as possible.</p>
-    </div>
-
-    <!-- Contact Form -->
-    <div class="card contact-card">
-      <h4 style="color:var(--text)">Send a Message</h4>
-
-      <form id="contactForm">
-        <input type="text" id="name" placeholder="Your Name" required />
-
-        <input type="email" id="email" placeholder="Your Email" required />
-
-        <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
-
-        <button class="btn-primary" type="submit" style="margin-top:12px;width:100%;">Send Message</button>
-      </form>
-
-      <p id="contactStatus" class="muted" style="margin-top:10px;"></p>
-    </div>
-
-  </div>
-</section>
-
-<!-- ===========================
-     CHATBOX (UI ONLY)
-     =========================== -->
-<div class="chat-fixed">
-  <button class="chat-btn" id="chatToggle">💬</button>
-
-  <div id="chatWindow" class="card" style="
-    width: 320px;
-    display:none;
-    height: 420px;
-    border-radius:14px;
-    padding:14px;
-    position:relative;
-  ">
-    <h4 style="color:var(--text);margin-bottom:6px;">AI Assistant</h4>
-
-    <div id="chatMessages" style="
-      height:300px;
-      overflow-y:auto;
-      padding-right:6px;
-      border-radius:10px;
-    "></div>
-
-    <div style="display:flex;gap:6px;margin-top:10px;">
-      <input id="chatInput" type="text" placeholder="Type a message..." style="
-        flex:1;
-        padding:10px;
-        border-radius:10px;
-        border:1px solid rgba(255,255,255,0.06);
-        background:transparent;
-        color:var(--text);
-      "/>
-
-      <button class="btn-primary" id="chatSend">Send</button>
-    </div>
-
-  </div>
-</div>
-
-<!-- ===========================
-     MODAL SYSTEM (HTML ONLY)
-     =========================== -->
-<div id="modalOverlay" style="
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.55);
-  backdrop-filter:blur(6px);
-  display:none;
-  z-index:2000;
-"></div>
-
-<div id="modalBox" style="
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:90%;
-  max-width:700px;
-  background:rgba(0,0,0,0.35);
-  border:1px solid rgba(0,179,255,0.08);
-  border-radius:14px;
-  padding:20px;
-  display:none;
-  z-index:2001;
-  color:var(--text);
-  max-height:80%;
-  overflow-y:auto;
-"></div>
-
-<div id="modalClose" style="
-  position:fixed;
-  top:16px;
-  right:20px;
-  color:white;
-  font-size:26px;
-  font-weight:bold;
-  cursor:pointer;
-  display:none;
-  z-index:2002;
-">✕</div>
-
-<!-- PART 3 END -->
-  <!-- ===========================================================
-     PART 4 — FULL JAVASCRIPT
-     =========================================================== -->
-
+<!-- DARK MODE SCRIPT -->
 <script>
-/* ------------------------------
-   MOBILE NAV
-   ------------------------------ */
-const ham = document.getElementById("hambtn");
-const mobileNav = document.getElementById("mobileNav");
+  const toggle = document.getElementById("darkToggle");
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
 
-if (ham) {
-  ham.addEventListener("click", () => {
-    const expanded = ham.getAttribute("aria-expanded") === "true";
-    ham.setAttribute("aria-expanded", String(!expanded));
-    mobileNav.style.display = expanded ? "none" : "block";
+    // Icon switch
+    toggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
   });
-}
-
-/* ------------------------------
-   CONTACT FORM (LOCAL ONLY)
-   ------------------------------ */
-document.getElementById("contactForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const status = document.getElementById("contactStatus");
-  status.textContent = "Message sent successfully!";
-});
-
-/* ------------------------------
-   CHAT SYSTEM
-   ------------------------------ */
-const chatToggle = document.getElementById("chatToggle");
-const chatWindow = document.getElementById("chatWindow");
-const chatMessages = document.getElementById("chatMessages");
-const chatSend = document.getElementById("chatSend");
-const chatInput = document.getElementById("chatInput");
-
-chatToggle.onclick = () => {
-  chatWindow.style.display =
-    chatWindow.style.display === "none" ? "block" : "none";
-};
-
-chatSend.onclick = sendChat;
-chatInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") sendChat();
-});
-
-function sendChat() {
-  const msg = chatInput.value.trim();
-  if (!msg) return;
-
-  addMessage("You: " + msg);
-  chatInput.value = "";
-
-  setTimeout(() => {
-    addMessage("AI: This is a demo response. The real AI backend will be added soon.");
-  }, 600);
-}
-
-function addMessage(text) {
-  const p = document.createElement("p");
-  p.textContent = text;
-  p.style.color = "var(--muted)";
-  chatMessages.appendChild(p);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-/* ------------------------------
-   MODAL SYSTEM
-   ------------------------------ */
-const modalOverlay = document.getElementById("modalOverlay");
-const modalBox = document.getElementById("modalBox");
-const modalClose = document.getElementById("modalClose");
-
-document.querySelectorAll(".project-card").forEach((card) => {
-  card.addEventListener("click", () => {
-    openModal(card.dataset.title, card.dataset.content);
-  });
-});
-
-function openModal(title, content) {
-  modalBox.innerHTML = `<h2>${title}</h2><p>${content.replace(/\n/g,"<br>")}</p>`;
-  modalOverlay.style.display = "block";
-  modalBox.style.display = "block";
-  modalClose.style.display = "block";
-}
-
-modalClose.onclick = closeModal;
-modalOverlay.onclick = closeModal;
-
-function closeModal() {
-  modalOverlay.style.display = "none";
-  modalBox.style.display = "none";
-  modalClose.style.display = "none";
-}
-
-/* ------------------------------
-   FLOATING SOCIAL BAR TOGGLE
-   ------------------------------ */
-const floating = document.getElementById("floatingSocial");
-const stoggle = document.getElementById("socialToggle");
-
-if (stoggle) {
-  stoggle.onclick = () => {
-    floating.classList.toggle("collapsed");
-  };
-}
 </script>
 
 </body>
-</html>     
-       
-
-<!-- PART 1 END -->
+</html>
