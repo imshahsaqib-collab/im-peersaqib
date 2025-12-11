@@ -1,1163 +1,356 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PARADOX – Saqib Fayaz Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>4-Block Animated Portfolio — Light / Dark Theme</title>
+  <meta name="description" content="Four-block animated portfolio with light/dark theme, profile picture, animated text, project blocks, code snippets, diagrams and contact." />
 
-<!-- ==========================================================
-   BLOCK 1 — DARK+GREY THEME + TYPEWRITER HERO ANIMATION
-   + PROFILE PICTURE + NEW STRUCTURE
-============================================================== -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<style>
+  <style>
+    :root{
+      --bg: #0f1724;
+      --panel: #0b1220;
+      --muted: #9aa4b2;
+      --accent: #7c5cff;
+      --text: #e6eef8;
+      --glass: rgba(255,255,255,0.04);
+      --glass-strong: rgba(255,255,255,0.06);
+      --shadow: 0 8px 30px rgba(2,6,23,0.6);
+      --card-radius: 14px;
+    }
 
-/* ======================================
-   THEME VARIABLES (DARK + LIGHT)
-====================================== */
+    :root.light{
+      --bg: #f6f8fb;
+      --panel: #ffffff;
+      --muted: #586069;
+      --accent: #4f46e5;
+      --text: #0b1220;
+      --glass: rgba(12,18,32,0.03);
+      --glass-strong: rgba(12,18,32,0.05);
+      --shadow: 0 12px 30px rgba(12,18,32,0.06);
+    }
 
-:root {
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,Segoe UI,Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.08), transparent),
+                  radial-gradient(800px 400px at 90% 90%, rgba(79,70,229,0.04), transparent),
+                  var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      transition: background 360ms ease, color 360ms ease;
+      padding:32px;
+    }
 
-  /* Dark theme */
-  --bg-main: #0f0f0f;
-  --bg-secondary: #1a1a1a;
-  --card-bg: #222;
-  --text-main: #f0f0f0;
-  --text-soft: #c9c9c9;
-  --border: #333;
-  --accent: #4f8cff;  /* Simple, elegant blue */
+    .app {
+      max-width:1200px;
+      margin:0 auto;
+      display:grid;
+      gap:28px;
+      grid-template-columns: 1fr;
+    }
 
-  /* Light theme */
-  --light-bg-main: #ffffff;
-  --light-bg-secondary: #f2f2f2;
-  --light-card-bg: #ffffff;
-  --light-text-main: #111;
-  --light-text-soft: #444;
-  --light-border: #ddd;
-  --light-accent: #0055ff;
-}
+    header.topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
 
-/* ======================================
-   GLOBAL RESET
-====================================== */
+    .brand {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Poppins", sans-serif;
-}
+    .logo {
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),transparent);
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      font-size:22px;
+      color:white;
+      box-shadow:var(--shadow);
+      flex-shrink:0;
+    }
 
-body{
-  background:var(--bg-main);
-  color:var(--text-main);
-  line-height:1.6;
-  transition:0.25s linear;
-}
+    .brand h1{margin:0;font-size:18px}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
 
-body.light{
-  background:var(--light-bg-main);
-  color:var(--light-text-main);
-}
+    .controls{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
 
-/* ======================================
-   GENERAL LAYOUT CONTAINER
-====================================== */
+    .toggle {
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      background:var(--glass);
+      padding:6px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
 
-.container{
-  width:92%;
-  max-width:1300px;
-  margin:auto;
-}
+    .toggle button{
+      background:none;
+      border:none;
+      padding:8px;
+      cursor:pointer;
+      color:var(--text);
+      font-weight:600;
+    }
 
-/* ======================================
-   HEADER
-====================================== */
+    .themeSwitch{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
 
-header{
-  width:100%;
-  background:var(--bg-secondary);
-  border-bottom:1px solid var(--border);
-  padding:18px 0;
-  position:sticky;
-  top:0;
-  z-index:100;
-}
+    /* Main grid of four blocks */
+    main.grid {
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:22px;
+    }
 
-body.light header{
-  background:var(--light-bg-secondary);
-  border-bottom:1px solid var(--light-border);
-}
+    @media(min-width: 980px){
+      main.grid{
+        grid-template-columns: 1fr 1fr;
+      }
+    }
 
-.nav-wrapper{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:var(--card-radius);
+      padding:20px;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px) saturate(120%);
+      transition: transform 300ms ease, box-shadow 300ms ease;
+    }
 
-.logo{
-  font-size:28px;
-  font-weight:700;
-  letter-spacing:2px;
-  color:var(--accent);
-}
+    .card:hover{ transform: translateY(-6px) }
 
-/* NAVIGATION */
+    /* HERO BLOCK UPDATED HERE */
+    .hero{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      min-height:260px;
+    }
 
-nav ul{
-  display:flex;
-  gap:26px;
-  list-style:none;
-}
+    .profile {
+      width:160px;
+      height:160px;
+      border-radius:20px;
+      overflow:hidden;
+      flex-shrink:0;
+      border:4px solid rgba(255,255,255,0.04);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      display:grid;
+      place-items:center;
+    }
 
-nav ul li a{
-  text-decoration:none;
-  color:var(--text-soft);
-  font-size:15px;
-}
+    .profile img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter: grayscale(10%) contrast(95%);
+    }
 
-nav ul li a:hover{
-  color:var(--accent);
-}
+    .hero-info{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      min-width:0;
+    }
 
-body.light nav ul li a{
-  color:var(--light-text-soft);
-}
+    .typing {
+      font-weight:600;
+      display:inline-block;
+      font-size:16px;
+      color:var(--accent);
+      white-space:nowrap;
+      overflow:hidden;
+      --ch:18ch;
+      width:0;
+      animation: typing 3.6s steps(var(--ch)) infinite;
+      border-right:2px solid rgba(255,255,255,0.12);
+      padding-right:6px;
+    }
 
-body.light nav ul li a:hover{
-  color:var(--light-accent);
-}
+    @keyframes typing {
+      0% { width:0 }
+      55% { width:var(--ch) }
+      60% { border-right-color: transparent }
+      100% { width:0; border-right-color: transparent}
+    }
 
-/* Theme toggle button */
+    .marquee {
+      display:block;
+      width:100%;
+      overflow:hidden;
+      white-space:nowrap;
+      color:var(--muted);
+      margin-top:6px;
+      font-size:13px;
+    }
 
-.theme-toggle{
-  font-size:24px;
-  padding:6px 10px;
-  border:1px solid var(--border);
-  border-radius:6px;
-  color:var(--text-main);
-  cursor:pointer;
-}
+    .marquee span{
+      display:inline-block;
+      padding-left:100%;
+      animation: marquee 14s linear infinite;
+    }
 
-body.light .theme-toggle{
-  border-color:var(--light-border);
-  color:var(--light-text-main);
-}
+    @keyframes marquee {
+      0% { transform: translateX(0) }
+      100% { transform: translateX(-100%) }
+    }
 
-/* ======================================
-   HERO SECTION (With Typewriter Text)
-====================================== */
+    /* About Section */
+    .about{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
 
-.hero{
-  padding:90px 0;
-  background:var(--bg-main);
-  text-align:center;
-}
+    @media(min-width:880px){
+      .about{
+        grid-template-columns: 1fr 260px;
+      }
+    }
 
-body.light .hero{
-  background:var(--light-bg-main);
-}
+    .bio p{ color:var(--muted); margin:0 0 12px 0; line-height:1.5 }
 
-/* Profile Picture */
+    .skills { display:flex; gap:8px; flex-wrap:wrap }
+    .skill {
+      background:var(--glass-strong);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.02);
+    }
 
-.hero-pfp{
-  width:160px;
-  height:160px;
-  border-radius:50%;
-  border:2px solid var(--border);
-  background:url('YOUR_PROFILE_PICTURE.jpg') center/cover no-repeat;
-  margin:0 auto 25px auto;
-}
+    /* Projects */
+    .projects-grid{
+      display:grid;
+      gap:12px;
+    }
+    @media(min-width:860px){
+      .projects-grid{ grid-template-columns: 1fr 1fr }
+    }
 
-body.light .hero-pfp{
-  border:2px solid var(--light-border);
-}
+    .project{
+      padding:12px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      min-height:200px;
+      position:relative;
+      overflow:hidden;
+    }
 
-/* Name */
+    .code {
+      background:rgba(0,0,0,0.06);
+      padding:12px;
+      border-radius:8px;
+      font-family: monospace;
+      font-size:13px;
+      color:var(--text);
+      overflow:auto;
+      border:1px solid rgba(255,255,255,0.02);
+    }
 
-.hero-title{
-  font-size:40px;
-  font-weight:700;
-  color:var(--text-main);
-  margin-bottom:10px;
-}
-
-body.light .hero-title{
-  color:var(--light-text-main);
-}
-
-/* TYPEWRITER ANIMATION */
-
-.typewriter{
-  font-size:18px;
-  color:var(--text-soft);
-  border-right:2px solid var(--text-soft);
-  white-space:nowrap;
-  overflow:hidden;
-  width:0;
-  animation: typing 4s steps(40) forwards, caret 0.75s step-end infinite;
-}
-
-@keyframes typing {
-  from { width:0; }
-  to   { width:100%; }
-}
-
-@keyframes caret {
-  50% { border-color:transparent; }
-}
-
-/* Buttons under hero */
-
-.hero-buttons{
-  margin-top:25px;
-  display:flex;
-  justify-content:center;
-  gap:15px;
-}
-
-.btn{
-  border:1px solid var(--border);
-  background:var(--bg-secondary);
-  padding:10px 28px;
-  border-radius:4px;
-  color:var(--text-main);
-  cursor:pointer;
-}
-
-body.light .btn{
-  background:var(--light-bg-secondary);
-  border-color:var(--light-border);
-  color:var(--light-text-main);
-}
-
-.btn:hover{
-  border-color:var(--accent);
-  color:var(--accent);
-}
-
-body.light .btn:hover{
-  color:var(--light-accent);
-  border-color:var(--light-accent);
-}
-
-/* ======================================
-   SECTION TITLES + CARD SYSTEM
-====================================== */
-
-section{
-  padding:75px 0;
-}
-
-.section-title{
-  text-align:center;
-  font-size:30px;
-  font-weight:700;
-  margin-bottom:40px;
-}
-
-.card{
-  background:var(--card-bg);
-  border:1px solid var(--border);
-  padding:25px;
-  border-radius:8px;
-  color:var(--text-main);
-}
-
-body.light .card{
-  background:var(--light-card-bg);
-  border:1px solid var(--light-border);
-  color:var(--light-text-main);
-}
-
-/* END BLOCK 1 */
-</style>
+    footer {
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      padding-top:6px;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- ========== HEADER ========== -->
+  <div class="app" id="appRoot">
 
-<header>
-  <div class="container nav-wrapper">
-
-    <div class="logo">PARADOX</div>
-
-    <nav>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#socials">Socials</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-
-    <div class="theme-toggle" id="themeToggle">🌙</div>
-  </div>
-</header>
-
-
-<!-- ========== HERO SECTION ========== -->
-
-<section id="home" class="hero">
-
-  <div class="hero-pfp"></div>
-
-  <h1 class="hero-title">SAQIB FAYAZ</h1>
-
-  <div class="typewriter">
-    Tech Explorer • Digital Learner • Electronics Enthusiast
-  </div>
-
-  <div class="hero-buttons">
-    <button class="btn">View Projects</button>
-    <button class="btn">Contact Me</button>
-  </div>
-
-</section>
-    <!-- ================================
-      BLOCK 2 — ABOUT, SKILLS, PROJECTS (WITH DIAGRAMS, PHOTOS, CODE)
-=================================== -->
-
-<!-- ================================
-      ABOUT SECTION (Expanded)
-=================================== -->
-<section id="about">
-  <div class="container">
-    <h2 class="section-title">About Me</h2>
-
-    <div class="card" style="display:flex; gap:22px; align-items:flex-start; flex-wrap:wrap;">
-      <!-- Left column: short bio -->
-      <div style="flex:1; min-width:300px;">
-        <h3 style="margin-bottom:10px; color:var(--accent);">Hello — I'm Saqib</h3>
-        <p style="color:var(--text-soft); margin-bottom:12px;">
-          I'm a technology enthusiast from Kashmir focused on electronics, embedded systems,
-          and digital learning. My projects bridge software and hardware — building useful
-          systems and understanding fundamental electrical principles.
-        </p>
-
-        <p style="color:var(--text-soft); margin-bottom:12px;">
-          I enjoy prototyping with Arduino, learning about sensors & actuators, and applying
-          digital marketing skills to share project progress. I care about clarity, safety,
-          and creating real-world solutions.
-        </p>
-
-        <p style="color:var(--text-soft);">
-          <strong>Location:</strong> Kashmir<br>
-          <strong>Interests:</strong> Embedded Systems, IoT, Web, AI basics, Digital Marketing
-        </p>
+    <!-- ⭐ UPDATED HERO WITH SOCIAL ICONS -->
+    <section class="card hero" aria-label="Hero">
+      <div class="profile">
+        <img id="profilePic" src="profile.jpg" alt="Profile picture">
       </div>
 
-      <!-- Right column: profile & quick facts -->
-      <div style="width:320px; min-width:260px;">
-        <!-- Profile picture already referenced in Block 1's CSS; show a card with it -->
-        <div style="display:flex; gap:12px; align-items:center;">
-          <div style="width:84px; height:84px; border-radius:8px; overflow:hidden; background:#151515; border:1px solid var(--border);">
-            <img src="YOUR_PROFILE_PICTURE.jpg" alt="Profile" style="width:100%; height:100%; object-fit:cover; display:block;">
-          </div>
+      <div class="hero-info">
+
+        <div style="display:flex; justify-content:space-between; align-items:center;">
           <div>
-            <div style="font-weight:700; font-size:16px;">Saqib Fayaz</div>
-            <div style="color:var(--text-soft); font-size:14px;">Tech Explorer • Electronics Enthusiast</div>
+            <h2>Hey — I'm Saqib</h2>
+            <p class="muted">Maker, student, and web tinkerer.</p>
+          </div>
+          <div style="text-align:right">
+            <div class="chip">Kashmir / Florida</div>
+            <div class="muted" style="font-size:12px;">Credit score: <strong>772</strong></div>
           </div>
         </div>
 
-        <div style="margin-top:16px;">
-          <div style="font-size:14px; color:var(--text-soft); margin-bottom:8px;"><strong>Quick Facts</strong></div>
-          <ul style="color:var(--text-soft); line-height:1.6; margin-left:18px;">
-            <li>Beginner → Intermediate Arduino projects</li>
-            <li>Knowledge of basic electricity & circuits</li>
-            <li>Learning AI fundamentals & web technologies</li>
-          </ul>
+        <div style="margin-top:12px">
+          <span class="typing" id="typingText">building → prototypes • coding → websites</span>
+        </div>
+
+        <div class="marquee"><span>Open to collaborations • Arduino projects • Education & Tech</span></div>
+
+        <div style="display:flex; gap:10px; margin-top:14px;">
+          <a class="btn" href="#projects">See Projects</a>
+          <a class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.06)">Download Resume</a>
+        </div>
+
+        <!-- ⭐ SOCIAL MEDIA ICONS HERE -->
+        <div style="display:flex; gap:18px; margin-top:16px; align-items:center;">
+
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                 stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--accent)">
+              <path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9a3.5 3.5 0 0 1 3.7-3.9
+              c1.1 0 2.3.2 2.3.2v2.5H15c-1.5 0-2 .9-2 1.9v2.3H17l-.5 3h-2.5v7A10 10 0 0 0 22 12z"/>
+            </svg>
+          </a>
+
+          <!-- Snapchat -->
+          <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--accent)">
+              <path d="M12 2c-3.1 0-5.6 2.5-5.6 5.6v.3c0 1-.4 1.9-1.3 2.5-.6.5-.9 1.2-.7 1.9
+              c.3 1.1 1.5 1.8 2.8 1.9c.3 1.7 1.4 3 3 3.6c.2.9.9 2.2 1.8 2.2s1.6-1.3 1.8-2.2
+              c1.6-.6 2.8-1.9 3-3.6c1.3-.1 2.5-.8 2.8-1.9c.2-.7-.1-1.4-.7-1.9c-.9-.6-1.3-1.5-1.3-2.5
+              v-.3C17.6 4.5 15.1 2 12 2z"/>
+            </svg>
+          </a>
+
         </div>
       </div>
-    </div>
+    </section>
 
-  </div>
-</section>
-
-
-<!-- ================================
-      SKILLS SECTION (Expanded)
-=================================== -->
-<section id="skills">
-  <div class="container">
-    <h2 class="section-title">Skills</h2>
-
-    <div class="card" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:18px; align-items:start;">
-
-      <div>
-        <h4 style="margin-bottom:8px;">HTML & CSS</h4>
-        <p style="color:var(--text-soft);">Layout, responsive design, semantic structure.</p>
-      </div>
-
-      <div>
-        <h4 style="margin-bottom:8px;">Arduino Uno</h4>
-        <p style="color:var(--text-soft);">Microcontroller programming, sensor integration, PWM, serial communication.</p>
-      </div>
-
-      <div>
-        <h4 style="margin-bottom:8px;">Basics of Electricity</h4>
-        <p style="color:var(--text-soft);">Voltage, current, resistance, Ohm's law, series/parallel circuits, safety practices.</p>
-      </div>
-
-      <div>
-        <h4 style="margin-bottom:8px;">Artificial Intelligence (Beginner)</h4>
-        <p style="color:var(--text-soft);">Basic ML concepts, data fundamentals, model idea awareness.</p>
-      </div>
-
-      <div>
-        <h4 style="margin-bottom:8px;">Digital Marketing</h4>
-        <p style="color:var(--text-soft);">SEO basics, social media presence, content sharing for projects.</p>
-      </div>
-
-      <div>
-        <h4 style="margin-bottom:8px;">Problem Solving</h4>
-        <p style="color:var(--text-soft);">Circuit debugging, logic testing, iterative improvements.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ================================
-      PROJECTS SECTION (Full — with diagrams, photos, code, use-cases, challenges)
-=================================== -->
-<section id="projects">
-  <div class="container">
-    <h2 class="section-title">Projects — Detailed Case Studies</h2>
-
-    <!-- Grid wrapper -->
-    <div style="display:grid; gap:22px; grid-template-columns:repeat(auto-fit, minmax(520px, 1fr));">
-
-      <!-- ============================
-            PROJECT 1 — Arduino Uno
-      ============================= -->
-      <div class="card">
-        <h3 style="margin-bottom:8px; color:var(--accent);">Arduino Uno — Smart Systems Development</h3>
-
-        <!-- Short summary -->
-        <p style="color:var(--text-soft); margin-bottom:12px;">
-          This project explores microcontroller basics using the Arduino Uno. It covers digital & analog I/O,
-          sensor reading, actuator control (motors, LEDs), and serial communication. Below you will find:
-        </p>
-
-        <ul style="color:var(--text-soft); margin-left:18px; margin-bottom:12px;">
-          <li>Simple circuit diagrams (SVG)</li>
-          <li>Photos of example setups</li>
-          <li>Code snippets (non-animated)</li>
-          <li>Real-world use cases</li>
-          <li>Challenges & solutions</li>
-        </ul>
-
-        <!-- Diagram: simple LED + resistor + Arduino pin (SVG inline) -->
-        <div style="margin:14px 0;">
-          <div style="font-weight:700; margin-bottom:8px;">Simple LED Circuit (Diagram)</div>
-          <svg width="100%" height="140" viewBox="0 0 800 180" preserveAspectRatio="xMinYMin meet" style="background:transparent;">
-            <!-- Arduino digital pin -->
-            <rect x="24" y="20" width="120" height="140" rx="6" fill="#151515" stroke="#333" />
-            <text x="84" y="38" text-anchor="middle" fill="#9fb8ff" font-size="12">ARDUINO UNO</text>
-            <text x="84" y="56" text-anchor="middle" fill="#9fb8ff" font-size="11">D13 (Digital)</text>
-
-            <!-- Wire to resistor -->
-            <line x1="144" y1="86" x2="300" y2="86" stroke="#9fb8ff" stroke-width="2" />
-            <rect x="300" y="76" width="80" height="20" rx="2" fill="#222" stroke="#444" />
-            <text x="340" y="91" text-anchor="middle" fill="#cfcfcf" font-size="11">220Ω</text>
-
-            <!-- Wire to LED -->
-            <line x1="380" y1="86" x2="460" y2="86" stroke="#9fb8ff" stroke-width="2" />
-            <g transform="translate(470,70)">
-              <ellipse cx="38" cy="12" rx="12" ry="18" fill="#fff" stroke="#333" />
-              <rect x="34" y="30" width="8" height="30" fill="#ddd" stroke="#333" />
-              <text x="38" y="68" text-anchor="middle" fill="#cfcfcf" font-size="11">LED</text>
-            </g>
-
-            <!-- Ground from Arduino -->
-            <line x1="84" y1="150" x2="460" y2="150" stroke="#9fb8ff" stroke-width="2" />
-            <text x="460" y="162" fill="#cfcfcf" font-size="11">GND</text>
-          </svg>
-          <div style="color:var(--text-soft); font-size:13px; margin-top:8px;">
-            Wiring: Arduino D13 → 220Ω resistor → LED (long leg) → LED short leg → GND.
-          </div>
-        </div>
-
-        <!-- Photo placeholders -->
-        <div style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap;">
-          <figure style="width:220px; margin:0;">
-            <img src="arduino_setup_1.jpg" alt="Arduino Setup 1" style="width:100%; height:140px; object-fit:cover; border-radius:6px; border:1px solid var(--border); background:#111;">
-            <figcaption style="font-size:12px; color:var(--text-soft); margin-top:8px;">LED + Resistor setup (breadboard)</figcaption>
-          </figure>
-
-          <figure style="width:220px; margin:0;">
-            <img src="arduino_setup_2.jpg" alt="Arduino Setup 2" style="width:100%; height:140px; object-fit:cover; border-radius:6px; border:1px solid var(--border); background:#111;">
-            <figcaption style="font-size:12px; color:var(--text-soft); margin-top:8px;">Temperature sensor (LM35) wiring</figcaption>
-          </figure>
-        </div>
-
-        <!-- Code snippet (Arduino C++) -->
-        <div style="margin-top:14px;">
-          <div style="font-weight:700; margin-bottom:8px;">Example: LED Blink (Arduino C++)</div>
-          <pre style="background: #0b0b0b; color:#cfe6ff; padding:12px; border-radius:6px; overflow:auto; border:1px solid #2b2b2b;">
-<code>
-// Arduino LED Blink Example
-const int ledPin = 13; // Built-in LED pin
-
-void setup() {
-  pinMode(ledPin, OUTPUT); // set pin as output
-}
-
-void loop() {
-  digitalWrite(ledPin, HIGH); // turn the LED on
-  delay(500);                 // wait 500ms
-  digitalWrite(ledPin, LOW);  // turn the LED off
-  delay(500);                 // wait 500ms
-}
-</code>
-          </pre>
-        </div>
-
-        <!-- Real-world use cases -->
-        <div style="margin-top:12px;">
-          <div style="font-weight:700; margin-bottom:6px;">Real-world Use Cases</div>
-          <ul style="color:var(--text-soft); margin-left:18px;">
-            <li>Prototype for automated indicator systems (e.g., device status LEDs)</li>
-            <li>Baseline for environmental monitoring (temperature sensors + alerts)</li>
-            <li>Learning block for educational robotics and IoT integrations</li>
-          </ul>
-        </div>
-
-        <!-- Challenges & Solutions -->
-        <div style="margin-top:12px;">
-          <div style="font-weight:700; margin-bottom:6px;">Challenges & Solutions</div>
-          <div style="color:var(--text-soft); margin-bottom:8px;">
-            <strong>Challenge:</strong> Reading noisy analog values from the LM35 caused jitter.
-          </div>
-          <div style="color:var(--text-soft); margin-bottom:8px;">
-            <strong>Solution:</strong> Implemented averaging (simple moving average) and small capacitor on sensor input to stabilize readings.
-          </div>
-
-          <div style="color:var(--text-soft); margin-bottom:8px;">
-            <strong>Challenge:</strong> LED not lighting due to incorrect polarity or missing resistor.
-          </div>
-          <div style="color:var(--text-soft);">
-            <strong>Solution:</strong> Verified LED orientation & added correct resistor (220Ω) — documented wiring diagrams for reproducibility.
-          </div>
-        </div>
-
-      </div> <!-- END Project 1 Card -->
-
-
-      <!-- ============================
-            PROJECT 2 — Basics of Electricity
-      ============================= -->
-      <div class="card">
-        <h3 style="margin-bottom:8px; color:var(--accent);">Basics of Electricity — Foundation of Circuits</h3>
-
-        <!-- Summary -->
-        <p style="color:var(--text-soft); margin-bottom:12px;">
-          A combined theory + lab project where I studied voltage, current, resistance, Ohm's law,
-          and practical wiring. The following sections include diagrams, lab photos, experiment code
-          (where applicable), use-cases and troubleshooting records.
-        </p>
-
-        <!-- Diagram: Series vs Parallel (SVG inline) -->
-        <div style="margin:14px 0;">
-          <div style="font-weight:700; margin-bottom:8px;">Series & Parallel (Diagram)</div>
-          <svg width="100%" height="160" viewBox="0 0 900 200" preserveAspectRatio="xMinYMin meet" style="background:transparent;">
-            <!-- Battery -->
-            <rect x="28" y="50" width="60" height="100" rx="6" fill="#151515" stroke="#333" />
-            <text x="58" y="44" text-anchor="middle" fill="#9fb8ff" font-size="12">Battery</text>
-
-            <!-- Wire to series branch -->
-            <line x1="88" y1="100" x2="260" y2="100" stroke="#9fb8ff" stroke-width="2"/>
-
-            <!-- Series: two resistors -->
-            <rect x="260" y="84" width="60" height="32" fill="#222" stroke="#444"/>
-            <text x="290" y="105" text-anchor="middle" fill="#cfcfcf" font-size="11">R1</text>
-            <line x1="320" y1="100" x2="400" y2="100" stroke="#9fb8ff" stroke-width="2"/>
-            <rect x="400" y="84" width="60" height="32" fill="#222" stroke="#444"/>
-            <text x="430" y="105" text-anchor="middle" fill="#cfcfcf" font-size="11">R2</text>
-            <line x1="460" y1="100" x2="640" y2="100" stroke="#9fb8ff" stroke-width="2"/>
-
-            <text x="350" y="60" fill="#cfcfcf" font-size="12" text-anchor="middle">Series</text>
-
-            <!-- Parallel branch below -->
-            <line x1="88" y1="140" x2="640" y2="140" stroke="#9fb8ff" stroke-width="2"/>
-            <text x="365" y="126" fill="#cfcfcf" font-size="12" text-anchor="middle">Parallel</text>
-
-            <g transform="translate(260,122)">
-              <rect x="0" y="-22" width="60" height="32" fill="#222" stroke="#444"/><text x="30" y="-6" text-anchor="middle" fill="#cfcfcf" font-size="11">R3</text>
-            </g>
-
-            <g transform="translate(360,122)">
-              <rect x="0" y="-22" width="60" height="32" fill="#222" stroke="#444"/><text x="30" y="-6" text-anchor="middle" fill="#cfcfcf" font-size="11">R4</text>
-            </g>
-
-            <g transform="translate(460,122)">
-              <rect x="0" y="-22" width="60" height="32" fill="#222" stroke="#444"/><text x="30" y="-6" text-anchor="middle" fill="#cfcfcf" font-size="11">R5</text>
-            </g>
-
-            <!-- Return to battery -->
-            <line x1="640" y1="100" x2="820" y2="100" stroke="#9fb8ff" stroke-width="2"/>
-            <line x1="820" y1="100" x2="820" y2="60" stroke="#9fb8ff" stroke-width="2"/>
-            <line x1="820" y1="60" x2="58" y2="60" stroke="#9fb8ff" stroke-width="2"/>
-          </svg>
-
-          <div style="color:var(--text-soft); font-size:13px; margin-top:8px;">
-            Series vs Parallel: In series, resistances add (Rtotal = R1 + R2). In parallel, inverse sums apply (1/Rt = 1/Ra + 1/Rb).
-          </div>
-        </div>
-
-        <!-- Lab photos -->
-        <div style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap;">
-          <figure style="width:220px; margin:0;">
-            <img src="electricity_lab_1.jpg" alt="Lab 1" style="width:100%; height:140px; object-fit:cover; border-radius:6px; border:1px solid var(--border); background:#111;">
-            <figcaption style="font-size:12px; color:var(--text-soft); margin-top:8px;">Breadboard series circuit</figcaption>
-          </figure>
-
-          <figure style="width:220px; margin:0;">
-            <img src="electricity_lab_2.jpg" alt="Lab 2" style="width:100%; height:140px; object-fit:cover; border-radius:6px; border:1px solid var(--border); background:#111;">
-            <figcaption style="font-size:12px; color:var(--text-soft); margin-top:8px;">Multimeter measurements</figcaption>
-          </figure>
-        </div>
-
-        <!-- Example calculation (text) -->
-        <div style="margin-top:12px;">
-          <div style="font-weight:700; margin-bottom:8px;">Example: Ohm's Law Calculation</div>
-          <p style="color:var(--text-soft); margin-bottom:8px;">
-            If you have 9V battery and a resistor of 330Ω, current I = V / R → I = 9 / 330 ≈ 0.02727 A ≈ 27.27 mA.
-          </p>
-        </div>
-
-        <!-- Real-world use cases -->
-        <div style="margin-top:12px;">
-          <div style="font-weight:700; margin-bottom:6px;">Real-world Use Cases</div>
-          <ul style="color:var(--text-soft); margin-left:18px;">
-            <li>Designing safe LED lighting circuits (knowing resistor values)</li>
-            <li>Understanding appliance loads & fuses</li>
-            <li>Building sensor networks that require correct power budgeting</li>
-          </ul>
-        </div>
-
-        <!-- Challenges & Solutions -->
-        <div style="margin-top:12px;">
-          <div style="font-weight:700; margin-bottom:6px;">Challenges & Solutions</div>
-
-          <div style="color:var(--text-soft); margin-bottom:8px;">
-            <strong>Challenge:</strong> Measuring small voltage drops with an inexpensive multimeter introduced measurement error.
-          </div>
-          <div style="color:var(--text-soft); margin-bottom:8px;">
-            <strong>Solution:</strong> Used reference measurements, multiple readings, and averaged values to reduce error. Ensured good contact points and stable power source.
-          </div>
-
-          <div style="color:var(--text-soft);">
-            <strong>Challenge:</strong> Confusion between series/parallel connections during experiments.
-          </div>
-          <div style="color:var(--text-soft); margin-top:6px;">
-            <strong>Solution:</strong> Created clear diagrams and labeled wires; practiced small circuits on breadboard before scaling up.
-          </div>
-        </div>
-
-      </div> <!-- END Project 2 Card -->
-
-    </div> <!-- END projects grid -->
-  </div>
-</section>
-
-<!-- ================================
-      End of BLOCK 2
-=================================== -->
-    <!-- ================================
-      BLOCK 3 — GALLERY, SOCIALS, CONTACT ENHANCEMENTS, FOOTER
-      (Paste this directly after Block 2)
-=================================== -->
-
-<!-- ================================
-      GALLERY SECTION (Improved Grid + Lightbox Placeholder)
-=================================== -->
-<section id="gallery">
-  <div class="container">
-    <h2 class="section-title">Gallery</h2>
-
-    <!-- Gallery grid: images are placeholders. Replace src with your real photos. -->
-    <div style="
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    ">
-
-      <figure class="card gallery-item" tabindex="0" data-full="gallery_1_full.jpg" style="margin:0; cursor:zoom-in;">
-        <img src="gallery_thumb_1.jpg" alt="Project photo 1" style="width:100%; height:200px; object-fit:cover; border-radius:6px; display:block; border:1px solid var(--border); background:#111;">
-        <figcaption style="padding:12px 6px 0 6px; color:var(--text-soft); font-size:13px;">Arduino LED Prototype</figcaption>
-      </figure>
-
-      <figure class="card gallery-item" tabindex="0" data-full="gallery_2_full.jpg" style="margin:0; cursor:zoom-in;">
-        <img src="gallery_thumb_2.jpg" alt="Project photo 2" style="width:100%; height:200px; object-fit:cover; border-radius:6px; display:block; border:1px solid var(--border); background:#111;">
-        <figcaption style="padding:12px 6px 0 6px; color:var(--text-soft); font-size:13px;">Breadboard Wiring</figcaption>
-      </figure>
-
-      <figure class="card gallery-item" tabindex="0" data-full="gallery_3_full.jpg" style="margin:0; cursor:zoom-in;">
-        <img src="gallery_thumb_3.jpg" alt="Project photo 3" style="width:100%; height:200px; object-fit:cover; border-radius:6px; display:block; border:1px solid var(--border); background:#111;">
-        <figcaption style="padding:12px 6px 0 6px; color:var(--text-soft); font-size:13px;">LM35 Temperature Setup</figcaption>
-      </figure>
-
-      <figure class="card gallery-item" tabindex="0" data-full="gallery_4_full.jpg" style="margin:0; cursor:zoom-in;">
-        <img src="gallery_thumb_4.jpg" alt="Project photo 4" style="width:100%; height:200px; object-fit:cover; border-radius:6px; display:block; border:1px solid var(--border); background:#111;">
-        <figcaption style="padding:12px 6px 0 6px; color:var(--text-soft); font-size:13px;">Motor Control Circuit</figcaption>
-      </figure>
-
-      <figure class="card gallery-item" tabindex="0" data-full="gallery_5_full.jpg" style="margin:0; cursor:zoom-in;">
-        <img src="gallery_thumb_5.jpg" alt="Project photo 5" style="width:100%; height:200px; object-fit:cover; border-radius:6px; display:block; border:1px solid var(--border); background:#111;">
-        <figcaption style="padding:12px 6px 0 6px; color:var(--text-soft); font-size:13px;">Circuit Measurement</figcaption>
-      </figure>
-
-      <figure class="card gallery-item" tabindex="0" data-full="gallery_6_full.jpg" style="margin:0; cursor:zoom-in;">
-        <img src="gallery_thumb_6.jpg" alt="Project photo 6" style="width:100%; height:200px; object-fit:cover; border-radius:6px; display:block; border:1px solid var(--border); background:#111;">
-        <figcaption style="padding:12px 6px 0 6px; color:var(--text-soft); font-size:13px;">Completed Prototype</figcaption>
-      </figure>
-
-    </div>
-  </div>
-</section>
-
-<!-- Lightbox modal placeholder (non-animated) -->
-<div id="lightboxModal" style="
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.85);
-  justify-content:center;
-  align-items:center;
-  z-index:1200;
-  padding:24px;
-">
-  <div style="max-width:1200px; width:100%; max-height:90vh; overflow:auto;">
-    <div style="display:flex; justify-content:flex-end;">
-      <button id="lightboxClose" aria-label="Close" style="background:transparent; border:1px solid var(--border); color:var(--text-main); padding:6px 10px; border-radius:4px; cursor:pointer;">Close</button>
-    </div>
-    <div style="margin-top:12px; background:var(--card-bg); padding:12px; border-radius:6px; border:1px solid var(--border);">
-      <img id="lightboxImage" src="" alt="Full image" style="width:100%; height:auto; display:block; border-radius:4px; object-fit:contain; border:1px solid var(--border);">
-      <div id="lightboxCaption" style="color:var(--text-soft); margin-top:8px; font-size:14px;"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ================================
-      SOCIAL CARDS (With SVG Icons)
-=================================== -->
-<section id="socials">
-  <div class="container">
-    <h2 class="section-title">Socials & Sharing</h2>
-
-    <div style="display:flex; gap:18px; flex-wrap:wrap; justify-content:center;">
-
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank" class="card" style="width:220px; text-decoration:none; color:var(--text-main); display:flex; gap:12px; align-items:center;">
-        <div style="width:56px; height:56px; display:flex; align-items:center; justify-content:center; border-radius:8px; background:var(--bg-secondary); border:1px solid var(--border);">
-          <!-- Inline SVG Instagram-like icon -->
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="2" width="20" height="20" rx="5" stroke="#9fb8ff" stroke-width="1.5" fill="none"></rect>
-            <circle cx="12" cy="12" r="3.4" stroke="#9fb8ff" stroke-width="1.5" fill="none"></circle>
-            <circle cx="17.5" cy="6.5" r="1" fill="#9fb8ff"></circle>
-          </svg>
-        </div>
-        <div>
-          <div style="font-weight:700;">Instagram</div>
-          <div style="color:var(--text-soft); font-size:13px;">@im_peersaqib</div>
-        </div>
-      </a>
-
-      <!-- Facebook -->
-      <a href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank" class="card" style="width:220px; text-decoration:none; color:var(--text-main); display:flex; gap:12px; align-items:center;">
-        <div style="width:56px; height:56px; display:flex; align-items:center; justify-content:center; border-radius:8px; background:var(--bg-secondary); border:1px solid var(--border);">
-          <!-- Inline SVG Facebook-like icon -->
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 3h3v4h-3v14H11V7H9V3h2V1.8C11 0.8 11.9 0 13.4 0c1.1 0 1.6 0.3 1.6 0.3V3z" fill="#9fb8ff"></path>
-          </svg>
-        </div>
-        <div>
-          <div style="font-weight:700;">Facebook</div>
-          <div style="color:var(--text-soft); font-size:13px;">/peer-saqib</div>
-        </div>
-      </a>
-
-      <!-- Snapchat -->
-      <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank" class="card" style="width:220px; text-decoration:none; color:var(--text-main); display:flex; gap:12px; align-items:center;">
-        <div style="width:56px; height:56px; display:flex; align-items:center; justify-content:center; border-radius:8px; background:var(--bg-secondary); border:1px solid var(--border);">
-          <!-- Inline SVG Ghost-like icon -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C9.8 2 8 3 7 4.8C5.1 6.2 4 8.4 4 11v6c0 1.7 1.3 3 3 3h10c1.7 0 3-1.3 3-3v-6c0-3.3-1.6-6.2-4.2-7.6C17.2 2.4 14.7 2 12 2z" stroke="#9fb8ff" stroke-width="1.2" fill="none"/>
-          </svg>
-        </div>
-        <div>
-          <div style="font-weight:700;">Snapchat</div>
-          <div style="color:var(--text-soft); font-size:13px;">peer-saqib</div>
-        </div>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- ================================
-      CONTACT SECTION (Enhancements + Validation UI placeholders)
-=================================== -->
-<section id="contact">
-  <div class="container">
-    <h2 class="section-title">Contact Me</h2>
-
-    <div class="card" style="max-width:760px; margin:auto;">
-      <form id="enhancedContactForm" novalidate style="display:grid; gap:14px;">
-
-        <!-- Name -->
-        <div>
-          <label for="nameInput" style="display:block; font-weight:600; margin-bottom:6px;">Name</label>
-          <input id="nameInput" name="name" type="text" required minlength="2" placeholder="Your full name" style="
-            width:100%; padding:11px; border-radius:6px; border:1px solid var(--border); background:var(--bg-secondary); color:var(--text-main);
-          ">
-          <div class="field-error" id="nameError" role="alert" style="color:#ffb3b3; font-size:13px; display:none; margin-top:6px;">Please enter your name (2+ characters).</div>
-        </div>
-
-        <!-- Email -->
-        <div>
-          <label for="emailInput" style="display:block; font-weight:600; margin-bottom:6px;">Email</label>
-          <input id="emailInput" name="email" type="email" required placeholder="you@example.com" style="
-            width:100%; padding:11px; border-radius:6px; border:1px solid var(--border); background:var(--bg-secondary); color:var(--text-main);
-          ">
-          <div class="field-error" id="emailError" role="alert" style="color:#ffb3b3; font-size:13px; display:none; margin-top:6px;">Please enter a valid email address.</div>
-        </div>
-
-        <!-- Message -->
-        <div>
-          <label for="messageInput" style="display:block; font-weight:600; margin-bottom:6px;">Message</label>
-          <textarea id="messageInput" name="message" rows="5" required minlength="6" placeholder="Write your message here..." style="
-            width:100%; padding:11px; border-radius:6px; border:1px solid var(--border); background:var(--bg-secondary); color:var(--text-main);
-          "></textarea>
-          <div class="field-error" id="messageError" role="alert" style="color:#ffb3b3; font-size:13px; display:none; margin-top:6px;">Message must be at least 6 characters.</div>
-        </div>
-
-        <!-- Optional: attach photo -->
-        <div>
-          <label for="attachInput" style="display:block; font-weight:600; margin-bottom:6px;">Attach Photo (optional)</label>
-          <input id="attachInput" name="attachment" type="file" accept="image/*" style="width:100%; padding:6px; border-radius:6px; border:1px solid var(--border); background:var(--bg-secondary); color:var(--text-main);">
-          <div style="color:var(--text-soft); font-size:13px; margin-top:6px;">Attach a photo of your project or screenshot (max 5MB).</div>
-        </div>
-
-        <!-- Submission -->
-        <div style="display:flex; gap:12px; align-items:center; margin-top:6px;">
-          <button id="contactSubmit" type="submit" class="btn" style="min-width:140px;">Send Message</button>
-          <div id="formStatus" aria-live="polite" style="color:var(--text-soft); font-size:13px;">We will not share your details publicly.</div>
-        </div>
-
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- ================================
-      FOOTER (Improved with accessibility + credits)
-=================================== -->
-<footer style="background:var(--bg-secondary); border-top:1px solid var(--border); margin-top:40px; padding:30px 0;">
-  <div class="container" style="display:flex; gap:24px; justify-content:space-between; flex-wrap:wrap;">
-
-    <div style="flex:1; min-width:240px;">
-      <div style="font-size:18px; font-weight:700; color:var(--accent); margin-bottom:8px;">PARADOX</div>
-      <div style="color:var(--text-soft); font-size:14px; line-height:1.6;">
-        Portfolio by <strong>Saqib Fayaz</strong>. Focused on electronics, embedded systems, and digital learning.
-      </div>
-    </div>
-
-    <div style="flex:1; min-width:240px;">
-      <div style="font-weight:700; color:var(--accent); margin-bottom:8px;">Quick Links</div>
-      <nav aria-label="Footer navigation">
-        <ul style="list-style:none; padding:0; color:var(--text-soft);">
-          <li style="margin-bottom:6px;"><a href="#home" style="color:var(--text-soft); text-decoration:none;">Home</a></li>
-          <li style="margin-bottom:6px;"><a href="#projects" style="color:var(--text-soft); text-decoration:none;">Projects</a></li>
-          <li style="margin-bottom:6px;"><a href="#gallery" style="color:var(--text-soft); text-decoration:none;">Gallery</a></li>
-          <li style="margin-bottom:6px;"><a href="#contact" style="color:var(--text-soft); text-decoration:none;">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-
-    <div style="flex:1; min-width:240px;">
-      <div style="font-weight:700; color:var(--accent); margin-bottom:8px;">Contact</div>
-      <div style="color:var(--text-soft); font-size:14px; line-height:1.6;">
-        Email: <a href="mailto:saqib@example.com" style="color:var(--text-soft); text-decoration:none;">saqib@example.com</a><br>
-        Location: Kashmir<br>
-        <div style="margin-top:8px; color:var(--text-soft); font-size:13px;">© 2025 PARADOX. All rights reserved.</div>
-      </div>
-    </div>
-
-  </div>
-</footer>
-
-<!-- ================================
-      ADDITIONAL CSS FOR GALLERY, FORMS, FOOTER
-=================================== -->
-<style>
-/* Gallery item focus outline (keyboard accessible) */
-.gallery-item:focus {
-  outline: 3px solid rgba(79,140,255,0.14);
-  outline-offset: 4px;
-}
-
-/* Lightbox modal quick style: centering helpers already inline; make image responsive */
-#lightboxModal img {
-  max-height: 80vh;
-  width: auto;
-  display:block;
-  margin: 0 auto;
-}
-
-/* Field error default hidden; will be toggled by JS in Block 4 */
-.field-error { display: none; }
-
-/* Simple accessibility helper for buttons */
-button { cursor: pointer; }
-
-/* Ensure gallery images don't exceed card radius */
-.gallery-item img { border-radius:6px; }
-
-/* Small responsive tweaks for grid columns (duplicated to ensure safety) */
-@media (max-width: 768px) {
-  #gallery .container > div { grid-template-columns: 1fr !important; }
-}
-</style>
-
-<!-- END OF BLOCK 3 -->
-    <!-- ================================
-      BLOCK 4 — JAVASCRIPT + RESPONSIVE CSS + CLOSING TAGS
-=================================== -->
-
-<!-- ================================
-      JAVASCRIPT SECTION
-=================================== -->
-<script>
-
-/* ==============================================
-   1. THEME TOGGLE (Dark <-> Light)
-============================================== */
-const themeToggle = document.getElementById("themeToggle");
-
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("light");
-
-  if (document.body.classList.contains("light")) {
-    themeToggle.textContent = "☀️";
-  } else {
-    themeToggle.textContent = "🌙";
-  }
-});
-
-
-/* ==============================================
-   2. CONTACT FORM VALIDATION
-============================================== */
-const form = document.getElementById("enhancedContactForm");
-
-const nameInput = document.getElementById("nameInput");
-const emailInput = document.getElementById("emailInput");
-const messageInput = document.getElementById("messageInput");
-
-const nameError = document.getElementById("nameError");
-const emailError = document.getElementById("emailError");
-const messageError = document.getElementById("messageError");
-
-form.addEventListener("submit", function(event) {
-  event.preventDefault();
-
-  let valid = true;
-
-  // Validate Name
-  if (nameInput.value.trim().length < 2) {
-    nameError.style.display = "block";
-    valid = false;
-  } else {
-    nameError.style.display = "none";
-  }
-
-  // Validate Email
-  if (!emailInput.value.includes("@") || !emailInput.value.includes(".")) {
-    emailError.style.display = "block";
-    valid = false;
-  } else {
-    emailError.style.display = "none";
-  }
-
-  // Validate Message
-  if (messageInput.value.trim().length < 6) {
-    messageError.style.display = "block";
-    valid = false;
-  } else {
-    messageError.style.display = "none";
-  }
-
-  if (valid) {
-    alert("Your message has been successfully sent!");
-    form.reset();
-  }
-});
-
-
-/* ==============================================
-   3. GALLERY LIGHTBOX SCRIPT
-============================================== */
-const galleryItems = document.querySelectorAll(".gallery-item");
-const lightboxModal = document.getElementById("lightboxModal");
-const lightboxImage = document.getElementById("lightboxImage");
-const lightboxCaption = document.getElementById("lightboxCaption");
-const lightboxClose = document.getElementById("lightboxClose");
-
-galleryItems.forEach(item => {
-  item.addEventListener("click", () => {
-    const fullImage = item.getAttribute("data-full");
-    const caption = item.querySelector("figcaption").textContent;
-
-    lightboxImage.src = fullImage;
-    lightboxCaption.textContent = caption;
-
-    lightboxModal.style.display = "flex";
-  });
-});
-
-lightboxClose.addEventListener("click", () => {
-  lightboxModal.style.display = "none";
-});
-
-
-/* ==============================================
-   4. Close modal when clicking outside image
-============================================== */
-lightboxModal.addEventListener("click", function(event) {
-  if (event.target === lightboxModal) {
-    lightboxModal.style.display = "none";
-  }
-});
-
-</script>
-
-
-<!-- ================================
-      RESPONSIVE CSS (MEDIA QUERIES)
-=================================== -->
-<style>
-
-/* ======================================
-   TABLET VIEW (max-width: 992px)
-====================================== */
-@media (max-width: 992px) {
-
-  .hero-title {
-    font-size: 34px;
-  }
-
-  .section-title {
-    font-size: 26px;
-  }
-
-  .card {
-    padding: 18px;
-  }
-}
-
-/* ======================================
-   MOBILE VIEW (max-width: 768px)
-====================================== */
-@media (max-width: 768px) {
-
-  header .nav-wrapper {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .hero {
-    padding: 60px 0;
-  }
-
-  .hero-pfp {
-    width: 130px;
-    height: 130px;
-  }
-
-  .hero-title {
-    font-size: 30px;
-  }
-
-  .typewriter {
-    font-size: 16px;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .gallery-item img {
-    height: 160px !important;
-  }
-
-  .card {
-    padding: 16px;
-  }
-}
-
-/* ======================================
-   SMALL MOBILE VIEW (max-width: 480px)
-====================================== */
-@media (max-width: 480px) {
-
-  .logo {
-    font-size: 22px;
-  }
-
-  nav ul li a {
-    font-size: 14px;
-  }
-
-  .hero-title {
-    font-size: 26px;
-  }
-
-  .section-title {
-    font-size: 22px;
-  }
-
-  .typewriter {
-    font-size: 15px;
-  }
-
-  .gallery-item img {
-    height: 140px !important;
-  }
-
-  .skills-grid, 
-  #projects .container > div,
-  #gallery .container > div {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-</style>
-
-
-<!-- ================================
-      CLOSING TAGS (END WEBSITE)
-=================================== -->
-</body>
-</html>
-
-<!-- END OF BLOCK 4 — FULL WEBSITE COMPLETED -->
-    
-    
-    
-
-<!-- BLOCK 1 END — READY FOR BLOCK 2 -->
+    <!-- REST OF YOUR CODE CONTINUES BELOW (About, Projects, Contact) -->
