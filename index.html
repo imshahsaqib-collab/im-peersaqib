@@ -1,436 +1,395 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PARADOX – Saqib Fayaz Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Saqib Fayaz — AI Enthusiast · Maker · Learner</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
   <style>
-    :root {
-      --green: #00ff75;
-      --bg-light: linear-gradient(135deg, #ffffff, #a8ffcf);
-      --text-light: #111;
-      --card-light: rgba(255, 255, 255, 0.9);
-
-      /* Dark mode variables */
-      --bg-dark: #0a0a0a;
-      --card-dark: rgba(20, 20, 20, 0.9);
-      --text-dark: #e8ffe8;
+    :root{
+      --bg:#0b0f16;
+      --card: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.04);
+      --neon1: 180 86% 58%; /* purple-ish HSL but we'll use via filter */
+      --accent: linear-gradient(135deg,#6b6bff, #00d4ff);
+      --muted: #9aa4b2;
+      --glass-border: rgba(255,255,255,0.06);
+      --glow: 0 6px 30px rgba(99,102,241,0.12);
     }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: 'Poppins',system-ui,Segoe UI,Roboto,Helvetica,Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(80,63,234,0.06), transparent),
+                  radial-gradient(900px 500px at 90% 90%, rgba(0,212,255,0.03), transparent),
+                  var(--bg);
+      color:#e9eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      transition:background-color .3s ease,color .3s ease;
+    }/* Layout */
+.container{max-width:1100px;margin:48px auto;padding:24px;}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;gap:14px;align-items:center}
+.logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#5b3cff,#00d4ff);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,0,0,0.6);}
+.logo svg{filter:drop-shadow(0 6px 16px rgba(92,63,255,0.22));}
+.site-title{line-height:1}
+.site-title h1{margin:0;font-size:16px;font-weight:700}
+.site-title p{margin:0;font-size:12px;color:var(--muted)}
 
-    body {
-      background: var(--bg-light);
-      color: var(--text-light);
-      margin: 0;
-      font-family: Poppins;
-      transition: 0.3s ease-in-out;
-    }
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:28px}
+.hero-left h2{font-size:40px;margin:0 0 12px 0;letter-spacing:-0.5px}
+.hero-left p{color:var(--muted);margin:0 0 20px 0}
+.cta{display:inline-flex;align-items:center;gap:12px;padding:12px 18px;border-radius:12px;background:linear-gradient(90deg, rgba(107,107,255,0.12), rgba(0,212,255,0.07));backdrop-filter: blur(8px);border:1px solid rgba(255,255,255,0.04);cursor:pointer}
+.cta .arrow{transform:translateX(0);transition:transform .25s}
+.cta:hover .arrow{transform:translateX(6px)}
 
-    body.dark {
-      background: var(--bg-dark);
-      color: var(--text-dark);
-    }
+/* card */
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:18px;border:1px solid var(--glass-border);box-shadow: var(--glow)}
 
-    /* HEADER */
-    header {
-      position: sticky;
-      top: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
-      background: #fff;
-      transition: 0.3s;
-      z-index: 1000;
-      box-shadow: 0 2px 20px rgba(0, 255, 117, 0.25);
-    }
+/* social icons */
+.socials{display:flex;gap:12px}
+.socials a{width:44px;height:44px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 18px rgba(0,0,0,0.6);transition:transform .18s, box-shadow .18s}
+.socials a:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,212,255,0.06)}
+.socials svg{filter:drop-shadow(0 6px 12px rgba(140,120,255,0.12));}
 
-    body.dark header {
-      background: #111;
-      box-shadow: 0 2px 20px rgba(0, 255, 117, 0.5);
-    }
+/* About + quick links */
+.about{display:flex;gap:18px;align-items:flex-start}
+.skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.skill{padding:8px 10px;border-radius:999px;background:linear-gradient(90deg, rgba(107,107,255,0.06), rgba(0,212,255,0.04));font-size:13px}
 
-    .logo {
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--green);
-      text-shadow: 0 0 12px var(--green);
-    }
+/* Projects grid */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px}
+.project-card{padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px)}
+.project-card h4{margin:0 0 8px}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:12px;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02)}
 
-    nav a {
-      margin: 0 15px;
-      color: inherit;
-      font-weight: 500;
-      text-decoration: none;
-      transition: 0.3s;
-    }
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:18px}
+form{display:flex;flex-direction:column;gap:10px}
+input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px;border-radius:10px;color:inherit;outline:none}
+input:focus,textarea:focus{box-shadow:0 6px 30px rgba(99,102,241,0.09);border-color:rgba(107,107,255,0.22)}
+button.primary{padding:12px 14px;border-radius:12px;border:none;background:linear-gradient(90deg,#6b6bff,#00d4ff);color:#061223;font-weight:700;cursor:pointer}
 
-    nav a:hover {
-      color: var(--green);
-      text-shadow: 0 0 10px var(--green);
-    }
+footer{margin-top:36px;text-align:center;color:var(--muted);font-size:13px}
 
-    /* DARK MODE ICON */
-    .toggle-dark {
-      font-size: 26px;
-      cursor: pointer;
-      margin-left: 20px;
-      color: var(--green);
-      text-shadow: 0 0 15px var(--green);
-      transition: 0.3s;
-    }
+/* floating chat */
+.chat-fab{position:fixed;right:20px;bottom:20px;background:linear-gradient(135deg,#6b6bff,#00d4ff);width:64px;height:64px;border-radius:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 12px 40px rgba(92,63,255,0.18);z-index:60}
+.chat-window{position:fixed;right:20px;bottom:96px;width:360px;max-width:calc(100% - 48px);border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);z-index:60;background:linear-gradient(180deg, rgba(10,13,20,0.96), rgba(12,15,20,0.98));display:flex;flex-direction:column;box-shadow:0 12px 48px rgba(0,0,0,0.6);}
+.chat-header{padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
+.chat-body{padding:12px;height:260px;overflow:auto}
+.chat-input{display:flex;padding:10px;border-top:1px solid rgba(255,255,255,0.03)}
+.chat-input input{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.05);background:transparent}
+.chat-input button{margin-left:8px;padding:8px 12px;border-radius:10px;border:none;background:linear-gradient(90deg,#6b6bff,#00d4ff)}
 
-    .toggle-dark:hover {
-      transform: scale(1.1);
-    }
+/* theme toggle */
+.controls{display:flex;gap:10px;align-items:center}
+.toggle{display:inline-flex;align-items:center;gap:8px;padding:8px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
 
-    /* HERO */
-    .hero {
-      padding: 100px 20px;
-      text-align: center;
-    }
+/* responsive */
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+}
 
-    .hero img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 4px solid var(--green);
-      box-shadow: 0 0 25px var(--green);
-    }
+/* light mode */
+.light{--bg:#f5f7fb; color:#081328; --card:rgba(10,16,28,0.02); --glass: rgba(255,255,255,0.6); --muted:#4b5563}
+.light body{background:linear-gradient(180deg,#f8fbff,#f5f7fb)}
 
-    .btn {
-      background: var(--green);
-      padding: 12px 28px;
-      border-radius: 25px;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      margin: 10px;
-      box-shadow: 0 0 15px var(--green);
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px var(--green);
-    }
-
-    /* CARDS */
-    .card {
-      max-width: 800px;
-      margin: auto;
-      background: var(--card-light);
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 255, 117, 0.35);
-      backdrop-filter: blur(10px);
-      transition: 0.3s;
-    }
-
-    body.dark .card {
-      background: var(--card-dark);
-      color: var(--text-dark);
-      box-shadow: 0 0 25px rgba(0, 255, 117, 0.55);
-    }
-
-    /* SKILL GRID */
-    .skills-grid {
-      max-width: 1000px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .skill-card {
-      padding: 20px;
-      border-radius: 12px;
-      background: var(--card-light);
-      box-shadow: 0 0 15px rgba(0, 255, 117, 0.3);
-      transition: 0.3s;
-    }
-
-    body.dark .skill-card {
-      background: var(--card-dark);
-      color: var(--text-dark);
-      box-shadow: 0 0 20px rgba(0, 255, 117, 0.6);
-    }
-
-    .skill-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px var(--green);
-    }
-
-    /* PROJECT CARDS */
-    .projects {
-      max-width: 1000px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-    }
-
-    .project-card {
-      padding: 20px;
-      background: var(--card-light);
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 255, 117, 0.35);
-      transition: 0.3s;
-    }
-
-    body.dark .project-card {
-      background: var(--card-dark);
-      color: var(--text-dark);
-      box-shadow: 0 0 25px rgba(0, 255, 117, 0.55);
-    }
-
-    .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 0 30px var(--green);
-    }
-
-    /* PARADOX LOGO */
-    .paradox-logo {
-      font-size: 60px;
-      font-weight: 800;
-      color: var(--green);
-      text-shadow: 0 0 20px var(--green);
-      animation: pulse 2s infinite alternate;
-    }
-
-    @keyframes pulse {
-      from { text-shadow: 0 0 15px var(--green); }
-      to { text-shadow: 0 0 35px var(--green); }
-    }
-
-    /* SOCIALS */
-    .socials {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .socials a {
-      width: 50px;
-      height: 50px;
-      background: var(--green);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      color: white;
-      font-size: 24px;
-      box-shadow: 0 0 20px var(--green);
-      transition: 0.3s;
-    }
-
-    .socials a:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 30px var(--green);
-    }
-
-    /* FOOTER */
-    footer {
-      padding: 20px;
-      text-align: center;
-      background: linear-gradient(to top, #a8ffcf, #fff);
-      transition: 0.3s;
-      position: relative;
-    }
-
-    body.dark footer {
-      background: #050505;
-    }
-
-    .scroll-top {
-      position: absolute;
-      right: 30px;
-      top: -25px;
-      width: 40px;
-      height: 40px;
-      background: var(--green);
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 0 20px var(--green);
-    }
   </style>
 </head>
 <body>
-
-<!-- HEADER -->
-<header>
-  <div class="logo">PARADOX</div>
-
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#socials">Socials</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <div class="toggle-dark" id="darkToggle">🌙</div>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <!-- simple AI circuit logo -->
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <rect x="2" y="2" width="20" height="20" rx="5" fill="white" opacity="0.06"/>
+            <path d="M8 12h8M12 8v8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="8" cy="8" r="1.2" fill="white"/>
+            <circle cx="16" cy="16" r="1.2" fill="white"/>
+          </svg>
+        </div>
+        <div class="site-title">
+          <h1>Saqib Fayaz</h1>
+          <p>AI Enthusiast · Maker · Learner</p>
+        </div>
+      </div><div class="controls">
+    <div class="toggle" id="themeToggle" role="button" tabindex="0">🌙 &nbsp; Dark</div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a href="tel:+919622959387" style="color:inherit;text-decoration:none;font-weight:600">+91 9622959387</a>
+    </div>
+  </div>
 </header>
 
 <!-- HERO -->
-<section id="home" class="hero">
-  <img src="https://via.placeholder.com/150">
-  <h1 style="color: var(--green); text-shadow:0 0 20px var(--green);">SAQIB FAYAZ</h1>
-  <p>Tech Explorer | Digital Learner | Electronics Enthusiast</p>
-  <button class="btn">View Projects</button>
-  <button class="btn">Contact Me</button>
+<section class="hero">
+  <div class="hero-left">
+    <h2>AI That Shapes Tomorrow</h2>
+    <p>Hi, I’m Saqib — I build intelligent systems, AI demos, embedded hardware projects and learning resources. Explore my work below or get in touch.</p>
+    <div style="display:flex;gap:12px;align-items:center;margin-top:18px">
+      <button class="cta" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+        See My Work <span class="arrow">➜</span>
+      </button>
+      <div style="color:var(--muted);font-size:14px">AI-themed • Futuristic • Responsive</div>
+    </div>
+
+    <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
+      <div class="card" style="display:flex;gap:12px;align-items:center">
+        <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#6b6bff,#00d4ff);display:grid;place-items:center;font-weight:700">AI</div>
+        <div>
+          <div style="font-weight:700">AI Assistant Prototype</div>
+          <div style="font-size:13px;color:var(--muted)">Minimal chatbot UI ready for integration</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:18px">
+      <h3 style="margin:0 0 8px 0">Quick Links</h3>
+      <nav style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#projects" style="text-decoration:none;color:inherit">Projects</a>
+        <a href="#contact" style="text-decoration:none;color:inherit">Contact</a>
+        <a href="mailto:imshahsaqib@gmail.com" style="text-decoration:none;color:inherit">Email</a>
+      </nav>
+    </div>
+  </div>
+
+  <aside>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-weight:700">Connect</div>
+          <div style="font-size:13px;color:var(--muted)">Socials & contact</div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:13px;font-weight:700">imshahsaqib@gmail.com</div>
+            <div style="font-size:13px;color:var(--muted)">Email</div>
+          </div>
+          <div class="socials">
+            <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank" aria-label="Instagram">
+              <!-- Instagram SVG -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 11.372a4 4 0 1 1-7.999-.002A4 4 0 0 1 16 11.372z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank" aria-label="Facebook">
+              <!-- Facebook SVG -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 12.072C22 6.515 17.523 2 12 2S2 6.515 2 12.072C2 17.11 5.656 21.238 10.438 22v-7.02H7.898v-2.91h2.54V9.845c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.196 2.238.196v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562v1.875h2.773l-.443 2.91h-2.33V22C18.344 21.238 22 17.11 22 12.072z" fill="white"/></svg>
+            </a>
+            <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank" aria-label="Snapchat">
+              <!-- Snapchat SVG -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2s4.5.5 6.4 1.8c1.6 1.1 2.1 3 1.9 5.2-.2 2.4-1.1 4.4-1.5 5.4-.7 1.9-2.4 3.3-4.9 2.8-1.4-.3-2.8-.4-3.9-.4-1.1 0-2.5.1-3.9.4-2.5.5-4.2-1-4.9-2.8-.4-1-1.3-3-1.5-5.4-.2-2.2.3-4.1 1.9-5.2C7.5 2.5 12 2 12 2z" fill="white"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-direction:column">
+          <div class="skill">Machine Learning</div>
+          <div class="skill">Arduino</div>
+          <div class="skill">Basics of Electricity</div>
+          <div class="skill">Robotics Experiments</div>
+        </div>
+
+      </div>
+    </div>
+  </aside>
 </section>
 
 <!-- ABOUT -->
-<section id="about">
-  <h2 style="color: var(--green); text-shadow:0 0 15px var(--green);">About Me</h2>
-  <div class="card">
-    I'm Saqib Fayaz from Kashmir, passionate about technology, electronics, and digital marketing.
-    I aim to build innovative projects and grow digitally in the world of tech.
+<section id="about" style="margin-top:30px">
+  <div class="card about">
+    <div style="flex:1">
+      <h3 style="margin:0 0 8px 0">About</h3>
+      <p style="margin:0;color:var(--muted)">I’m passionate about AI, embedded systems and building simple, practical projects that teach core concepts. I experiment with Arduino, sensors, small robotics and basic AI demos.</p>
+
+      <div class="skills">
+        <div class="skill">Python</div>
+        <div class="skill">ML Basics</div>
+        <div class="skill">IoT</div>
+        <div class="skill">Circuit wiring</div>
+      </div>
+    </div>
+    <div style="width:220px">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Profile</div>
+      <div style="background:linear-gradient(135deg,#111827,#0b1220);padding:12px;border-radius:12px;text-align:center"> 
+        <div style="font-weight:700">Saqib Fayaz</div>
+        <div style="font-size:13px;color:var(--muted)">AI Enthusiast · Maker</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- SKILLS -->
-<section id="skills">
-  <h2 style="color: var(--green);">Skills</h2>
-  <div class="skills-grid">
-    <div class="skill-card">HTML & CSS</div>
-    <div class="skill-card">Arduino Uno</div>
-    <div class="skill-card">Basics of Electricity</div>
-    <div class="skill-card">Artificial Intelligence</div>
-    <div class="skill-card">Digital Marketing</div>
-    <div class="skill-card">Problem Solving</div>
-  </div>
-</section>
-
-<!-- ⭐⭐⭐ UPDATED PROJECTS SECTION ⭐⭐⭐ -->
+<!-- PROJECTS -->
 <section id="projects">
-  <h2 style="color: var(--green); text-shadow:0 0 12px var(--green);">Projects</h2>
-
-  <div class="projects">
-
-    <!-- 🔥 Project 1 -->
-    <div class="project-card">
-      <h3 style="color: var(--green);">Arduino Uno – Smart System Development</h3>
-
-      <p><b>Overview:</b><br>
-      Learning and building smart systems using the <b>Arduino Uno microcontroller</b>. Includes sensors, actuators, C++ coding, and circuits.</p>
-
-      <p><b>What I Built:</b><br>
-      ✔ LED blinking & patterns<br>
-      ✔ Temperature monitoring (LM35)<br>
-      ✔ Motor control<br>
-      ✔ Button input detection<br>
-      ✔ Serial communication  
-      </p>
-
-      <p><b>Skills Used:</b><br>
-      – C++ programming<br>
-      – Sensor integration<br>
-      – Breadboard wiring<br>
-      – Circuit debugging<br>
-      – Problem solving  
-      </p>
-
-      <p><b>Why Important:</b><br>
-      Forms the base for robotics, automation, and IoT development.</p>
-
-      <p><b>What I Learned:</b><br>
-      ✓ Microcontroller input/output<br>
-      ✓ Sensor working principles<br>
-      ✓ Safe circuit design<br>
-      ✓ Troubleshooting techniques  
-      </p>
+  <h3 style="margin-top:18px">Projects / Work</h3>
+  <div class="projects-grid">
+    <div class="project-card card">
+      <h4>Arduino Uno — Beginner Projects</h4>
+      <p style="margin:6px 0 8px 0;color:var(--muted)">Simple entry-level projects to get you started with microcontrollers.</p>
+      <ul style="margin:0 0 12px 18px">
+        <li>LED blinking</li>
+        <li>Sensors: ultrasonic, temperature</li>
+        <li>Servo motor control</li>
+        <li>IoT data logging</li>
+      </ul>
+      <div class="tags"><div class="tag">Arduino</div><div class="tag">IoT</div><div class="tag">Beginner</div></div>
     </div>
 
-    <!-- 🔥 Project 2 -->
-    <div class="project-card">
-      <h3 style="color: var(--green);">Basics of Electricity – Foundation of All Circuits</h3>
-
-      <p><b>Overview:</b><br>
-      Essential electrical knowledge required for Arduino, robotics, and appliances.</p>
-
-      <p><b>Key Concepts Learned:</b><br>
-      ✔ Voltage, Current, Resistance<br>
-      ✔ Ohm’s Law (V = IR)<br>
-      ✔ Series/Parallel circuits<br>
-      ✔ Power calculations<br>
-      ✔ Electrical safety  
-      </p>
-
-      <p><b>Practical Work:</b><br>
-      – Built LED battery circuits<br>
-      – Tested using multimeter<br>
-      – Created series & parallel connections<br>
-      – Learned short-circuit prevention<br>
-      – Studied resistor load  
-      </p>
-
-      <p><b>Why Important:</b><br>
-      Every electronic device is based on these principles.</p>
-
-      <p><b>What I Learned:</b><br>
-      ✓ Electric flow<br>
-      ✓ Choosing resistors<br>
-      ✓ Fixing circuit problems<br>
-      ✓ Understanding appliances  
-      </p>
+    <div class="project-card card">
+      <h4>Basics of Electricity</h4>
+      <p style="margin:6px 0 8px 0;color:var(--muted)">Core concepts & safe handling for beginners.</p>
+      <ul style="margin:0 0 12px 18px">
+        <li>Voltage, current, resistance</li>
+        <li>Ohm’s Law</li>
+        <li>Series & parallel circuits</li>
+        <li>Breadboard wiring</li>
+      </ul>
+      <div class="tags"><div class="tag">Theory</div><div class="tag">Hands-on</div></div>
     </div>
 
-  </div>
-</section>
+    <div class="project-card card">
+      <h4>AI Assistant Prototype</h4>
+      <p style="margin:6px 0 8px 0;color:var(--muted)">Placeholder chatbot UI ready for future integration with an LLM or custom model.</p>
+      <div class="tags"><div class="tag">UI</div><div class="tag">Chatbot</div></div>
+    </div>
 
-<!-- PARADOX LOGO SECTION -->
-<section>
-  <h2 style="color: var(--green);">PARADOX Logo</h2>
-  <div class="paradox-logo">PARADOX</div>
-  <p>PARADOX represents imagination, creativity, and limitless thinking.</p>
-</section>
-
-<!-- SOCIALS -->
-<section id="socials">
-  <h2 style="color: var(--green);">Social Media</h2>
-  <div class="socials">
-    <a href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0">📸</a>
-    <a href="https://www.facebook.com/share/17eAPPGMyS/">📘</a>
-    <a href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB">👻</a>
+    <div class="project-card card">
+      <h4>Documentation & Tutorials</h4>
+      <p style="margin:6px 0 8px 0;color:var(--muted)">Step-by-step project notes and learning resources to help beginners.</p>
+      <div class="tags"><div class="tag">Docs</div><div class="tag">Tutorials</div></div>
+    </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <h2 style="color: var(--green);">Contact Me</h2>
-  <div class="card">
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea rows="4" placeholder="Your Message" required></textarea>
-      <button class="btn">Send Message</button>
-    </form>
+  <h3 style="margin-top:22px">Contact Me</h3>
+  <div class="contact-grid">
+    <div class="card">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="font-weight:700">Get in touch</div>
+        <div style="color:var(--muted)">Phone: <a href="tel:+919622959387" style="color:inherit">+91 9622959387</a></div>
+        <div style="color:var(--muted)">Email: <a href="mailto:imshahsaqib@gmail.com" style="color:inherit">imshahsaqib@gmail.com</a></div>
+        <div style="margin-top:12px;color:var(--muted)">Or use the contact form — this will open your email client populated with the message.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <form id="contactForm" onsubmit="handleContact(event)">
+        <input id="name" placeholder="Your name" required />
+        <input id="email" type="email" placeholder="Your email" required />
+        <textarea id="message" rows="5" placeholder="Message" required></textarea>
+        <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
+          <button class="primary" type="submit">Send Message</button>
+          <div style="font-size:12px;color:var(--muted)">Or email directly</div>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="scroll-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</div>
-  © Saqib Fayaz – All Rights Reserved
+  © 2025 Saqib Fayaz — AI Visionary
 </footer>
 
-<!-- DARK MODE SCRIPT -->
-<script>
-  const toggle = document.getElementById("darkToggle");
-  toggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
+  </div>  <!-- Floating Chat -->  <div class="chat-fab" id="chatFab" title="Open AI Assistant" aria-label="Chat">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" fill="white"/></svg>
+  </div>  <div class="chat-window" id="chatWindow" style="display:none">
+    <div class="chat-header">
+      <div style="display:flex;gap:10px;align-items:center"><strong>Assistant</strong><div style="color:var(--muted);font-size:13px">(Prototype)</div></div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button onclick="closeChat()" style="background:transparent;border:0;color:var(--muted);cursor:pointer">✕</button>
+      </div>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div style="color:var(--muted)">Hello! This chat UI is a placeholder. You can integrate your preferred assistant (LLM) API here.</div>
+    </div>
+    <div class="chat-input">
+      <input id="chatInput" placeholder="Say hi — e.g. 'Explain Ohm's law'" />
+      <button onclick="sendChat()">Send</button>
+    </div>
+  </div>  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    function setTheme(theme){
+      if(theme === 'light'){
+        document.body.classList.add('light');
+        themeToggle.textContent = '☀️  Light';
+        localStorage.setItem('site-theme','light');
+      } else {
+        document.body.classList.remove('light');
+        themeToggle.textContent = '🌙  Dark';
+        localStorage.setItem('site-theme','dark');
+      }
+    }
+    themeToggle.addEventListener('click',()=>{
+      const current = localStorage.getItem('site-theme') || 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+    // initialize
+    setTheme(localStorage.getItem('site-theme') || 'dark');
 
-    // Icon switch
-    toggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
-  });
-</script>
+    // Contact form handler: opens mail client with prefilled content
+    function handleContact(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const subject = encodeURIComponent('Website message from ' + name);
+      const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+      const mailto = 'mailto:imshahsaqib@gmail.com?subject=' + subject + '&body=' + body;
+      window.location.href = mailto;
+    }
 
-</body>
+    // Chat UI
+    const chatFab = document.getElementById('chatFab');
+    const chatWindow = document.getElementById('chatWindow');
+    const chatInput = document.getElementById('chatInput');
+    const chatBody = document.getElementById('chatBody');
+
+    chatFab.addEventListener('click',()=>{
+      chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
+    });
+    function closeChat(){ chatWindow.style.display = 'none'; }
+
+    function sendChat(){
+      const txt = chatInput.value.trim();
+      if(!txt) return;
+      const p = document.createElement('div');
+      p.style.marginBottom = '10px';
+      p.style.fontSize = '14px';
+      p.style.padding = '8px';
+      p.style.background = 'linear-gradient(90deg, rgba(107,107,255,0.06), rgba(0,212,255,0.04))';
+      p.style.borderRadius = '8px';
+      p.textContent = txt;
+      chatBody.appendChild(p);
+      chatInput.value = '';
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      // Placeholder bot response — replace with real API integration later
+      setTimeout(()=>{
+        const r = document.createElement('div');
+        r.style.marginTop = '6px';
+        r.style.fontSize = '13px';
+        r.style.color = 'var(--muted)';
+        r.textContent = "This is a prototype reply. Integrate an LLM or bot backend to enable smart replies.";
+        chatBody.appendChild(r);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      },700);
+    }
+
+    // allow enter to send
+    chatInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') sendChat(); });
+
+    // Smooth scroll behavior polyfill
+    (function(){if('scrollBehavior' in document.documentElement.style) return;var style=document.createElement('style');style.innerHTML='html{scroll-behavior:smooth}';document.head.appendChild(style);})();
+
+  </script></body>
 </html>
