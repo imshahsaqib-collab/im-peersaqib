@@ -1,2026 +1,678 @@
 <!-- ============================================================
-     HOLO-SYNC NEON THEME — FULL PORTFOLIO SITE
+     TRON CYBER GRID THEME — FULL PORTFOLIO SITE
      AUTHOR: SAQIB FAYAZ
-     VERSION: ULTRA-EXTENDED 2400+ LINE EDITION
+     THEME: Animated Tron Grid (Electric Blue)
      FILE: index.html (Part 1 of 4)
+     NOTE: Paste parts in order: Part1 -> Part2 -> Part3 -> Part4
      ============================================================ -->
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-
-    <!-- ============================================
-         META & VIEWPORT SETTINGS
-         These settings ensure proper scaling and
-         responsiveness across all devices.
-         ============================================ -->
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Saqib Fayaz — AI • IoT • Hardware • Holo-Sync Portfolio</title>
-
-    <meta name="description"
-          content="Official portfolio of Saqib Fayaz — AI maker, IoT developer, hardware enthusiast, project creator with futuristic Holo-Sync Neon theme.">
-
-    <!-- ============================================
-         GOOGLE FONTS
-         The Holo-Sync theme uses Inter + Poppins
-         ============================================ -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <!-- ============================================
-         GLOBAL THEME ROOT VARIABLES
-         Changing theme colors only requires editing
-         these variables. Everything else auto-updates.
-         ============================================ -->
-    <style>
-
-        :root {
-
-            /* ---------- HOLO-SYNC COLOR PALETTE ---------- */
-            --bg: #04040A;
-            --bg-soft: rgba(255,255,255,0.015);
-            --card: rgba(255,255,255,0.05);
-            --glass: rgba(255,255,255,0.09);
-            --border-light: rgba(255,255,255,0.08);
-
-            /* Holographic neon hues */
-            --holo-1: #7B5BFF;
-            --holo-2: #33D6FF;
-            --holo-3: #4BF7C4;
-
-            /* Text colors */
-            --text-strong: #FFFFFF;
-            --text-soft: rgba(255,255,255,0.75);
-            --text-faint: rgba(255,255,255,0.55);
-
-            /* Shadows & radii */
-            --radius: 18px;
-            --shadow-xl: 0 20px 50px rgba(0,0,0,0.55);
-            --shadow-holo: 0 0 30px rgba(123,90,255,0.25);
-
-            /* Max width container */
-            --max-width: 1250px;
-        }
-
-        /* ============================================
-           RESET + BASE STYLES
-           ============================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text-soft);
-            font-family: 'Inter', 'Poppins', sans-serif;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        img {
-            display: block;
-            max-width: 100%;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        /* ===================================================
-           AURORA BACKGROUND — HOLO-SYNC SIGNATURE EFFECT
-           GPU-friendly layered moving gradient waves.
-           =================================================== */
-        .holo-aurora {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .aurora-layer {
-            position: absolute;
-            width: 160%;
-            height: 60%;
-            filter: blur(120px);
-            opacity: 0.8;
-            animation: holoMove 22s infinite ease-in-out alternate;
-        }
-
-        .aurora-1 {
-            top: -5%;
-            left: -30%;
-            background: radial-gradient(circle,
-                rgba(123,90,255,0.28),
-                transparent 70%);
-        }
-
-        .aurora-2 {
-            top: 20%;
-            left: -20%;
-            background: radial-gradient(circle,
-                rgba(51,214,255,0.18),
-                transparent 75%);
-            animation-duration: 28s;
-        }
-
-        .aurora-3 {
-            top: 40%;
-            left: -10%;
-            background: radial-gradient(circle,
-                rgba(75,247,196,0.18),
-                transparent 80%);
-            animation-duration: 32s;
-        }
-
-        @keyframes holoMove {
-            0% { transform: translateX(-8%) translateY(-4%); }
-            100% { transform: translateX(10%) translateY(4%); }
-        }
-
-        /* ===================================================
-           GLOBAL CONTAINER
-           =================================================== */
-        .container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 40px 7%;
-            position: relative;
-            z-index: 5;
-        }
-
-        /* ===================================================
-           NAVIGATION BAR (HOLO-SYNC STYLE)
-           =================================================== */
-
-        header {
-            position: sticky;
-            top: 20px;
-            z-index: 50;
-
-            background: var(--glass);
-            backdrop-filter: blur(18px);
-            border-radius: var(--radius);
-            border: 1px solid var(--border-light);
-
-            box-shadow: var(--shadow-xl);
-            padding: 14px 20px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .brand-logo {
-            width: 62px;
-            height: 62px;
-            border-radius: var(--radius);
-            background: linear-gradient(
-                135deg,
-                var(--holo-1),
-                var(--holo-2)
-            );
-            display: grid;
-            place-items: center;
-            color: white;
-            font-size: 1.3rem;
-            font-weight: 800;
-            box-shadow: var(--shadow-holo);
-        }
-
-        .brand-text h1 {
-            font-size: 1.1rem;
-            color: var(--text-strong);
-            font-weight: 800;
-        }
-        .brand-text p {
-            color: var(--text-faint);
-            font-size: 0.85rem;
-            margin-top: 2px;
-        }
-
-        /* NAV LINKS */
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        nav a {
-            padding: 10px 14px;
-            border-radius: var(--radius);
-            font-weight: 600;
-            transition: all 0.25s linear;
-            color: var(--text-faint);
-        }
-
-        nav a:hover {
-            color: var(--text-strong);
-            background: rgba(255,255,255,0.05);
-        }
-
-        .btn-nav {
-            padding: 12px 18px;
-            border-radius: var(--radius);
-            background: linear-gradient(
-                135deg,
-                var(--holo-1),
-                var(--holo-2)
-            );
-            box-shadow: var(--shadow-holo);
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-        }
-
-        /* MOBILE MENU TOGGLE (HAMBURGER) */
-        .hamburger {
-            display: none;
-            padding: 10px 14px;
-            font-size: 1.4rem;
-            border-radius: var(--radius);
-            border: 1px solid var(--border-light);
-            background: transparent;
-            color: var(--text-soft);
-            cursor: pointer;
-        }
-
-        /* MOBILE NAV PANEL */
-        .mobile-nav {
-            display: none;
-            position: absolute;
-            top: 84px;
-            left: 0;
-            right: 0;
-            margin: auto;
-
-            background: var(--glass);
-            backdrop-filter: blur(18px);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-
-            padding: 20px;
-            text-align: center;
-
-            box-shadow: var(--shadow-xl);
-        }
-
-        .mobile-nav a {
-            display: block;
-            padding: 14px;
-            margin: 4px 0;
-            font-weight: 600;
-            border-radius: var(--radius);
-        }
-
-        @media(max-width: 950px) {
-            nav { display: none; }
-            .hamburger { display: block; }
-        }
-
-        /* ===================================================
-           HERO SECTION — HOLO-SYNC
-           =================================================== */
-
-        .hero {
-            margin-top: 40px;
-            display: flex;
-            gap: 40px;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
-
-        .hero-text {
-            flex: 1;
-            min-width: 280px;
-        }
-
-        .hero-tag {
-            display: inline-block;
-            padding: 10px 16px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            font-weight: 600;
-            color: var(--text-faint);
-            margin-bottom: 14px;
-        }
-
-        .hero h2 {
-            color: white;
-            font-size: clamp(32px, 5vw, 52px);
-            margin-bottom: 14px;
-            line-height: 1.15;
-        }
-
-        .hero-desc {
-            color: var(--text-soft);
-            font-size: 1.05rem;
-            max-width: 82%;
-            margin-bottom: 20px;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        .btn-main {
-            padding: 14px 22px;
-            border-radius: var(--radius);
-            background: linear-gradient(
-                135deg,
-                var(--holo-1),
-                var(--holo-2)
-            );
-            box-shadow: var(--shadow-holo);
-            color: white;
-            font-weight: 800;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-outline {
-            padding: 14px 22px;
-            border-radius: var(--radius);
-            background: transparent;
-            border: 1px solid var(--border-light);
-            color: var(--text-soft);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s;
-        }
-
-        .btn-outline:hover {
-            background: rgba(255,255,255,0.05);
-            color: white;
-        }
-
-        /* SOCIAL ICON BUTTONS (REAL SVG INCLUDED LATER) */
-        .social-row {
-            display: flex;
-            margin-top: 24px;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .social-btn {
-            width: 52px;
-            height: 52px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border-light);
-            background: rgba(255,255,255,0.03);
-            display: grid;
-            place-items: center;
-            transition: all 0.25s;
-            color: var(--text-soft);
-        }
-
-        .social-btn:hover {
-            background: rgba(255,255,255,0.07);
-            color: var(--text-strong);
-            box-shadow: var(--shadow-holo);
-        }
-
-        /* HERO RIGHT CARD */
-        .hero-card {
-            width: 360px;
-            max-width: 100%;
-            background: var(--card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 22px;
-            backdrop-filter: blur(18px);
-            box-shadow: var(--shadow-xl);
-            color: var(--text-soft);
-        }
-
-        .hero-card h3 {
-            color: var(--text-strong);
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-        }
-      /* ===================================================
-           SECTION TITLES
-           =================================================== */
-        .section {
-            margin-top: 90px;
-        }
-
-        .section-title {
-            color: var(--holo-1);
-            font-size: 1.4rem;
-            font-weight: 800;
-            margin-bottom: 24px;
-            letter-spacing: 0.5px;
-        }
-
-        /* ===================================================
-           ABOUT SECTION — HOLO-SYNC EXTENDED
-           =================================================== */
-
-        .about-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 26px;
-            align-items: start;
-        }
-
-        @media(max-width: 950px) {
-            .about-wrapper {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .about-card {
-            background: var(--card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 26px;
-            backdrop-filter: blur(18px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .about-card p {
-            margin-bottom: 14px;
-            color: var(--text-soft);
-            font-size: 1.03rem;
-            line-height: 1.65;
-        }
-
-        /* SKILLS SECTION */
-        .skills-block {
-            margin-top: 18px;
-        }
-
-        .skill {
-            margin-bottom: 16px;
-        }
-
-        .skill-label {
-            font-weight: 700;
-            color: var(--text-soft);
-            margin-bottom: 6px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.93rem;
-        }
-
-        .skill-bar {
-            width: 100%;
-            height: 14px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 999px;
-            overflow: hidden;
-            border: 1px solid var(--border-light);
-        }
-
-        .skill-bar-fill {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(90deg, var(--holo-1), var(--holo-2));
-            transition: width 1.3s ease-in-out;
-        }
-
-        /* ABOUT RIGHT CARD (QUICK LINKS) */
-        .about-right {
-            background: var(--card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 22px;
-            box-shadow: var(--shadow-xl);
-            backdrop-filter: blur(18px);
-        }
-
-        .about-right h4 {
-            color: var(--text-strong);
-            font-size: 1.05rem;
-            margin-bottom: 12px;
-        }
-
-        .quick-link-btn {
-            display: block;
-            padding: 12px 18px;
-            margin-bottom: 10px;
-            border-radius: var(--radius);
-            background: transparent;
-            border: 1px solid var(--border-light);
-            color: var(--text-soft);
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.25s;
-        }
-
-        .quick-link-btn:hover {
-            background: rgba(255,255,255,0.05);
-            color: white;
-        }
-
-        /* ===================================================
-           PROJECTS SECTION — EXTENDED GRID
-           =================================================== */
-
-        .projects-grid {
-            margin-top: 25px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-        }
-
-        @media(max-width: 1100px) {
-            .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media(max-width: 700px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .project-card {
-            background: var(--card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 22px;
-            cursor: pointer;
-            transition: all 0.22s;
-            backdrop-filter: blur(18px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 26px 45px rgba(0,0,0,0.55);
-        }
-
-        .project-header {
-            display: flex;
-            gap: 14px;
-            align-items: center;
-        }
-
-        .project-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: var(--radius);
-            display: grid;
-            place-items: center;
-            background: linear-gradient(135deg, var(--holo-1), var(--holo-2));
-            font-weight: 800;
-            color: white;
-            font-size: 1.05rem;
-        }
-
-        .project-title {
-            color: var(--text-strong);
-            font-size: 1.05rem;
-            font-weight: 800;
-        }
-
-        .project-sub {
-            color: var(--text-faint);
-            font-size: 0.85rem;
-        }
-
-        .project-tags {
-            margin-top: 14px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .project-tag {
-            padding: 6px 12px;
-            border-radius: 999px;
-            border: 1px solid var(--border-light);
-            background: rgba(255,255,255,0.05);
-            color: var(--text-faint);
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        /* ===================================================
-           PROJECT MODAL — EXPANDED LONG CONTENT
-           =================================================== */
-
-        #modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.55);
-            z-index: 120;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-box {
-            width: 90%;
-            max-width: 900px;
-            background: var(--card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 26px;
-            backdrop-filter: blur(18px);
-            color: var(--text-soft);
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-xl);
-        }
-
-        .modal-title {
-            color: var(--text-strong);
-            font-weight: 800;
-            font-size: 1.25rem;
-            margin-bottom: 14px;
-        }
-
-        .modal-close {
-            padding: 10px 14px;
-            background: transparent;
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            color: var(--text-soft);
-            cursor: pointer;
-            transition: 0.25s;
-            float: right;
-            margin-top: -8px;
-        }
-
-        .modal-close:hover {
-            background: rgba(255,255,255,0.07);
-            color: white;
-        }
-
-        .modal-content-long {
-            line-height: 1.65;
-            white-space: pre-wrap;
-            margin-top: 14px;
-        }
-
-        /* ===================================================
-           BOOKS SECTION — IOT, HARDWARE, TINYML
-           =================================================== */
-
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-        }
-
-        @media(max-width: 1100px) {
-            .books-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media(max-width: 700px) {
-            .books-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .book-card {
-            background: var(--card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 22px;
-            backdrop-filter: blur(18px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .book-card h4 {
-            color: var(--text-strong);
-            font-size: 1.12rem;
-            margin-bottom: 10px;
-        }
-
-        .book-card p {
-            margin-bottom: 10px;
-            line-height: 1.6;
-            color: var(--text-soft);
-            font-size: 0.97rem;
-        }
-
-        /* ===================================================
-           TIMELINE SECTION
-           =================================================== */
-
-        .timeline {
-            border-left: 2px dashed rgba(255,255,255,0.1);
-            margin-top: 20px;
-            padding-left: 22px;
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 12px;
-            margin-bottom: 22px;
-        }
-
-        .timeline-item::before {
-            content: "";
-            position: absolute;
-            left: -14px;
-            top: 4px;
-            width: 12px;
-            height: 12px;
-            background: linear-gradient(135deg, var(--holo-1), var(--holo-2));
-            border-radius: 50%;
-            box-shadow: var(--shadow-holo);
-        }
-
-        .timeline-title {
-            color: var(--text-strong);
-            font-size: 1.05rem;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .timeline-desc {
-            color: var(--text-faint);
-            font-size: 0.93rem;
-        }
-
-        /* ===================================================
-           TESTIMONIAL SECTION
-           =================================================== */
-
-        .testimonial {
-            background: var(--card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 22px;
-            max-width: 850px;
-            backdrop-filter: blur(18px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .testimonial p {
-            color: var(--text-soft);
-            font-size: 1.05rem;
-            line-height: 1.65;
-        }
-
-        .testimonial-author {
-            margin-top: 10px;
-            font-weight: 700;
-            color: var(--text-faint);
-        }
-
-        /* ===================================================
-           CONTACT SECTION — HOLO-SYNC
-           =================================================== */
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 26px;
-            margin-top: 20px;
-        }
-
-        @media(max-width: 950px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .contact-card {
-            background: var(--card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 26px;
-            backdrop-filter: blur(18px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .contact-card input,
-        .contact-card textarea {
-            width: 100%;
-            padding: 14px;
-            background: transparent;
-            border-radius: var(--radius);
-            border: 1px solid var(--border-light);
-            color: var(--text-soft);
-            margin-top: 10px;
-            font-size: 1rem;
-            resize: none;
-            outline: none;
-        }
-
-        .contact-actions {
-            margin-top: 16px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-send {
-            padding: 14px 22px;
-            background: linear-gradient(135deg, var(--holo-1), var(--holo-2));
-            color: white;
-            border-radius: var(--radius);
-            border: none;
-            cursor: pointer;
-            font-weight: 800;
-            box-shadow: var(--shadow-holo);
-        }
-
-        .btn-copy {
-            padding: 14px 22px;
-            background: transparent;
-            border-radius: var(--radius);
-            border: 1px solid var(--border-light);
-            color: var(--text-soft);
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .contact-info {
-            background: var(--card);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            padding: 22px;
-            backdrop-filter: blur(18px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        /* ===================================================
-           CHAT ASSISTANT — FLOATING WIDGET
-           =================================================== */
-
-        .chat-wrapper {
-            position: fixed;
-            right: 22px;
-            bottom: 22px;
-            z-index: 200;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .chat-toggle {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            border: none;
-            background: linear-gradient(135deg, var(--holo-1), var(--holo-2));
-            color: #fff;
-            font-size: 1.7rem;
-            cursor: pointer;
-            box-shadow: var(--shadow-holo);
-        }
-
-        .chat-box {
-            width: 360px;
-            max-width: 92%;
-            height: 480px;
-            background: var(--card);
-            border-radius: var(--radius);
-            border: 1px solid var(--border-light);
-            padding: 0;
-            display: none;
-            flex-direction: column;
-            box-shadow: var(--shadow-xl);
-            backdrop-filter: blur(18px);
-        }
-
-        .chat-header {
-            padding: 16px;
-            font-weight: 800;
-            color: white;
-            background: rgba(255,255,255,0.05);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .chat-body {
-            flex: 1;
-            padding: 16px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            color: var(--text-soft);
-        }
-
-        .chat-msg {
-            max-width: 80%;
-            padding: 10px 14px;
-            border-radius: var(--radius);
-            background: rgba(255,255,255,0.06);
-            line-height: 1.5;
-        }
-
-        .chat-user {
-            align-self: flex-end;
-            background: linear-gradient(135deg, var(--holo-1), var(--holo-2));
-            color: white;
-        }
-
-        .chat-input-area {
-            padding: 12px;
-            border-top: 1px solid var(--border-light);
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 12px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border-light);
-            background: transparent;
-            color: var(--text-soft);
-        }
-
-        .chat-send {
-            padding: 12px 18px;
-            border-radius: var(--radius);
-            background: linear-gradient(135deg, var(--holo-1), var(--holo-2));
-            color: white;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        /* ===================================================
-           TOAST NOTIFICATION
-           =================================================== */
-
-        .toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 14px 22px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--holo-1), var(--holo-2));
-            color: white;
-            display:none;
-            box-shadow: var(--shadow-holo);
-            z-index: 500;
-        }
-
-        /* ===================================================
-           FOOTER
-           =================================================== */
-
-        footer {
-            margin-top: 80px;
-            padding: 26px;
-            text-align: center;
-            color: var(--text-faint);
-            font-size: 0.95rem;
-        }
-
-    </style>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Saqib Fayaz — TRON Cyber Grid Portfolio</title>
+  <meta name="description" content="Saqib Fayaz — AI, IoT, Hardware. TRON Cyber Grid themed portfolio with animated background." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===========================
+       ROOT THEME VARIABLES — TRON
+       =========================== */
+    :root{
+      --bg-900: #020207;
+      --panel: rgba(8,12,20,0.6);
+      --glass: rgba(255,255,255,0.03);
+      --muted: rgba(255,255,255,0.75);
+      --text: #e6f7ff;
+      --tron-1: #00e5ff; /* electric cyan */
+      --tron-2: #00b3ff; /* deep cyan */
+      --tron-3: #0077ff; /* blue accent */
+      --accent-glow: 0 8px 40px rgba(0,179,255,0.08);
+      --radius: 14px;
+      --maxWidth: 1250px;
+    }
+
+    [data-theme="light"]{
+      --bg-900: #f7fbff;
+      --panel: rgba(255,255,255,0.88);
+      --glass: rgba(0,0,0,0.06);
+      --muted: #071026;
+      --text: #071026;
+      --tron-1: #0066ff;
+      --tron-2: #0044cc;
+      --tron-3: #002299;
+    }
+
+    /* ===========================
+       RESET / BASE
+       =========================== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:"Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg-900);
+      color:var(--muted);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* ===========================
+       TRON GRID BACKGROUND (GPU-Friendly)
+       - Uses CSS gradients + repeating-linear-gradient
+       - A moving overlay simulates grid motion with transform
+       =========================== */
+
+    .tron-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 10% 10%, rgba(0,117,255,0.04), transparent 8%),
+                  radial-gradient(circle at 90% 80%, rgba(0,229,255,0.03), transparent 12%),
+                  linear-gradient(180deg, rgba(0,0,0,0.45), transparent 30%);
+      overflow: hidden;
+    }
+
+    /* Grid canvas: using pseudo-3D effect with repeating gradients */
+    .tron-grid {
+      position: absolute;
+      inset: -10% -10% auto -10%;
+      height: 120%;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(0,179,255,0.06) 0px, rgba(0,179,255,0.06) 1px, transparent 1px, transparent 48px),
+        repeating-linear-gradient(90deg, rgba(0,179,255,0.04) 0px, rgba(0,179,255,0.04) 1px, transparent 1px, transparent 48px);
+      transform: translateZ(0);
+      filter: blur(14px) saturate(120%);
+      opacity: 0.85;
+      animation: gridMove 18s linear infinite;
+      mix-blend-mode: screen;
+    }
+
+    /* Secondary overlay for moving highlights */
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,229,255,0.05), rgba(0,119,255,0.02));
+      mix-blend-mode: overlay;
+      animation: overlayShift 28s linear infinite;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    @keyframes gridMove {
+      from { transform: translateX(-6%) translateY(0) scale(1.02); }
+      to   { transform: translateX(6%) translateY(-2%) scale(1.02); }
+    }
+    @keyframes overlayShift {
+      0% { transform: translateY(0) translateX(-6%) rotate(0deg); opacity:0.6; }
+      50% { transform: translateY(3%) translateX(6%) rotate(1deg); opacity:0.85; }
+      100% { transform: translateY(0) translateX(-6%) rotate(0deg); opacity:0.6; }
+    }
+
+    /* subtle scanline for TRON vibe */
+    .tron-scan {
+      position:absolute; inset:0; z-index:1; pointer-events:none;
+      background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.02));
+      mix-blend-mode: overlay;
+      opacity: 0.15;
+    }
+
+    /* ===========================
+       CONTAINER & LAYOUT
+       =========================== */
+    .site {
+      position: relative;
+      z-index: 6;
+      max-width: var(--maxWidth);
+      margin: 0 auto;
+      padding: 28px 6%;
+    }
+
+    /* ===========================
+       NAV BAR (TRON)
+       =========================== */
+    header.tron-nav{
+      position: sticky;
+      top: 16px;
+      z-index: 30;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 18px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+      border: 1px solid rgba(0,179,255,0.06);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+    }
+
+    .brand {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .tron-logo {
+      width:56px; height:56px; border-radius:12px;
+      background: linear-gradient(135deg, var(--tron-1), var(--tron-2));
+      color:#00121a; display:grid; place-items:center; font-weight:800; font-size:1.1rem;
+      box-shadow: 0 8px 40px rgba(0,179,255,0.06);
+    }
+
+    .brand h1 { color: var(--text); font-size:1.05rem; margin:0; font-weight:800; }
+    .brand small { color: var(--muted); display:block; font-size:0.85rem; margin-top:2px }
+
+    nav.primary { display:flex; gap:12px; align-items:center; }
+    nav.primary a { color:var(--muted); padding:8px 12px; border-radius:8px; font-weight:700; transition:all .18s; }
+    nav.primary a:hover { color:var(--text); background: rgba(0,179,255,0.03); transform: translateY(-2px); }
+
+    .tron-btn {
+      padding:10px 16px; border-radius:999px; background: linear-gradient(90deg,var(--tron-1),var(--tron-2));
+      color:#021425; font-weight:800; border:none; cursor:pointer; box-shadow: var(--accent-glow);
+    }
+
+    .hamburger {
+      display:none; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.02);
+      background:transparent; color:var(--muted); cursor:pointer;
+    }
+
+    @media(max-width:980px){
+      nav.primary { display:none; }
+      .hamburger { display:block; }
+    }
+
+    /* ===========================
+       HERO SECTION
+       =========================== */
+    .hero {
+      display:flex; gap:28px; align-items:flex-start; margin-top:28px; flex-wrap:wrap;
+    }
+
+    .hero-left { flex:1; min-width:260px; }
+    .hero-right { width:360px; max-width:100%; }
+
+    .eyebrow {
+      display:inline-block; padding:8px 14px; border-radius:999px; background:rgba(0,179,255,0.03);
+      border:1px solid rgba(0,179,255,0.04); color:var(--muted); font-weight:700;
+    }
+
+    .hero h2 { color:var(--text); font-size: clamp(28px,6vw,48px); margin-top:12px; margin-bottom:12px; line-height:1.05; }
+    .lead { color:var(--muted); font-size:1.05rem; max-width:78%; }
+
+    .hero-actions { display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
+
+    .btn-outline {
+      padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.03);
+      background:transparent; color:var(--muted); cursor:pointer; font-weight:700;
+    }
+
+    /* HERO CARD */
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(0,179,255,0.04);
+      padding:18px; border-radius:14px; backdrop-filter: blur(8px);
+    }
+
+    /* SOCIAL ICONS */
+    .social-row { display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; }
+    .social-btn {
+      width:48px;height:48px;border-radius:10px;display:grid;place-items:center;border:1px solid rgba(0,179,255,0.06);
+      background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.1));
+    }
+    .social-btn:hover { box-shadow: 0 10px 30px rgba(0,179,255,0.06); transform: translateY(-4px); }
+
+    /* ===========================
+       SECTIONS / CARDS
+       =========================== */
+    section { padding:44px 0; }
+    .section-title { color:var(--tron-1); font-weight:800; margin-bottom:16px; font-size:1.05rem; }
+
+    .card {
+      background: rgba(255,255,255,0.02);
+      border:1px solid rgba(0,179,255,0.03);
+      border-radius:12px; padding:18px; backdrop-filter: blur(8px);
+    }
+
+    /* Projects grid */
+    .projects-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:16px; }
+    @media(max-width:1100px){ .projects-grid{ grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:700px){ .projects-grid{ grid-template-columns:1fr;} }
+
+    .project-card {
+      padding:18px; border-radius:12px; border:1px solid rgba(0,179,255,0.03);
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
+      cursor:pointer; transition:transform .18s, box-shadow .18s;
+    }
+    .project-card:hover{ transform: translateY(-8px); box-shadow: 0 26px 50px rgba(0,0,0,0.6); }
+
+    /* contact form */
+    .contact-grid { display:grid; grid-template-columns:1fr 320px; gap:18px; }
+    @media(max-width:980px){ .contact-grid{ grid-template-columns:1fr; } }
+
+    .contact-card input, .contact-card textarea {
+      width:100%; padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:var(--muted);
+    }
+
+    /* chat widget */
+    .chat-bubble { position:fixed; right:18px; bottom:18px; z-index:60; display:flex; flex-direction:column; gap:12px; align-items:flex-end; }
+    .chat-btn { width:64px;height:64px;border-radius:50%;background:linear-gradient(90deg,var(--tron-1),var(--tron-2));color:#00131a;border:none;display:grid;place-items:center;font-size:22px;box-shadow:0 12px 40px rgba(0,179,255,0.06);cursor:pointer; }
+
+    /* profile glow (we will inject circular glow section near footer) */
+    .profile-glow { width:240px;height:240px;margin:0 auto;border-radius:50%;padding:8px;display:flex;justify-content:center;align-items:center;
+      background: radial-gradient(circle, rgba(0,229,255,0.6), rgba(0,119,255,0.35)); animation: tronGlow 2.6s infinite ease-in-out; box-shadow: 0 0 40px rgba(0,179,255,0.35);
+    }
+    .profile-glow img { width:100%;height:100%;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.12); }
+
+    @keyframes tronGlow {
+      0% { box-shadow: 0 0 28px rgba(0,179,255,0.28); filter: saturate(1); transform: scale(0.995); }
+      50% { box-shadow: 0 0 58px rgba(0,229,255,0.45); filter: saturate(1.2); transform: scale(1.01); }
+      100% { box-shadow: 0 0 28px rgba(0,179,255,0.28); filter: saturate(1); transform: scale(0.995); }
+    }
+
+    /* footer */
+    footer { padding:20px 0; text-align:center; color:rgba(255,255,255,0.45); margin-top:24px; }
+
+  </style>
 </head>
 
 <body>
 
-    <!-- ==============================================
-         HOLO AURORA BACKGROUND (BELOW EVERYTHING)
-         ============================================== -->
-    <div class="holo-aurora">
-        <div class="aurora-layer aurora-1"></div>
-        <div class="aurora-layer aurora-2"></div>
-        <div class="aurora-layer aurora-3"></div>
+  <!-- TRON BACKGROUND LAYERS -->
+  <div class="tron-bg" aria-hidden="true">
+    <div class="tron-grid" aria-hidden="true"></div>
+    <div class="grid-overlay" aria-hidden="true"></div>
+    <div class="tron-scan" aria-hidden="true"></div>
+  </div>
+
+  <div class="site" role="document">
+
+    <!-- NAV -->
+    <header class="tron-nav" role="banner">
+      <div class="brand" role="img" aria-label="Saqib Fayaz">
+        <div class="tron-logo">SF</div>
+        <div>
+          <h1>Saqib Fayaz</h1>
+          <small>AI Enthusiast · Maker · Learner</small>
+        </div>
+      </div>
+
+      <nav class="primary" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#books">Books</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#contact">Contact</a>
+        <button class="tron-btn" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">See My Work</button>
+      </nav>
+
+      <button class="hamburger" id="hambtn" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+    </header>
+
+    <!-- mobile nav -->
+    <div id="mobileMenu" style="display:none; position:relative; z-index:40; margin-top:8px;">
+      <nav style="display:flex; flex-direction:column; gap:8px;">
+        <a href="#about" class="card" style="padding:10px;">About</a>
+        <a href="#projects" class="card" style="padding:10px;">Projects</a>
+        <a href="#books" class="card" style="padding:10px;">Books</a>
+        <a href="#timeline" class="card" style="padding:10px;">Timeline</a>
+        <a href="#contact" class="card" style="padding:10px;">Contact</a>
+      </nav>
     </div>
 
-    <!-- ==============================================
-         TOAST NOTIFICATION ELEMENT
-         ============================================== -->
-    <div id="toast" class="toast">Message sent</div>
+    <!-- HERO -->
+    <main class="hero" role="main">
+      <div class="hero-left">
+        <div class="eyebrow">TRON Cyber Grid — Animated</div>
+        <h2>AI That Drives Tomorrow's Machines</h2>
+        <p class="lead">I build AI prototypes, IoT systems, and hardware projects with reliable documentation and practical demos. Explore sensor-driven automation, TinyML on microcontrollers, and full-stack IoT logging.</p>
 
-    <!-- ==============================================
-         MAIN CONTAINER — WRAPS ALL SECTIONS
-         ============================================== -->
-    <div class="container">
-
-        <!-- ==============================================
-             NAVIGATION BAR START
-             ============================================== -->
-
-        <header>
-            <div class="brand">
-                <div class="brand-logo">SF</div>
-                <div class="brand-text">
-                    <h1>Saqib Fayaz</h1>
-                    <p>AI • IoT • Hardware Maker</p>
-                </div>
-            </div>
-
-            <nav>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#books">Books</a>
-                <a href="#timeline">Timeline</a>
-                <a href="#contact">Contact</a>
-                <button class="btn-nav"
-                        onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">
-                    See My Work
-                </button>
-            </nav>
-
-            <button class="hamburger" id="hamburger">☰</button>
-
-        </header>
-
-        <!-- MOBILE MENU -->
-        <div class="mobile-nav" id="mobileNav">
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#books">Books</a>
-            <a href="#timeline">Timeline</a>
-            <a href="#contact">Contact</a>
-            <button class="btn-nav"
-                    onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">
-                See My Work
-            </button>
+        <div class="hero-actions">
+          <button class="tron-btn" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">See My Work</button>
+          <button class="btn-outline" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Contact Me</button>
         </div>
 
-        <!-- ==============================================
-             HERO SECTION
-             ============================================== -->
-        <section class="hero">
-
-            <div class="hero-text">
-
-                <span class="hero-tag">HOLO-SYNC • FUTURISTIC • NEON</span>
-
-                <h2>AI That Shapes the Next Future</h2>
-
-                <p class="hero-desc">
-                    I build AI prototypes, IoT systems, embedded projects, and detailed documentation for real-world learners.
-                    My work blends creativity, practical engineering, hardware design, and machine intelligence — all under
-                    a new futuristic Holo-Sync neon theme.
-                </p>
-
-                <div class="hero-actions">
-                    <button class="btn-main"
-                            onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">
-                        See My Work
-                    </button>
-
-                    <a href="#contact" class="btn-outline">
-                        Contact Me
-                    </a>
-                </div>
-
-                <!-- SOCIAL ICON ROW -->
-                <div class="social-row">
-
-                    <!-- Instagram -->
-                    <a class="social-btn"
-                       href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0"
-                       target="_blank"
-                       title="Instagram">
-
-                        <svg width="24" height="24" fill="none" stroke="currentColor"
-                             stroke-width="1.4" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="2" y="2" width="20" height="20" rx="5"></rect>
-                            <circle cx="12" cy="12" r="4"></circle>
-                            <circle cx="17.3" cy="6.7" r="1"></circle>
-                        </svg>
-
-                    </a>
-
-                    <!-- Facebook -->
-                    <a class="social-btn"
-                       href="https://www.facebook.com/share/17eAPPGMyS/"
-                       target="_blank"
-                       title="Facebook">
-
-                        <svg width="24" height="24" fill="none" stroke="currentColor"
-                             stroke-width="1.4" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M18 2h-3a4 4 0 0 0-4 4v3H8v4h3v8h4v-8h3l1-4h-4V6a1 1 0 0 1 1-1h3z"/>
-                        </svg>
-
-                    </a>
-
-                    <!-- Snapchat -->
-                    <a class="social-btn"
-                       href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB"
-                       target="_blank"
-                       title="Snapchat">
-
-                        <svg width="24" height="24" fill="none" stroke="currentColor"
-                             stroke-width="1.4" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2s4 0 5 2 3 1 3 6-2 8-3 9-2 3-5 3-3-2-5-4-4-4-4-8 2-6 3-6 5-2 5-2z"/>
-                        </svg>
-
-                    </a>
-
-                </div>
-
-            </div>
-
-            <!-- HERO RIGHT CARD -->
-            <div class="hero-card">
-
-                <h3>Quick Details</h3>
-
-                <p><strong>Phone:</strong> +91 9622959387</p>
-                <p><strong>Email:</strong> imshahsaqib@gmail.com</p>
-                <p><strong>Location:</strong> Kashmir</p>
-
-                <h3 style="margin-top:20px;">Highlights</h3>
-
-                <p>Arduino • IoT • ML • Tutorials • AI Tools</p>
-
-                <div style="display:flex;gap:10px;margin-top:16px;">
-                    <a href="#projects" class="btn-outline">Projects</a>
-                    <a href="#books" class="btn-outline">Books</a>
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- ==============================================
-             ABOUT SECTION
-             ============================================== -->
-        <section id="about" class="section">
-
-            <h3 class="section-title">About Me</h3>
-
-            <div class="about-wrapper">
-
-                <!-- LEFT CARD -->
-                <div class="about-card">
-                    <p>
-                        I am passionate about Artificial Intelligence, IoT, embedded systems, and computer hardware.
-                        My focus is on making learning accessible through transparent experimentation, detailed
-                        documentation, real-world examples, and simple explanations for beginners.
-                    </p>
-
-                    <p>
-                        I build projects using Arduino, sensors, microcontrollers, and small-scale ML inference techniques,
-                        then extend them with IoT features and dashboard visualizations. I also write step-by-step guides
-                        that help learners replicate my work.
-                    </p>
-
-                    <!-- Skills -->
-                    <div class="skills-block">
-
-                        <div class="skill">
-                            <div class="skill-label">
-                                <span>Machine Learning</span>
-                                <span>86%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-fill" data-width="86%"></div>
-                            </div>
-                        </div>
-
-                        <div class="skill">
-                            <div class="skill-label">
-                                <span>Arduino & Embedded</span>
-                                <span>93%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-fill" data-width="93%"></div>
-                            </div>
-                        </div>
-
-                        <div class="skill">
-                            <div class="skill-label">
-                                <span>IoT & Networking</span>
-                                <span>81%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-fill" data-width="81%"></div>
-                            </div>
-                        </div>
-
-                        <div class="skill">
-                            <div class="skill-label">
-                                <span>Electronics & Electricity</span>
-                                <span>78%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-bar-fill" data-width="78%"></div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- RIGHT QUICK LINKS -->
-                <aside class="about-right">
-
-                    <h4>Quick Links</h4>
-
-                    <a href="#projects" class="quick-link-btn">Projects</a>
-                    <a href="#books" class="quick-link-btn">Books</a>
-                    <a href="mailto:imshahsaqib@gmail.com" class="quick-link-btn">Email Me</a>
-
-                </aside>
-
-            </div>
-
-        </section>
-
-        <!-- ==============================================
-             PROJECTS SECTION STARTS HERE
-             ============================================== -->
-        <section id="projects" class="section">
-
-            <h3 class="section-title">Projects & Work</h3>
-
-            <div class="projects-grid">
-
-                <!-- PROJECT CARD 1 -->
-                <div class="project-card"
-                     data-title="Arduino Uno — Complete Beginner to Intermediate Engineering Series"
-                     data-content="Arduino Uno — Complete Engineering Series
-
-This extended project set establishes a strong foundation for building real embedded systems.
-
-Topics Covered:
-• LED basics, PWM fading sequences
-• Ultrasonic ranging with noise filtering
-• DHT sensor calibration & data logging
-• Servo motor smoothing via easing functions
-• Potentiometer-controlled actuators
-• IoT logging using ESP modules
-• TinyML basics with TFLite Micro
-• Safety, power, and breadboard best practices
-
-Future Extensions:
-• Voice control using offline wake word
-• On-device ML gestures classification
-• Home automation modules
-">
-                    <div class="project-header">
-                        <div class="project-icon">A</div>
-                        <div>
-                            <div class="project-title">Arduino Uno Engineering Series</div>
-                            <div class="project-sub">Sensors • IoT • PWM • TinyML</div>
-                        </div>
-                    </div>
-
-                    <div class="project-tags">
-                        <div class="project-tag">Arduino</div>
-                        <div class="project-tag">Sensors</div>
-                        <div class="project-tag">IoT</div>
-                        <div class="project-tag">Microcontrollers</div>
-                    </div>
-                </div>
-
-                <!-- PROJECT CARD 2 -->
-                <div class="project-card"
-                     data-title="Electricity Fundamentals — Voltage, Current, Resistance, Safety"
-                     data-content="Electricity Fundamentals
-
-A structured and deeply explained approach to basic electronics.
-
-Included Topics:
-• Voltage vs Current (practical experiments)
-• Ohm's Law with real-world measurement
-• Series and parallel resistance networks
-• Breadboard wiring techniques
-• Avoiding short circuits and overloads
-• Using regulated power supplies
-• Current limiting and resistor selection
-
-Future Extensions:
-• Simple power supply build
-• Basic multimeter training
-• Small signal transistor demos
-">
-                    <div class="project-header">
-                        <div class="project-icon">E</div>
-                        <div>
-                            <div class="project-title">Electricity Fundamentals</div>
-                            <div class="project-sub">Voltage • Safety • Breadboard</div>
-                        </div>
-                    </div>
-
-                    <div class="project-tags">
-                        <div class="project-tag">Electronics</div>
-                        <div class="project-tag">Safety</div>
-                        <div class="project-tag">Breadboard</div>
-                    </div>
-                </div>
-
-                <!-- PROJECT CARD 3 -->
-                <div class="project-card"
-                     data-title="AI Assistant Prototype — Chat UI & Future ML Integration"
-                     data-content="AI Assistant Prototype
-
-A full floating chat UI designed for future connection to on-device or cloud-based models.
-
-Features:
-• Message flow & UI animations
-• Local simulated replies
-• Accessible input handling
-• Expandable structure for LLM integration
-• Secure server-side recommendation notes
-
-Upgrade Path:
-• Add API backend
-• Add vector memory for personalization
-• Add microphone & TTS modules
-">
-                    <div class="project-header">
-                        <div class="project-icon">AI</div>
-                        <div>
-                            <div class="project-title">AI Assistant Prototype</div>
-                            <div class="project-sub">Chat UI • Prototype</div>
-                        </div>
-                    </div>
-
-                    <div class="project-tags">
-                        <div class="project-tag">AI</div>
-                        <div class="project-tag">Chatbot</div>
-                        <div class="project-tag">UI/UX</div>
-                    </div>
-                </div>
-                <!-- PROJECT CARD 4 -->
-                <div class="project-card"
-                     data-title="Documentation & Tutorials — Full Step-by-Step Learning System"
-                     data-content="Documentation & Tutorials — Full Step Suite
-
-This system contains extended, detailed documentation for all projects, designed to teach beginners and intermediate makers.
-
-Included Content:
-• Project templates for repeatable learning  
-• Serial monitor debugging guides  
-• Common errors and fixes  
-• Markdown + image documentation  
-• Wiring diagrams with explanations  
-• Troubleshooting workflows  
-• Learning roadmaps for AI, IoT, hardware
-
-Future Additions:
-• Video versions  
-• PDF readable guides  
-• Open-source collaboration materials
-">
-                    <div class="project-header">
-                        <div class="project-icon">D</div>
-                        <div>
-                            <div class="project-title">Documentation & Tutorials</div>
-                            <div class="project-sub">Guides • Docs • Templates</div>
-                        </div>
-                    </div>
-
-                    <div class="project-tags">
-                        <div class="project-tag">Docs</div>
-                        <div class="project-tag">Education</div>
-                        <div class="project-tag">Tutorials</div>
-                    </div>
-                </div>
-
-            </div> <!-- END PROJECT GRID -->
-
-        </section>
-        <!-- END PROJECTS SECTION -->
-
-
-        <!-- =========================================================
-             BOOKS SECTION — IoT • HARDWARE • AI • TINYML  
-             ========================================================= -->
-        <section id="books" class="section">
-
-            <h3 class="section-title">Books — IoT • Hardware • AI • TinyML</h3>
-
-            <div class="books-grid">
-
-                <!-- BOOK 1 -->
-                <div class="book-card">
-                    <h4>Getting Started with the Internet of Things</h4>
-                    <p>A practical book introducing IoT concepts, sensor integration, cloud dashboards, and device communication patterns.</p>
-                    <p class="muted">
-                        Covers MQTT, REST APIs, microcontroller basics, and simple IoT security guidelines for hobbyists.
-                    </p>
-                </div>
-
-                <!-- BOOK 2 -->
-                <div class="book-card">
-                    <h4>Practical Electronics for Inventors</h4>
-                    <p>A complete reference for real-world electronics, components, circuit behavior, and prototyping techniques.</p>
-                    <p class="muted">
-                        Excellent for progressing from beginner to intermediate circuit design.
-                    </p>
-                </div>
-
-                <!-- BOOK 3 -->
-                <div class="book-card">
-                    <h4>Computer Hardware: A Systems Approach</h4>
-                    <p>Explores how computers work internally — from CPU pipelines to memory systems to buses and I/O interfaces.</p>
-                    <p class="muted">
-                        Ideal for learners wanting deep hardware knowledge.
-                    </p>
-                </div>
-
-                <!-- BOOK 4 -->
-                <div class="book-card">
-                    <h4>TinyML: Machine Learning on Microcontrollers</h4>
-                    <p>A practical guide for deploying ML on microcontrollers using TensorFlow Lite Micro.</p>
-                    <p class="muted">
-                        Covers quantization, inference, power optimization, and on-device data processing.
-                    </p>
-                </div>
-
-                <!-- BOOK 5 -->
-                <div class="book-card">
-                    <h4>The Hardware Hacker's Handbook</h4>
-                    <p>A guide to PCB design, reverse engineering, interfacing, and embedded system hacking.</p>
-                    <p class="muted">
-                        Great for understanding circuit-level problem solving.
-                    </p>
-                </div>
-
-                <!-- BOOK 6 -->
-                <div class="book-card">
-                    <h4>IoT Security Essentials</h4>
-                    <p>This book dives into device security, firmware safety, encryption, secure boot, and networking best practices.</p>
-                    <p class="muted">
-                        Critical knowledge for production-level IoT deployments.
-                    </p>
-                </div>
-
-            </div> <!-- END GRID -->
-
-        </section>
-        <!-- END BOOKS -->
-
-
-        <!-- =========================================================
-             TIMELINE SECTION — PAST PROJECT HISTORY
-             ========================================================= -->
-        <section id="timeline" class="section">
-
-            <h3 class="section-title">Timeline</h3>
-
-            <div class="timeline">
-
-                <div class="timeline-item">
-                    <div class="timeline-title">2025 — AI Assistant Prototype</div>
-                    <div class="timeline-desc">Built chat UI, memory placeholders, event simulation, and integration hooks.</div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-title">2024 — IoT & Arduino Systems</div>
-                    <div class="timeline-desc">Created multiple IoT sensor systems and dashboards, including filtered data pipelines.</div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-title">2023 — Hardware & Electronics</div>
-                    <div class="timeline-desc">Started building hardware circuits, studying electricity fundamentals and embedded systems.</div>
-                </div>
-
-            </div>
-
-        </section>
-        <!-- END TIMELINE -->
-
-
-        <!-- =========================================================
-             TESTIMONIALS SECTION
-             ========================================================= -->
-        <section id="testimonial-section" class="section">
-
-            <h3 class="section-title">Testimonials</h3>
-
-            <div class="testimonial" id="testimonialBox">
-                <p>“Saqib’s documentation is extremely clear, complete, and easy for beginners to follow.”</p>
-                <div class="testimonial-author">— Project Mentor</div>
-            </div>
-
-        </section>
-
-
-        <!-- =========================================================
-             CONTACT SECTION START
-             ========================================================= -->
-        <section id="contact" class="section">
-
-            <h3 class="section-title">Contact Me</h3>
-
-            <div class="contact-grid">
-
-                <!-- CONTACT FORM (LEFT) -->
-                <div class="contact-card">
-                    <form id="contactForm">
-
-                        <label>Name</label>
-                        <input type="text" id="name" required placeholder="Your name">
-
-                        <label>Email</label>
-                        <input type="email" id="email" required placeholder="example@mail.com">
-
-                        <label>Phone (optional)</label>
-                        <input type="text" id="phone" placeholder="+91 — optional">
-
-                        <label>Message</label>
-                        <textarea id="message" rows="6" required placeholder="Write your message..."></textarea>
-
-                        <div class="contact-actions">
-                            <button type="submit" class="btn-send">Send Message</button>
-                            <button type="button" class="btn-copy" id="copyEmail">Copy Email</button>
-                        </div>
-
-                        <p style="margin-top:10px;font-size:0.9rem;color:var(--text-faint)">
-                            This form is a frontend demo.  
-                            Use a backend (PHP, Node, Firebase, Formspree) to receive messages.
-                        </p>
-
-                    </form>
-                </div>
-
-                <!-- CONTACT INFO (RIGHT) -->
-                <div class="contact-info">
-                    <h4 style="color:white;margin-bottom:12px;">Direct Contact</h4>
-
-                    <p><strong>Phone:</strong> +91 9622959387</p>
-                    <p><strong>Email:</strong> imshahsaqib@gmail.com</p>
-
-                    <a href="mailto:imshahsaqib@gmail.com"
-                       class="btn-outline" 
-                       style="margin-top:12px;display:inline-block;">
-                       Email Me
-                    </a>
-                </div>
-
-            </div>
-
-        </section>
-        <!-- END CONTACT SECTION -->
-      <!-- =========================================================
-             MODAL MARKUP (LONG PROJECT DETAILS)
-             This modal is used to display long-form project
-             descriptions stored in the data-content attributes
-             of the .project-card elements.
-             ========================================================= -->
-        <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" style="display:none;">
-            <div class="modal-box" role="document">
-                <button id="closeModal" class="modal-close" aria-label="Close project details">Close</button>
-                <div id="modalTitle" class="modal-title" style="clear:both;"></div>
-                <div id="modalBody" class="modal-content-long"></div>
-            </div>
+        <div class="social-row">
+          <a class="social-btn" href="https://www.instagram.com/im_peersaqib?igsh=bDRldDVwOGcxM2J0" target="_blank" title="Instagram">
+            <!-- instagram svg -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="3"/><circle cx="17.5" cy="6.5" r="0.7" fill="currentColor"/></svg>
+          </a>
+          <a class="social-btn" href="https://www.facebook.com/share/17eAPPGMyS/" target="_blank" title="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M18 2h-3a4 4 0 0 0-4 4v3H8v4h3v8h4v-8h3l1-4h-4V6a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a class="social-btn" href="https://www.snapchat.com/add/peer-saqib?share_id=S8H8kUW-hrY&locale=en-GB" target="_blank" title="Snapchat">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2s4 0 5 2 3 1 3 6-2 8-3 9-2 3-5 3-3-2-5-4-4-4-4-8 2-6 3-6 5-2 5-2z"/></svg>
+          </a>
         </div>
 
-        <!-- =========================================================
-             CHAT WIDGET MARKUP
-             A minimal front-end prototype that simulates assistant replies.
-             For production: attach to a secure backend proxy, never expose API keys.
-             ========================================================= -->
-        <div class="chat-wrapper" aria-live="polite" aria-atomic="true">
-            <button id="chatToggle" class="chat-toggle" aria-expanded="false" aria-controls="chatBox" title="Open assistant">💬</button>
+      </div>
 
-            <div id="chatBox" class="chat-box" role="region" aria-label="AI assistant" style="display:none;">
-                <div class="chat-header">Holo-Sync Assistant — Prototype</div>
-                <div id="chatBody" class="chat-body" role="log" aria-live="polite" aria-relevant="additions">
-                    <div class="chat-msg" role="status">Hello! Ask me about projects, books, IoT tips, or hardware guidance.</div>
-                </div>
-                <div class="chat-input-area">
-                    <input id="chatInput" class="chat-input" placeholder="Type a question..." aria-label="Chat input">
-                    <button id="chatSend" class="chat-send" aria-label="Send message">Send</button>
-                </div>
-            </div>
+      <aside class="hero-right card hero-card" aria-labelledby="quickfacts">
+        <div id="quickfacts" style="font-weight:800;color:var(--text)">Quick Facts</div>
+        <div style="margin-top:10px;color:var(--muted)"><strong>Phone:</strong> +91 9622959387</div>
+        <div style="margin-top:6px;color:var(--muted)"><strong>Email:</strong> imshahsaqib@gmail.com</div>
+        <div style="margin-top:6px;color:var(--muted)"><strong>Location:</strong> Kashmir</div>
+
+        <div style="margin-top:14px">
+          <div style="font-weight:800;color:var(--text)">Highlights</div>
+          <small style="color:var(--muted)">Arduino • ML Prototypes • IoT • Docs</small>
         </div>
 
-        <!-- =========================================================
-             FOOTER — COPYRIGHT + SMALL LINKS
-             ========================================================= -->
-        <footer>
-            © 2025 Saqib Fayaz — AI Visionary • Holo-Sync Neon Theme
-        </footer>
+      </aside>
 
-    </div> <!-- END .container -->
+    </main>
 
-    <!-- =========================================================
-         END OF VISUAL MARKUP — BEGIN JAVASCRIPT
-         The scripting section below includes:
-         - Mobile navigation handling
-         - Modal open/close logic
-         - Skill bar animation
-         - Contact form validation + demo send
-         - Chat assistant demo logic (simulated)
-         - Toast notifications
-         - Defensive programming to avoid runtime errors
-         - Accessibility helpers
-         ========================================================= -->
+    <!-- ABOUT (start of content) -->
+    <section id="about" class="section">
+      <h3 class="section-title">About</h3>
+      <div class="card about-card">
+        <p>I am an AI & hardware enthusiast building IoT prototypes and documentation for learners. My focus: practical embedded systems, TinyML on microcontrollers, and reproducible tutorials.</p>
+        <p class="muted">Skills: Machine Learning, Arduino, IoT, Electronics, Documentation, AI tools.</p>
+      </div>
+    </section>
 
-    <script>
+<!-- PART 1 END -->
+  <!-- ===========================
+     PROJECTS SECTION
+     =========================== -->
+<section id="projects" class="section">
+  <h3 class="section-title">Projects / Work</h3>
 
-        /* =========================================================
-           Helper utilities
-           - $ : single element selector
-           - $$: multi-element selector -> array
-           - on : attach event listener (defensive)
-           - createEl: create element with options
-           ========================================================= */
+  <div class="projects-grid">
 
-        (function () {
-            'use strict';
+    <!-- Project 1 -->
+    <div class="project-card" data-title="Arduino Uno — Beginner Projects" data-content="
+LED blinking • Sensor reading • Servo control • IoT data logging.
 
-            // Simple selector helpers
-            function $(sel, ctx) {
-                try {
-                    return (ctx || document).querySelector(sel);
-                } catch (e) {
-                    return null;
-                }
-            }
+FULL DESCRIPTION:
 
-            function $$(sel, ctx) {
-                try {
-                    return Array.prototype.slice.call((ctx || document).querySelectorAll(sel));
-                } catch (e) {
-                    return [];
-                }
-            }
+Arduino Uno beginner series includes:
+• LED blinking using digital pins  
+• Ultrasonic sensor measurement  
+• Temperature + humidity sensor  
+• Servo motor PWM control  
+• IoT logging to cloud dashboards  
+• Serial debugging  
+• Circuit diagrams and breadboard layouts  
+• Well-documented tutorials  
+    ">
+      <h4 style='color:var(--text);font-weight:700;'>Arduino Uno — Beginner Projects</h4>
+      <p style='color:var(--muted)'>LED blink • Sensors • Servo • IoT logs</p>
+    </div>
 
-            function on(el, evt, cb) {
-                if (!el) return;
-                el.addEventListener(evt, cb);
-            }
+    <!-- Project 2 -->
+    <div class="project-card" data-title="Basics of Electricity — Fundamental Concepts" data-content="
+Voltage, current, resistance, Ohm’s law, series/parallel circuits, breadboard design.
 
-            function createEl(tag, opts) {
-                opts = opts || {};
-                var e = document.createElement(tag);
-                if (opts.class) e.className = opts.class;
-                if (opts.id) e.id = opts.id;
-                if (opts.text) e.textContent = opts.text;
-                if (opts.html) e.innerHTML = opts.html;
-                return e;
-            }
+FULL DESCRIPTION:
 
-            // Safe attribute setter
-            function safeAttr(el, name, value){
-                if(!el) return;
-                try { el.setAttribute(name, value); } catch(e) {}
-            }
+• Understanding voltage (V), current (I), resistance (R)  
+• Ohm’s Law and calculations  
+• Series & parallel circuits  
+• Safe handling of circuits  
+• Basic wiring on breadboard  
+• Using resistors, capacitors, LEDs  
+    ">
+      <h4 style='color:var(--text);font-weight:700;'>Basics of Electricity — Fundamental Concepts</h4>
+      <p style='color:var(--muted)'>Ohm’s Law • Series & Parallel • Breadboard</p>
+    </div>
 
-            // Toast utility
-            var toastTimer = null;
-            function showToast(text, duration) {
-                duration = duration || 2600;
-                var t = $('#toast');
-                if(!t) return;
-                t.textContent = text || 'Done';
-                t.style.display = 'block';
-                if (toastTimer) clearTimeout(toastTimer);
-                toastTimer = setTimeout(function () {
-                    t.style.display = 'none';
-                }, duration);
-            }
+    <!-- Project 3 -->
+    <div class="project-card" data-title="AI Assistant Prototype" data-content="
+Building a chat UI, preparing memory storage, simulated responses.
 
-            /* =========================================================
-               MOBILE NAVIGATION TOGGLE
-               - Toggle the #mobileNav visibility on hamburger click
-               - Close automatically when resizing to desktop
-               ========================================================= */
+FULL DESCRIPTION:
 
-            var hamburger = $('#hamburger');
-            var mobileNav = $('#mobileNav');
+• Chat UI built with HTML + CSS + JS  
+• Typing simulation  
+• Placeholder for OpenAI API  
+• Simple knowledge-based answers  
+• Ready for backend integration  
+    ">
+      <h4 style='color:var(--text);font-weight:700;'>AI Assistant Prototype</h4>
+      <p style='color:var(--muted)'>Chat UI • Simulation • Ready for API</p>
+    </div>
 
-            if (hamburger && mobileNav) {
-                hamburger.addEventListener('click', function () {
-                    var open = mobileNav.style.display === 'block';
-                    mobileNav.style.display = open ? 'none' : 'block';
-                    safeAttr(hamburger, 'aria-expanded', String(!open));
-                    safeAttr(mobileNav, 'aria-hidden', String(open));
-                });
-            }
+    <!-- Project 4 -->
+    <div class="project-card" data-title="Documentation & Tutorials" data-content="
+Full step-by-step guides with photos, diagrams, and explanations.
 
-            // Close mobile menu when viewport grows
-            window.addEventListener('resize', function(){
-                if(window.innerWidth > 950){
-                    if(mobileNav) { mobileNav.style.display = 'none'; }
-                    if(hamburger) { safeAttr(hamburger, 'aria-expanded', 'false'); }
-                }
-            });
+FULL DESCRIPTION:
 
-            /* =========================================================
-               SKILL BAR ANIMATION
-               - Animate bars based on data-width attributes
-               - Uses requestAnimationFrame for smoother transitions
-               ========================================================= */
-            function animateSkillBars() {
-                var fills = $$('.skill-bar-fill');
-                fills.forEach(function(fill, idx){
-                    var width = fill.getAttribute('data-width') || '60%';
-                    // small delay for staggered effect
-                    setTimeout(function(){
-                        try { fill.style.width = width; } catch(e){}
-                    }, 150 + (idx * 110));
-                });
-            }
+• Markdown documentation  
+• Troubleshooting  
+• Project structure templates  
+• Images + diagrams  
+• Beginner-friendly walkthroughs  
+    ">
+      <h4 style='color:var(--text);font-weight:700;'>Documentation & Tutorials</h4>
+      <p style='color:var(--muted)'>Guides • Docs • Templates</p>
+    </div>
 
-            // Run on DOMContentLoaded
-            document.addEventListener('DOMContentLoaded', function () {
-                animateSkillBars();
-            });
+  </div>
+</section>
 
-            /* =========================================================
-               PROJECT MODAL LOGIC
-               - Opens when any .project-card is clicked
-               - Reads data-title and data-content attributes
-               - Closes on escape key, close button, or clicking outside
-               ========================================================= */
+<!-- ===========================
+     BOOKS SECTION
+     =========================== -->
+<section id="books" class="section">
+  <h3 class="section-title">Books — IoT • Hardware • AI • TinyML</h3>
 
-            var projectCards = $$('.project-card');
-            var modal = $('#modal');
-            var modalTitle = $('#modalTitle');
-            var modalBody = $('#modalBody');
-            var modalClose = $('#closeModal');
+  <div class="projects-grid">
 
-            projectCards.forEach(function(card){
-                on(card, 'click', function(){
-                    try {
-                        var title = card.getAttribute('data-title') || 'Project';
-                        var content = card.getAttribute('data-content') || 'Details coming soon.';
-                        if(modalTitle) modalTitle.textContent = title;
-                        if(modalBody) modalBody.textContent = content;
-                        if(modal) {
-                            modal.style.display = 'flex';
-                            safeAttr(modal, 'aria-hidden', 'false');
-                            // trap focus if possible
-                            var focusable = modal.querySelector('button, [href], input, textarea, select, [tabindex]');
-                            if (focusable) focusable.focus();
-                        }
-                    } catch (e) {
-                        console.error('Failed to open modal', e);
-                    }
-                });
-            });
+    <div class="project-card">
+      <h4 style="color:var(--text)">Getting Started with IoT</h4>
+      <p style="color:var(--muted)">Beginner-friendly IoT introduction.</p>
+    </div>
 
-            if(modalClose){
-                on(modalClose, 'click', function(){
-                    if(modal) { modal.style.display = 'none'; safeAttr(modal,'aria-hidden','true'); }
-                });
-            }
+    <div class="project-card">
+      <h4 style="color:var(--text)">Practical Electronics for Inventors</h4>
+      <p style="color:var(--muted)">Detailed electronics reference.</p>
+    </div>
 
-            // Close modal when clicking outside modal box
-            if(modal){
-                modal.addEventListener('click', function(e){
-                    if(e.target === modal){
-                        modal.style.display = 'none';
-                        safeAttr(modal,'aria-hidden','true');
-                    }
-                });
-            }
+    <div class="project-card">
+      <h4 style="color:var(--text)">Computer Hardware — Systems Approach</h4>
+      <p style="color:var(--muted)">How CPUs, memory, I/O systems work.</p>
+    </div>
 
-            // Close modal on ESC
-            document.addEventListener('keydown', function(e){
-                if(e.key === 'Escape'){
-                    if(modal && modal.style.display === 'flex'){
-                        modal.style.display = 'none';
-                        safeAttr(modal,'aria-hidden','true');
-                    }
-                }
-            });
+    <div class="project-card">
+      <h4 style="color:var(--text)">TinyML: ML on Microcontrollers</h4>
+      <p style="color:var(--muted)">Deploy ML models on microcontrollers.</p>
+    </div>
 
-            /* =========================================================
-               CONTACT FORM HANDLING (FRONTEND DEMO)
-               - Basic validation for required fields (name, email, message)
-               - Simulates sending and shows toast
-               - Safe even if navigator.clipboard not supported
-               ========================================================= */
+    <div class="project-card">
+      <h4 style="color:var(--text)">Hardware Hacker’s Handbook</h4>
+      <p style="color:var(--muted)">Electronics reverse engineering guide.</p>
+    </div>
 
-            var contactForm = $('#contactForm');
+    <div class="project-card">
+      <h4 style="color:var(--text)">IoT Security Essentials</h4>
+      <p style="color:var(--muted)">Device and network security for IoT.</p>
+    </div>
 
-            if(contactForm){
-                contactForm.addEventListener('submit', function(ev){
-                    ev.preventDefault();
-                    // get values
-                    var nameVal = ($('#name') && $('#name').value) ? $('#name').value.trim() : '';
-                    var emailVal = ($('#email') && $('#email').value) ? $('#email').value.trim() : '';
-                    var messageVal = ($('#message') && $('#message').value) ? $('#message').value.trim() : '';
+  </div>
+</section>
 
-                    if (!nameVal || !emailVal || !messageVal) {
-                        showToast('Please fill in name, email and message');
-                        return;
-                    }
+<!-- ===========================
+     TIMELINE
+     =========================== -->
+<section id="timeline" class="section">
+  <h3 class="section-title">Timeline</h3>
 
-                    // simulate send
-                    var btn = contactForm.querySelector('.btn-send');
-                    var prevText = btn ? btn.textContent : 'Send';
-                    if(btn){
-                        btn.disabled = true;
-                        btn.textContent = 'Sending...';
-                    }
+  <div class="card" style="margin-bottom:12px;">
+    <h4 style="color:var(--text)">2025 — AI Assistant Prototype</h4>
+    <p style="color:var(--muted)">Built UI, chat engine, logic model.</p>
+  </div>
 
-                    // simulate network
-                    setTimeout(function(){
-                        if(btn){
-                            btn.disabled = false;
-                            btn.textContent = prevText;
-                        }
-                        if(contactForm) contactForm.reset();
-                        showToast('Thanks! Your message was captured (demo).');
-                    }, 900);
-                });
-            }
+  <div class="card" style="margin-bottom:12px;">
+    <h4 style="color:var(--text)">2024 — IoT Systems</h4>
+    <p style="color:var(--muted)">Multiple sensor dashboards & data logging.</p>
+  </div>
 
-            // Copy email to clipboard
-            var copyEmailBtn = $('#copyEmail');
-            if(copyEmailBtn){
-                on(copyEmailBtn, 'click', function(){
-                    var email = 'imshahsaqib@gmail.com';
-                    if(navigator.clipboard && navigator.clipboard.writeText){
-                        navigator.clipboard.writeText(email).then(function(){
-                            showToast('Email copied to clipboard');
-                        }).catch(function(){
-                            showToast('Clipboard copy failed — please copy manually.');
-                        });
-                    } else {
-                        // fallback: create temporary input
-                        try {
-                            var tmp = createEl('input');
-                            tmp.value = email;
-                            document.body.appendChild(tmp);
-                            tmp.select();
-                            document.execCommand('copy');
-                            tmp.remove();
-                            showToast('Email copied to clipboard (fallback)');
-                        } catch (e) {
-                            showToast('Unable to copy email automatically.');
-                        }
-                    }
-                });
-            }
+  <div class="card">
+    <h4 style="color:var(--text)">2023 — Electronics & Hardware</h4>
+    <p style="color:var(--muted)">Fundamental circuits and experiments.</p>
+  </div>
+</section>
 
-            /* =========================================================
-               CHAT ASSISTANT (SIMULATED)
-               - Minimal, safe, offline simulation for demo
-               - For production: replace simulateReply with server API calls
-               ========================================================= */
+<!-- ===========================
+     TESTIMONIAL
+     =========================== -->
+<section class="section">
+  <h3 class="section-title">Testimonials</h3>
 
-            var chatToggle = $('#chatToggle');
-            var chatBox = $('#chatBox');
-            var chatBody = $('#chatBody');
-            var chatInput = $('#chatInput');
-            var chatSend = $('#chatSend');
+  <div class="card">
+    <p style="color:var(--muted);font-size:1rem;">“Saqib’s documentation is clear, complete, and great for beginners.”</p>
+    <p style="color:var(--tron-1);font-weight:700;margin-top:6px;">— Project Mentor</p>
+  </div>
+</section>
+ <!-- ===========================
+     CONTACT SECTION
+     =========================== -->
+<section id="contact" class="section">
+  <h3 class="section-title">Contact Me</h3>
 
-            function appendChat(message, who){
-                if(!chatBody) return;
-                var d = document.createElement('div');
-                d.className = 'chat-msg' + (who === 'user' ? ' chat-user' : '');
-                d.textContent = message;
-                chatBody.appendChild(d);
-                // auto scroll
-                chatBody.scrollTop = chatBody.scrollHeight + 200;
-            }
+  <div class="contact-grid">
 
-            function simulateReply(input){
-                var t = (input || '').toLowerCase();
-                if(t.indexOf('arduino') !== -1) {
-                    return "I can help with Arduino basics: LED blink, sensor wiring, servo control, and IoT logging steps.";
-                }
-                if(t.indexOf('iot') !== -1) {
-                    return "For IoT, use MQTT for lightweight messaging or HTTP for simple endpoints. Secure your keys and use local fallback storage.";
-                }
-                if(t.indexOf('books') !== -1 || t.indexOf('book') !== -1) {
-                    return "Check the Books section — recommended reads include Getting Started with IoT, Practical Electronics, TinyML, and IoT Security Essentials.";
-                }
-                if(t.indexOf('help') !== -1) {
-                    return "Tell me specifically what you need: 'arduino led blink', 'iot mqtt example', or 'tinyml on esp32'.";
-                }
-                return "Nice question. I can guide you on projects, wiring, basic ML, or help plan a prototype. Ask specifically for faster results.";
-            }
+    <!-- Contact Info -->
+    <div class="card contact-card">
+      <h4 style="color:var(--tron-1);font-weight:700;">Details</h4>
 
-            if(chatToggle){
-                on(chatToggle, 'click', function(){
-                    var open = chatBox && chatBox.style.display === 'flex';
-                    if(chatBox){
-                        chatBox.style.display = open ? 'none' : 'flex';
-                        safeAttr(chatToggle, 'aria-expanded', String(!open));
-                        if(!open){
-                            // focus input
-                            setTimeout(function(){ if(chatInput) chatInput.focus(); }, 120);
-                        }
-                    }
-                });
-            }
+      <p style="margin-top:10px;color:var(--muted);">
+        <strong>Phone:</strong> +91 9622959387
+      </p>
 
-            if(chatSend){
-                on(chatSend, 'click', function(){
-                    if(!chatInput) return;
-                    var txt = chatInput.value.trim();
-                    if(!txt) return;
-                    appendChat(txt, 'user');
-                    chatInput.value = '';
-                    // typing indicator
-                    var typing = createEl('div', { class: 'chat-msg' });
-                    typing.textContent = '...';
-                    chatBody.appendChild(typing);
-                    chatBody.scrollTop = chatBody.scrollHeight + 200;
-                    setTimeout(function(){
-                        try { typing.remove(); } catch(e){}
-                        var reply = simulateReply(txt);
-                        appendChat(reply, 'bot');
-                    }, 700 + (Math.random() * 800));
-                });
+      <p style="margin-top:6px;color:var(--muted);">
+        <strong>Email:</strong> imshahsaqib@gmail.com
+      </p>
 
-                // Enter to send
-                if(chatInput){
-                    chatInput.addEventListener('keydown', function(e){
-                        if(e.key === 'Enter'){
-                            e.preventDefault();
-                            chatSend.click();
-                        }
-                    });
-                }
-            }
+      <p style="margin-top:6px;color:var(--muted);">
+        <strong>Location:</strong> Kashmir
+      </p>
 
-            /* =========================================================
-               SMOOTH SCROLL FOR IN-PAGE LINKS
-               - Intercepts anchor clicks for smooth behavior
-               ========================================================= */
+      <p style="margin-top:14px;color:var(--muted);font-size:0.95rem;">
+        Available for collaboration in AI, IoT, microcontrollers, and embedded systems.
+      </p>
+    </div>
 
-            $$('.container a[href^="#"]').forEach(function(anchor){
-                anchor.addEventListener('click', function(e){
-                    var href = anchor.getAttribute('href');
-                    if(href && href.startsWith('#')){
-                        e.preventDefault();
-                        var target = document.querySelector(href);
-                        if(target){
-                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }
-                        // close mobile nav if open
-                        if(mobileNav && mobileNav.style.display === 'block'){ mobileNav.style.display = 'none'; }
-                    }
-                });
-            });
+    <!-- Contact Form -->
+    <div class="card contact-card">
+      <h4 style="color:var(--tron-1);font-weight:700;">Send a Message</h4>
 
-            /* =========================================================
-               ACCESSIBILITY & KEYBIND SHORTCUTS
-               - "/" opens chat
-               - "Escape" closes modal or chat
-               - Tab focus management minimal
-               ========================================================= */
+      <form onsubmit="event.preventDefault(); alert('Message sent! (demo only)');">
+        <input type="text" placeholder="Name" required style="margin-top:12px;">
+        <input type="email" placeholder="Email" required style="margin-top:12px;">
+        <textarea placeholder="Message" required rows="5" style="margin-top:12px;"></textarea>
 
-            window.addEventListener('keydown', function(e){
-                if(e.key === '/'){
-                    if(chatBox && chatBox.style.display !== 'flex'){
-                        e.preventDefault();
-                        chatBox.style.display = 'flex';
-                        safeAttr(chatToggle, 'aria-expanded', 'true');
-                        setTimeout(function(){ if(chatInput) chatInput.focus(); }, 80);
-                    }
-                } else if(e.key === 'Escape'){
-                    // close modal if open
-                    if(modal && modal.style.display === 'flex'){
-                        modal.style.display = 'none';
-                        safeAttr(modal,'aria-hidden','true');
-                    } else if(chatBox && chatBox.style.display === 'flex'){
-                        chatBox.style.display = 'none';
-                        safeAttr(chatToggle,'aria-expanded','false');
-                    }
-                }
-            });
+        <button class="tron-btn" type="submit" style="margin-top:14px;width:100%;">
+          Send Message
+        </button>
+      </form>
+    </div>
 
-            /* =========================================================
-               Defensive logging for debugging (no-op in production)
-               - The function below logs only if console exists.
-               ========================================================= */
+  </div>
+</section>
 
-            function safeLog() {
-                try {
-                    if (console && console.log) {
-                        console.log.apply(console, arguments);
-                    }
-                } catch (e) {}
-            }
+<!-- ===========================
+     PROFILE SECTION (Circular Glowing Image)
+     =========================== -->
+<section class="section" id="profile-section" style="text-align:center;padding:60px 0;">
+  <h3 class="section-title">Profile</h3>
 
-            // Optional: Log site loaded
-            safeLog('Holo-Sync site script loaded.');
+  <div class="profile-glow">
+    <img src="profile.jpg" alt="Saqib Fayaz">
+  </div>
 
-            /* =========================================================
-               END OF SCRIPT — CLEANUP
-               ========================================================= */
+  <h2 style="color:var(--text);margin-top:20px;font-size:1.8rem;">Saqib Fayaz</h2>
+  <p style="color:rgba(255,255,255,0.65);font-size:1rem;margin-top:4px;">
+    AI • IoT • Hardware • TRON Neon Profile
+  </p>
+</section>
 
-        })(); // end IIFE
+<!-- ===========================
+     CHAT WIDGET (Floating Tron Bubble)
+     =========================== -->
+<div class="chat-bubble">
+  <button class="chat-btn" onclick="toggleChat()">💬</button>
 
-    </script>
+  <div id="chatBox"
+       style="display:none;width:280px;height:360px;background:rgba(0,0,0,0.55);
+              backdrop-filter:blur(10px);border-radius:14px;border:1px solid rgba(0,179,255,0.12);
+              box-shadow:0 8px 40px rgba(0,0,0,0.6);overflow:hidden;">
 
-    <!-- =========================================================
-         File end — closing tags
-         ========================================================= -->
+    <div style="background:linear-gradient(90deg,var(--tron-1),var(--tron-2));color:#00121a;
+                padding:12px;font-weight:700;text-align:center;">
+      AI Chat Assistant
+    </div>
+
+    <div id="chatMessages"
+         style="padding:10px;color:var(--muted);font-size:0.85rem;height:260px;overflow-y:auto;">
+      <p>Hi! How can I assist you?</p>
+    </div>
+
+    <div style="padding:10px;display:flex;gap:6px;">
+      <input id="chatInput" type="text" placeholder="Type message..."
+             style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);
+                    background:transparent;color:var(--muted);">
+      <button class="tron-btn" style="padding:6px 10px;" onclick="sendChat()">Send</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===========================
+     JAVASCRIPT (Mobile Menu + Chat)
+     =========================== -->
+<script>
+  // mobile menu
+  const ham = document.getElementById("hamBtn");
+  const mob = document.getElementById("mobileMenu");
+
+  if (ham) {
+    ham.onclick = () => {
+      const isOpen = mob.style.display === "block";
+      mob.style.display = isOpen ? "none" : "block";
+      ham.setAttribute("aria-expanded", !isOpen);
+    };
+  }
+
+  // chat toggle
+  function toggleChat(){
+    const box = document.getElementById("chatBox");
+    box.style.display = box.style.display === "block" ? "none" : "block";
+  }
+
+  // chat send
+  function sendChat(){
+    const input = document.getElementById("chatInput");
+    const msgArea = document.getElementById("chatMessages");
+
+    if(input.value.trim() === "") return;
+
+    const p = document.createElement("p");
+    p.textContent = input.value;
+    p.style.color = "var(--text)";
+    p.style.marginTop = "6px";
+
+    msgArea.appendChild(p);
+    msgArea.scrollTop = msgArea.scrollHeight;
+
+    input.value = "";
+  }
+</script>
+
+<!-- PART 3 END -->
+       <!-- ===========================
+     FOOTER
+     =========================== -->
+<footer>
+  © 2025 Saqib Fayaz — TRON Cyber Grid Edition • All Rights Reserved
+</footer>
+
+</div> <!-- end .site container -->
+
 </body>
 </html>
-
-}
-      
+       
